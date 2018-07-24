@@ -5,15 +5,15 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
 import { Router, Route, hashHistory } from 'react-router';
-import About from './components/About';
-import Admin from './components/Admin';
-import Cart from './components/Cart';
-import Contact from './components/Contact';
-import Error from './components/Error';
-import Unit from './components/Unit';
-import Privacypolicy from './components/Privacypolicy';
-import Termsandconditions from './components/Termsandconditions';
-import Checkout from './components/Checkout';
+import About from './routes/About/AboutView';
+import Admin from './routes/Admin/AdminView';
+import Cart from './routes/Cart/CartView';
+import Contact from './routes/Contact/ContactView';
+import Error from './routes/Error/ErrorView';
+import Unit from './routes/Unit/UnitView';
+import Privacypolicy from './routes/Privacypolicy/PrivacypolicyView';
+import Termsandconditions from './routes/Termsandconditions/TermsandconditionsView';
+import Checkout from './routes/Checkout/CheckoutView';
 
 
 ReactDOM.render(

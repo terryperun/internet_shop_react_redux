@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 // import Header from ./Header;
 import './App.css';
 
-class App extends React.Component {
+class App extends Component {
   render() {
     return (
       <div className="App">

@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 
 const Unit = () => {
   return (
     <div>
-      <p>Unit with some id</p>
+      <p>Unit with some id...</p>
     </div>
   );
 };

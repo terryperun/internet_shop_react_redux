@@ -8,21 +8,31 @@
 }
 
 .App-header {
-  background-color: #222;
-  height: 150px;
+  background-color: #F3F3F3;
+  height: 10px;
   padding: 20px;
-  color: white;
+  width: 100%;
 }
 
-.App-title {
-  font-size: 1.5em;
+.header-logo {
+  float: left;
+  font-size: 20px;
 }
 
-.App-intro {
-  font-size: large;
+.header-search {
+  float: left;
+  margin-left: 15%;
+}
+
+.header-cart {
+  float: right;
+  margin-right: 5%;
 }
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+/*
+
+header-cart */

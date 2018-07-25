@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
-// import logo from './logo.svg';
-// import Header from ./Header;
-import './App.css';
+import { Link, Router, Route, hashHistory } from 'react-router';
+
+import routes from './routes/index';
 
 class App extends Component {
+
   render() {
     return (
-      <div className="App">
-      </div>
+      this.props.children
     );
   }
 }

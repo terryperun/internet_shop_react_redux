@@ -31,20 +31,6 @@ class ContactForm extends Component {
       );
     };
   }
-  //       { [name]: event.target.value },
-  //       () => {
-  //         const notValid = (
-  //           (this.state.nameForm.trim().length !== 0) &&
-  //           (this.state.aboutText.trim().length !== 0) &&
-  //           (this.state.emailForm.trim().length !== 0) &&
-  //           (this.state.emailForm.includes('@')
-  //         )
-  //
-  //         this.setState({ notValid });
-  //       },
-  //     );
-  //   }
-  // }
 
   render() {
     return (
@@ -94,7 +80,6 @@ class ContactForm extends Component {
                   />
                 </label><br />
               </div>
-              {/* <FormErrors formErrors={this.state.formErrors} /> */}
               <button
                 type="submit"
                 onClick={() => this.props.onSubmit(this.state)}

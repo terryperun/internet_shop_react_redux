@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+// import FormErrors from '../FormErrors/FormErrors';
 
 class ContactForm extends Component {
   constructor(props) {
@@ -7,15 +8,43 @@ class ContactForm extends Component {
     this.state = {
       aboutText: '',
       emailForm: '',
-      // nameForm: '',
-      // notValid: true,
+      nameForm: '',
+      notValid: true,
     };
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(name) {
-    return event => this.setState({ [name]: event.target.value });
+    return (event) => {
+      this.setState(
+        { [name]: event.target.value },
+        () => {
+          const notValid = (
+            (!this.state.nameForm.trim().length !== 0) &&
+            (!this.state.aboutText.trim().length !== 0) &&
+            (!this.state.emailForm.trim().length !== 0) &&
+            (!this.state.emailForm.includes('@'))
+          );
+
+          this.setState({ notValid });
+        },
+      );
+    };
   }
+  //       { [name]: event.target.value },
+  //       () => {
+  //         const notValid = (
+  //           (this.state.nameForm.trim().length !== 0) &&
+  //           (this.state.aboutText.trim().length !== 0) &&
+  //           (this.state.emailForm.trim().length !== 0) &&
+  //           (this.state.emailForm.includes('@')
+  //         )
+  //
+  //         this.setState({ notValid });
+  //       },
+  //     );
+  //   }
+  // }
 
   render() {
     return (
@@ -65,10 +94,11 @@ class ContactForm extends Component {
                   />
                 </label><br />
               </div>
+              {/* <FormErrors formErrors={this.state.formErrors} /> */}
               <button
                 type="submit"
                 onClick={() => this.props.onSubmit(this.state)}
-                // disabled={this.state.notValid}
+                disabled={this.state.notValid}
               >
                    Send
               </button>
@@ -79,4 +109,4 @@ class ContactForm extends Component {
     );
   }
 }
-export default ContactForm
+export default ContactForm;

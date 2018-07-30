@@ -14,7 +14,7 @@ class About extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit(formDate) {
+  handleSubmit() {
     this.setState({
       showingAlert: true,
     });
@@ -25,7 +25,7 @@ class About extends Component {
     }, 3000);
   }
 
-render() {
+  render() {
     return (
       <div>
         <Header />
@@ -39,4 +39,4 @@ render() {
   }
 }
 
-export default About
+export default About;

@@ -1,4 +1,4 @@
-import { Link, Router, Route, hashHistory } from 'react-router';
+import { Link, Router, Route, browserHistory } from 'react-router';
 import React from 'react';
 
 import '../App.css';

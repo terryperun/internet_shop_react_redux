@@ -1,0 +1,21 @@
+.AppHeader {
+  background-color: #F3F3F3;
+  height: 10px;
+  padding: 20px;
+  width: 100%;
+}
+
+.headerLogo {
+  float: left;
+  font-size: 20px;
+}
+
+.headerSearch {
+  float: left;
+  margin-left: 15%;
+}
+
+.headerCart {
+  float: right;
+  margin-right: 5%;
+}

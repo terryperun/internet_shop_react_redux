@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import FormErrors from '../FormErrors/FormErrors';
+import s from './ContactForm.module.css';
 
 class ContactForm extends Component {
   constructor(props) {
@@ -34,9 +34,9 @@ class ContactForm extends Component {
 
   render() {
     return (
-      <div>
-        <div className="form-div">
-          <div className="forms-text">
+      <div className={s.container}>
+        <div className={s.formDiv}>
+          <div className={s.formsText}>
             <h2>About Us</h2>
             <p>EXIST.UA – це Ваш персональний автоасистент.
               Придбати запасні частини та автотовари, оформити автострахування,
@@ -44,9 +44,9 @@ class ContactForm extends Component {
               точка вирішення питань, повязаних з експлуатацією автомобіля.
             </p>
           </div>
-          <div className="about-form">
+          <div className={s.aboutForm}>
             <div>
-              <div className="forms-name">
+              <div className={s.formsName}>
                 <label >
                   Name: <br />
                   <input
@@ -57,7 +57,7 @@ class ContactForm extends Component {
                   />
                 </label><br />
               </div>
-              <div className="forms-email">
+              <div className={s.formsEmail}>
                 <label >
                   Email: <br />
                   <input
@@ -68,7 +68,7 @@ class ContactForm extends Component {
                   />
                 </label>
               </div>
-              <div className="forms-comment">
+              <div className={s.formsComment}>
                 <label>
                 Comment: <br />
                   <textarea

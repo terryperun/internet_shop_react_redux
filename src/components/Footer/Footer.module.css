@@ -1,0 +1,23 @@
+
+.footer{
+  /* position: fixed; */
+  /* right: 10px; */
+  position: fixed; /* Фиксированное положение */
+  right: 0;
+  bottom: 0;
+  width: 100%;
+}
+/* float: right; */
+.footerLogo {
+  /* margin-right: 100px; */
+  float: left;
+  margin-left: 30px;
+  margin-bottom: 10px;
+}
+
+.footerLink {
+
+  float: right;
+  margin-right: 50px;
+  margin-bottom: 10px;
+}

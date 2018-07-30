@@ -1,0 +1,33 @@
+.container{
+
+}
+
+.alertHidden {
+  visibility: hidden;
+}
+
+.alertShown {
+  visibility: visible;
+}
+
+.formDiv {
+  width: 90%;
+  height: 90%;
+  background-color: #f2f1f2;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+}
+
+.formsName {
+  float: left;
+}
+
+.formsEmail {
+float: left;
+}
+
+.formsComment {
+  clear: both;
+  margin-top: 40px;
+}

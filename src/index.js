@@ -7,7 +7,7 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
 
-import routes from './routes/index';
+import routes from './routes/router';
 
 ReactDOM.render(
   <App>

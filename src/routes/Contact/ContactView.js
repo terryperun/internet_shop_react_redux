@@ -3,14 +3,12 @@ import { Link } from 'react-router';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 
-const Contact = () => {
-  return (
-    <div>
-      <Header />
-      <p>Contact</p>
-      <Footer />
-    </div>
-  );
-};
+const Contact = () => (
+  <div>
+    <Header />
+    <p>Contact</p>
+    <Footer />
+  </div>
+);
 
 export default Contact;

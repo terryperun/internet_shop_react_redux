@@ -1,5 +1,5 @@
-import { Router, Route, browserHistory } from 'react-router';
 import React from 'react';
+import { Router, Route, browserHistory } from 'react-router';
 
 import '../App.css';
 import About from './About/AboutView';

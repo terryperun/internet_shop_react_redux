@@ -1,0 +1,29 @@
+.formContainer {
+  width: 90%;
+  height: 90%;
+  background-color: #f2f1f2;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+}
+
+.alertHidden {
+  visibility: hidden;
+}
+
+.alertShown {
+  visibility: visible;
+}
+
+.userName {
+  float: left;
+}
+
+.email {
+float: left;
+}
+
+.comment {
+  clear: both;
+  margin-top: 40px;
+}

@@ -1,14 +1,14 @@
 import React from 'react';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
-import AdminItemContainer from '../../components/ItemContainers/AdminItemContainer/AdminItemContainer';
+import AdminItemList from '../../components/ItemContainers/AdminItemList/AdminItemList';
 
 const Admin = (props) => {
   return (
     <div>
       <Header />
       <p>Admin</p>
-      <AdminItemContainer products={props.products} />
+      <AdminItemList products={props.products} />
       Test string
       {console.log('props', props.products)}
       <Footer />

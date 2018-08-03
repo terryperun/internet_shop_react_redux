@@ -1,10 +1,10 @@
 import React from 'react';
-import AdminItem from '../../Item/AdminItem/AdminItem';
+import AdminProductItem from '../../Item/AdminProductItem/AdminProductItem';
 
-const AdminItemContainer = (props) => {
+const AdminItemList = (props) => {
   let container = props.products.map((item) => {
     return (
-      <AdminItem
+      <AdminProductItem
         id={item.id}
         title={item.title}
         description={item.description}
@@ -22,4 +22,4 @@ const AdminItemContainer = (props) => {
   );
 };
 
-export default AdminItemContainer;
+export default AdminItemList;

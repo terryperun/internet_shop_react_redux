@@ -1,5 +1,5 @@
 import React from 'react';
-import s from './AdminItem.module.css';
+import s from './AdminProductItem.module.css';
 
 
 const AdminItem = props => (

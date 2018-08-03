@@ -1,10 +1,10 @@
 import React from 'react';
-import UserItem from '../../Item/UserItem/UserItem';
+import ProductItem from '../../Item/ProductItem/ProductItem';
 
-const UserItemContainer = (props) => {
+const UserItemList = (props) => {
   let container = props.products.map((item) => {
     return (
-      <UserItem
+      <ProductItem
         id={item.id}
         title={item.title}
         description={item.description}
@@ -22,4 +22,4 @@ const UserItemContainer = (props) => {
   );
 };
 
-export default UserItemContainer;
+export default UserItemList;

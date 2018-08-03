@@ -1,5 +1,5 @@
 import React from 'react';
-import s from './UserItem.module.css';
+import s from './ProductItem.module.css';
 
 
 const UserItem = props => (

@@ -1,0 +1,15 @@
+.itemContainer {
+  float: left;
+  width: 150px;
+  height: 150px;
+  margin: 20px;
+}
+
+.title {
+  margin-left: 40px;
+}
+
+.btn {
+  float: left;
+  margin-left: 57px;
+}

@@ -13,18 +13,19 @@ import PrivacyPolicy from './Privacypolicy/PrivacypolicyView';
 import TermsAndConditions from './Termsandconditions/TermsandconditionsView';
 import Checkout from './Checkout/CheckoutView';
 import Store from './Store/StoreView';
+import { products } from '../mocks/Product';
 
 const routes = (
   <Router >
-    <Route path="/admin" component={Admin} />
-    <Route path="/" component={Store} />
+    <Route path="/admin" render={() => <Admin products={products} />} />
+    <Route path="/" render={() => <Store products={products} />} />
     <Route path="/cart" component={Cart} />
     <Route path="/cart/checkout" component={Checkout} />
     <Route path="/about" component={About} />
     <Route path="/contact" component={Contact} />
     <Route path="/termsandconditions" component={TermsAndConditions} />
     <Route path="/privacypolicy" component={PrivacyPolicy} />
-    <Route component={Error} />
+    <Route path="*" component={Error} />
     <Route path="/admin/product/:id" component={EditProduct} />
     <Route path="/product/:id" component={Product} />
   </Router>

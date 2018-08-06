@@ -2,13 +2,16 @@ import React from 'react';
 import s from './AdminProductItem.module.css';
 
 
-const AdminItem = props => (
+const AdminItem = ({
+  image,
+  title,
+}) => (
   <div className={s.itemContainer}>
     <div className={s.image}>
-      <img className={s.itemImg} src={props.img} alt="img" width="100px" />
+      <img className={s.itemImg} src={image} alt="img" width="100px" />
     </div>
     <div className={s.title}>
-      {props.title}
+      {title}
     </div>
     <div className={s.btn}>
       <button className={s.editBtn}>

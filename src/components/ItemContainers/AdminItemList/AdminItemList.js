@@ -1,8 +1,18 @@
 import React from 'react';
 import AdminProductItem from '../../Item/AdminProductItem/AdminProductItem';
 
-const AdminItemList = (props) => {
-  let container = props.products.map((item) => {
+const AdminItemList = ({
+  products,
+}) => {
+  if (!Array.isArray(products) || products.length === 0) {
+    return (
+      <div>
+        No items
+      </div>
+    );
+  }
+
+  let items = products.map((item) => {
     return (
       <AdminProductItem
         id={item.id}
@@ -16,7 +26,7 @@ const AdminItemList = (props) => {
   return (
     <div>
       <ul>
-        {container}
+        {items}
       </ul>
     </div>
   );

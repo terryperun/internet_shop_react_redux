@@ -2,16 +2,20 @@ import React from 'react';
 import s from './ProductItem.module.css';
 
 
-const UserItem = props => (
+const UserItem = ({
+  image,
+  title,
+  price,
+}) => (
   <div className={s.itemContainer}>
     <div className={s.image}>
-      <img className={s.itemImg} src={props.img} alt="img" width="200px" />
+      <img className={s.itemImg} src={image} alt="img" width="200px" />
     </div>
     <div className={s.title}>
-      {props.title}
+      {title}
     </div>
     <div className={s.price}>
-      {props.price}
+      {price}
     </div>
     <div className={s.btn}>
       <button className={s.addBtn}>

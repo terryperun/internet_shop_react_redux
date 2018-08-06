@@ -39,5 +39,6 @@
       "not op_mini all",
       "ie 11"
     ]
-  }
+  },
+  "proxy": "https://perun-site-api.herokuapp.com"
 }

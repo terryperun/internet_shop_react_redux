@@ -17,8 +17,8 @@ import { products } from '../mocks/Product';
 
 const routes = (
   <Router >
-    <Route path="/admin" render={() => <Admin products={products} />} />
-    <Route path="/" render={() => <Store products={products} />} />
+    <Route path="/admin" component={() => <Admin products={products} />} />
+    <Route path="/" component={() => <Store products={products} />} />
     <Route path="/cart" component={Cart} />
     <Route path="/cart/checkout" component={Checkout} />
     <Route path="/about" component={About} />

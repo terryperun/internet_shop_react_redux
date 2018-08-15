@@ -1,28 +1,22 @@
 import React from 'react';
-import AdminProductItem from '../../Item/AdminProductItem/AdminProductItem';
+import OpenedItem from '../../Item/OpenedItem/OpenedItem';
 
-const AdminItemList = ({
-  products,
-  clickItem,
-
-}) => {
-  if (!Array.isArray(products) || products.length === 0) {
+const AdminItemList = ({ product }) => {
+  if (!Array.isArray(product) || product.length === 0) {
     return (
       <div>
         No items
       </div>
     );
   }
-
-  const items = products.map(item => (
-    <AdminProductItem
+  const items = product.map(item => (
+    <OpenedItem
       key={item.id}
       id={item.id}
       title={item.title}
       description={item.description}
       image={item.image}
       price={item.price}
-      clickItem={clickItem}
     />
   ));
   return (

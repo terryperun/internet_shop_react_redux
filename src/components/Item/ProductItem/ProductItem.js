@@ -1,7 +1,6 @@
 import React from 'react';
 import s from './ProductItem.module.css';
 
-
 const UserItem = ({
   image,
   title,

@@ -1,0 +1,37 @@
+.containerDescription {
+  margin:auto;
+  width: 90%;
+  position: relative;
+  margin-top: 50px;
+}
+
+.title {
+  font-size: 20px;
+  float: left;
+  position: relative;
+}
+.image {
+  float: left;
+}
+
+.description {
+  padding-top: 50px;
+}
+
+.buy {
+  margin: 5%;
+  width: 90%;
+  margin-top: 5px;
+  padding-top: 5px;
+  border-top: 2px solid grey;
+  clear: both;
+}
+
+.price {
+  float: left;
+  padding-left: 80%
+}
+
+.addBtn {
+  float: right;
+}

@@ -5,19 +5,24 @@ import s from './AdminProductItem.module.css';
 const AdminItem = ({
   image,
   title,
+  clickItem,
+  id,
 }) => (
   <div className={s.itemContainer}>
-    <div className={s.image}>
-      <img className={s.itemImg} src={image} alt="img" width="100px" />
+    <div onClick={evt => clickItem(evt, id)}>
+      <div className={s.image}>
+        <img className={s.itemImg} src={image} alt="img" width="100px" />
+      </div>
+      <div className={s.title}>
+        {title}
+      </div>
     </div>
-    <div className={s.title}>
-      {title}
-    </div>
+    {/* </Link> */}
     <div className={s.btn}>
       <button className={s.editBtn}>
          Edit
       </button>
-      <button className={s.removeBtn}>
+      <button className={s.removeBtn} onClick={() => console.log('delete')}>
          Remove
       </button>
     </div>

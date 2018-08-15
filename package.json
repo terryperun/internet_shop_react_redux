@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-recaptcha": "^2.3.10",
@@ -39,5 +40,6 @@
       "not op_mini all",
       "ie 11"
     ]
-  }
+  },
+  "proxy": "https://perun-site-api.herokuapp.com"
 }

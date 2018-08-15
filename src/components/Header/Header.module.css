@@ -19,3 +19,9 @@
   float: right;
   margin-right: 5%;
 }
+
+.addItemAdminContainer {
+  float:right;
+  margin-right: 30px;
+  width: 70px
+}

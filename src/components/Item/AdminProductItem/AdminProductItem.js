@@ -7,6 +7,7 @@ const AdminItem = ({
   title,
   clickItem,
   id,
+  clickEdit,
 }) => (
   <div className={s.itemContainer}>
     <div onClick={evt => clickItem(evt, id)}>
@@ -19,10 +20,16 @@ const AdminItem = ({
     </div>
     {/* </Link> */}
     <div className={s.btn}>
-      <button className={s.editBtn}>
+      <button
+        className={s.editBtn}
+        onClick={evt => clickEdit(evt, id)}
+      >
          Edit
       </button>
-      <button className={s.removeBtn} onClick={() => console.log('delete')}>
+      <button
+        className={s.removeBtn}
+        onClick={() => console.log('delete')}
+      >
          Remove
       </button>
     </div>

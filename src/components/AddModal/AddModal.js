@@ -8,20 +8,23 @@ class AddModal extends Component {
     super(props);
 
     this.state = {
-      title: '',
-      description: '',
-      price: '',
-      // image: {},
+      product: [],
+      title: this.props.title || '',
+      description: this.props.description || '',
+      price: this.props.price ||'',
       // id: this.createId,
     };
     this.handleChange = this.handleChange.bind(this);
     // this.createId = this.createId.bind(this);
   }
 
-  // createId = () => {
-  //   if (true) {
-  //   }
+  // async componentDidMount() {
+  //   const productJson = await fetch(`/api/v1/products/${this.props.IdItemAdd}`);
+  //   const product = await productJson.json();
+  //   this.setState({ product });
+  //   console.log('jsonprod', this.state.product[0].title)
   // }
+
   handleChange(name) {
     return (event) => {
       this.setState({ [name]: event.target.value });
@@ -32,13 +35,13 @@ class AddModal extends Component {
     const {
         closeModal,
         loadForm,
-        id,
+      // IdItemAdd,
     } = this.props;
     return (
       <div>
         {loadForm
-          ?<div>..Load..</div>
-          :<div>
+          ? <div>..Load..</div>
+          : <div>
             <label htmlFor="L1">
               Title:<br />
             </label>
@@ -69,19 +72,11 @@ class AddModal extends Component {
               value={this.state.price}
               onChange={this.handleChange('price')}
             /><br />
-            {/* <label htmlFor="L4">
-              IMG:<br />
-            </label>
-            <input
-              type="file"
-              id="L4"
-              onChange={this.handleInputImage}
-            /><br /> */}
             <button onClick={closeModal}>
               Create
             </button>
           </div>
-      }
+        }
       </div>
     );
   }

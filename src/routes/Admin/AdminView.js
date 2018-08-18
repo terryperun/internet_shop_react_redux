@@ -7,48 +7,57 @@ import AddModal from '../../components/AddModal/AddModal';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import AdminItemList from '../../components/ItemContainers/AdminItemList/AdminItemList';
-// import EditProductView from '../EditProduct/EditProductView';
-//
-// Modal.setAppElement('#adminPage');
-//
-// const appElement = document.getElementById('adminPage');
 
-// Modal.setAppElement('#adminPage');
-//
+const appElement = document.getElementById('adminPage');
+Modal.setAppElement(appElement);
 
 class Admin extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      products: [],
+      // products: [],
       isLading: false,
       showModal: false,
       showingLoadForms: false,
+      IdItemAdd: '',
     };
     this.clickItem = this.clickItem.bind(this);
     this.clickEdit = this.clickEdit.bind(this);
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
+    this.handleCloseModalQuick = this.handleCloseModalQuick.bind(this);
   }
 
   handleOpenModal() {
     this.setState({ showModal: true });
-    console.log('addItem', this.state.showModal);
   }
 
   handleCloseModal() {
     this.setState({
-      showingAlert: true,
+      showingLoadForms: true,
+      id: '',
+      title: '',
+      description: '',
+      price: '',
     });
     setTimeout(() => {
       this.setState({
         showingLoadForms: false,
-        showModal: false
+        showModal: false,
       });
     }, 2000);
   }
 
+  handleCloseModalQuick() {
+    this.setState({
+      showModal: false,
+      id: '',
+      title: '',
+      description: '',
+      price: '',
+    });
+  }
 
 
   async componentDidMount() {
@@ -63,10 +72,15 @@ class Admin extends Component {
     // browserHistory.push(`/admin/product/${id}`);
   }
 
-  clickEdit = (evt, id) => {
-    const IdItemAdd = id;
-    console.log('id', id);
-    // browserHistory.push(`/admin/product/${id}`);
+  clickEdit = (evt, id, title, description, price) => {
+    this.setState({
+      showModal: true,
+      IdItemAdd: id,
+      id,
+      title,
+      description,
+      price,
+    });
   }
 
   render() {
@@ -76,12 +90,12 @@ class Admin extends Component {
           products={this.state.products}
           clickItem={this.clickItem}
           clickEdit={this.clickEdit}
-        />;
+      />;
     return (
       <div id="adminPage">
-        <Header openModal={this.handleOpenModal} closeModal={this.handleCloseModal} />
-        <p>Admin----------------------------------------------</p>
-        {/* <AddModal /> */}
+        <Header
+          openModal={this.handleOpenModal}
+        />
         <Modal
           isOpen={this.state.showModal}
           contentLabel="Minimal Modal Example"
@@ -89,14 +103,19 @@ class Admin extends Component {
           shouldCloseOnOverlayClick={false}
         >
           <AddModal
-            // id={IdItemAdd||true}
+            IdItemAdd={this.state.IdItemAdd}
             closeModal={this.handleCloseModal}
             loadForm={this.state.showingLoadForms}
+            //
+            inpId={this.state.id}
+            title={this.state.title}
+            description={this.state.description}
+            price={this.state.price}
+            //
           />
 
-          <button onClick={this.handleCloseModal}>Close Modal</button>
+          <button onClick={this.handleCloseModalQuick}>Close Modal</button>
         </Modal>
-        <p>Admin----------------------------------------------</p>
         {content}
         <Footer />
       </div>

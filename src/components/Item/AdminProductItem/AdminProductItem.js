@@ -5,6 +5,8 @@ import s from './AdminProductItem.module.css';
 const AdminItem = ({
   image,
   title,
+  description,
+  price,
   clickItem,
   id,
   clickEdit,
@@ -22,7 +24,7 @@ const AdminItem = ({
     <div className={s.btn}>
       <button
         className={s.editBtn}
-        onClick={evt => clickEdit(evt, id)}
+        onClick={evt => clickEdit(evt, id, title, description, price)}
       >
          Edit
       </button>

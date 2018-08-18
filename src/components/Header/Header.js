@@ -4,7 +4,7 @@ import s from './Header.module.css';
 
 const Header = ({
   openModal,
-  closeModal
+  closeModal,
 }) => (
   <header className={s.container}>
     <div className={s.logo}>

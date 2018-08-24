@@ -4,7 +4,7 @@ import AdminProductItem from '../../Item/AdminProductItem/AdminProductItem';
 const AdminItemList = ({
   products,
   clickItem,
-  clickEdit,
+  handleEdit,
 }) => {
   if (!Array.isArray(products) || products.length === 0) {
     return (
@@ -23,7 +23,8 @@ const AdminItemList = ({
       image={item.image}
       price={item.price}
       clickItem={clickItem}
-      clickEdit={clickEdit}
+      handleEdit={handleEdit}
+      propsItem={item}
     />
   ));
   return (

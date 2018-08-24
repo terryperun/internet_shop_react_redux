@@ -8,10 +8,10 @@ class AddModal extends Component {
     super(props);
 
     this.state = {
-      product: [],
-      title: this.props.title || '',
-      description: this.props.description || '',
-      price: this.props.price ||'',
+      // product: [],
+      title: this.props.propsItem.title || '',
+      description: this.props.propsItem.description || '',
+      price: this.props.propsItem.price || '',
       // id: this.createId,
     };
     this.handleChange = this.handleChange.bind(this);
@@ -24,7 +24,6 @@ class AddModal extends Component {
   //   this.setState({ product });
   //   console.log('jsonprod', this.state.product[0].title)
   // }
-
   handleChange(name) {
     return (event) => {
       this.setState({ [name]: event.target.value });
@@ -33,17 +32,22 @@ class AddModal extends Component {
 
   render() {
     const {
-        closeModal,
-        loadForm,
-      // IdItemAdd,
+      closeModal,
+      loadForm,
     } = this.props;
+
+    if (loadForm) {
+      return <div>Loading...</div>;
+    }
+
     return (
       <div>
         {loadForm
           ? <div>..Load..</div>
           : <div>
             <label htmlFor="L1">
-              Title:<br />
+              Title:
+              <br />
             </label>
             <textarea
               id="L1"
@@ -51,9 +55,11 @@ class AddModal extends Component {
               rows="2"
               value={this.state.title}
               onChange={this.handleChange('title')}
-            /><br />
+            />
+            <br />
             <label htmlFor="L2">
-              Description:<br />
+              Description:
+              <br />
             </label>
             <textarea
               id="L2"
@@ -61,9 +67,11 @@ class AddModal extends Component {
               rows="7"
               value={this.state.description}
               onChange={this.handleChange('description')}
-            /><br />
+            />
+            <br />
             <label htmlFor="L3">
-              Price:<br />
+              Price:
+              <br />
             </label>
             <textarea
               id="L3"
@@ -71,7 +79,8 @@ class AddModal extends Component {
               rows="1"
               value={this.state.price}
               onChange={this.handleChange('price')}
-            /><br />
+            />
+            <br />
             <button onClick={closeModal}>
               Create
             </button>

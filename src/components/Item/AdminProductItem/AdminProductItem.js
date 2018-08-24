@@ -5,11 +5,10 @@ import s from './AdminProductItem.module.css';
 const AdminItem = ({
   image,
   title,
-  description,
-  price,
   clickItem,
   id,
-  clickEdit,
+  handleEdit,
+  propsItem,
 }) => (
   <div className={s.itemContainer}>
     <div onClick={evt => clickItem(evt, id)}>
@@ -24,7 +23,7 @@ const AdminItem = ({
     <div className={s.btn}>
       <button
         className={s.editBtn}
-        onClick={evt => clickEdit(evt, id, title, description, price)}
+        onClick={evt => handleEdit(propsItem)}
       >
          Edit
       </button>

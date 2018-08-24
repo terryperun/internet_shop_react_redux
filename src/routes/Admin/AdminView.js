@@ -23,10 +23,17 @@ class Admin extends Component {
       IdItemAdd: '',
     };
     this.clickItem = this.clickItem.bind(this);
-    this.clickEdit = this.clickEdit.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
     this.handleCloseModalQuick = this.handleCloseModalQuick.bind(this);
+  }
+
+  async componentDidMount() {
+    this.setState({ isLading: true });
+    const productsJson = await fetch('/api/v1/products');
+    const products = await productsJson.json();
+    this.setState({ products, isLading: false });
   }
 
   handleOpenModal() {
@@ -59,38 +66,34 @@ class Admin extends Component {
     });
   }
 
-
-  async componentDidMount() {
-    this.setState({ isLading: true });
-    const productsJson = await fetch('/api/v1/products');
-    const products = await productsJson.json();
-    this.setState({ products, isLading: false });
-  }
-
   clickItem = (evt, id) => {
     this.props.router.push(`/admin/product/${id}`);
     // browserHistory.push(`/admin/product/${id}`);
   }
 
-  clickEdit = (evt, id, title, description, price) => {
+  handleEdit = (propsItem) => {
     this.setState({
       showModal: true,
-      IdItemAdd: id,
-      id,
-      title,
-      description,
-      price,
+      // IdItemAdd: id,
+      // id,
+      // title,
+      // description,
+      // price,
+      propsItem,
     });
   }
 
   render() {
-    const content = this.state.isLading
-      ? <div>Loading...</div>
-      : <AdminItemList
-          products={this.state.products}
-          clickItem={this.clickItem}
-          clickEdit={this.clickEdit}
-      />;
+    if (this.state.isLading) {
+      return <div>Loading...</div>;
+    }
+    // const content = this.state.isLading
+    //   ? <div>Loading...</div>
+    //   : <AdminItemList
+    //       products={this.state.products}
+    //       clickItem={this.clickItem}
+    //       handleEdit={this.handleEdit}
+    //   />;
     return (
       <div id="adminPage">
         <Header
@@ -103,20 +106,26 @@ class Admin extends Component {
           shouldCloseOnOverlayClick={false}
         >
           <AddModal
-            IdItemAdd={this.state.IdItemAdd}
+            // IdItemAdd={this.state.IdItemAdd}
             closeModal={this.handleCloseModal}
             loadForm={this.state.showingLoadForms}
             //
-            inpId={this.state.id}
-            title={this.state.title}
-            description={this.state.description}
-            price={this.state.price}
+            // inpId={this.state.id}
+            // title={this.state.title}
+            // description={this.state.description}
+            // price={this.state.price}
+            propsItem={this.state.propsItem}
             //
           />
 
           <button onClick={this.handleCloseModalQuick}>Close Modal</button>
         </Modal>
-        {content}
+        {/* {content} */}
+        <AdminItemList
+          products={this.state.products}
+          clickItem={this.clickItem}
+          handleEdit={this.handleEdit}
+        />
         <Footer />
       </div>
     );

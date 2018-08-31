@@ -19,12 +19,12 @@ const AdminItem = ({
         {title}
       </div>
     </div>
-    {/* </Link> */}
     <div className={s.btn}>
       <button
         className={s.editBtn}
         onClick={evt => handleEdit(propsItem)}
       >
+        {/* {console.log('props', this.props.title)} */}
          Edit
       </button>
       <button

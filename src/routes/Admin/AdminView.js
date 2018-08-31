@@ -16,11 +16,13 @@ class Admin extends Component {
     super(props);
 
     this.state = {
-      // products: [],
+      products: [],
       isLading: false,
       showModal: false,
       showingLoadForms: false,
-      IdItemAdd: '',
+      // /
+      itemPost: false,
+      // /
     };
     this.clickItem = this.clickItem.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
@@ -32,12 +34,17 @@ class Admin extends Component {
   async componentDidMount() {
     this.setState({ isLading: true });
     const productsJson = await fetch('/api/v1/products');
+    // console.log('need inf', productsJson)
     const products = await productsJson.json();
     this.setState({ products, isLading: false });
   }
 
   handleOpenModal() {
-    this.setState({ showModal: true });
+    this.setState({
+      showModal: true,
+      propsItem: undefined,
+      itemPost: true,
+    });
   }
 
   handleCloseModal() {
@@ -74,26 +81,16 @@ class Admin extends Component {
   handleEdit = (propsItem) => {
     this.setState({
       showModal: true,
-      // IdItemAdd: id,
-      // id,
-      // title,
-      // description,
-      // price,
       propsItem,
     });
+    // console.log('propsItem', this.state.propsItem)
   }
 
   render() {
     if (this.state.isLading) {
       return <div>Loading...</div>;
     }
-    // const content = this.state.isLading
-    //   ? <div>Loading...</div>
-    //   : <AdminItemList
-    //       products={this.state.products}
-    //       clickItem={this.clickItem}
-    //       handleEdit={this.handleEdit}
-    //   />;
+
     return (
       <div id="adminPage">
         <Header
@@ -106,21 +103,15 @@ class Admin extends Component {
           shouldCloseOnOverlayClick={false}
         >
           <AddModal
-            // IdItemAdd={this.state.IdItemAdd}
             closeModal={this.handleCloseModal}
             loadForm={this.state.showingLoadForms}
-            //
-            // inpId={this.state.id}
-            // title={this.state.title}
-            // description={this.state.description}
-            // price={this.state.price}
             propsItem={this.state.propsItem}
-            //
+            showModal={this.state.showModal}
+            itemPost={this.state.itemPost}
           />
 
           <button onClick={this.handleCloseModalQuick}>Close Modal</button>
         </Modal>
-        {/* {content} */}
         <AdminItemList
           products={this.state.products}
           clickItem={this.clickItem}

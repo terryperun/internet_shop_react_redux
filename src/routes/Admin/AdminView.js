@@ -29,6 +29,8 @@ class Admin extends Component {
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
     this.handleCloseModalQuick = this.handleCloseModalQuick.bind(this);
+    this.deleteItem = this.deleteItem.bind(this);
+    this.createAddItemGlobal = this.createAddItemGlobal.bind(this);
   }
 
   async componentDidMount() {
@@ -44,6 +46,7 @@ class Admin extends Component {
       showModal: true,
       propsItem: undefined,
       itemPost: true,
+      createNewItem: true,
     });
   }
 
@@ -83,7 +86,21 @@ class Admin extends Component {
       showModal: true,
       propsItem,
     });
-    // console.log('propsItem', this.state.propsItem)
+  }
+
+  deleteItem(id) {
+    fetch(`/api/v1/products/${id}`, {
+      method: 'DELETE',
+    })
+      .then(res => res.json())
+      .then(json => console.log('delete', json))
+      .catch((error) => {
+        console.log('Request failed', error);
+      });
+  }
+
+  createAddItemGlobal(elem) {
+    console.log('22222222222elem in admin', elem)
   }
 
   render() {
@@ -108,6 +125,8 @@ class Admin extends Component {
             propsItem={this.state.propsItem}
             showModal={this.state.showModal}
             itemPost={this.state.itemPost}
+            createNewItem={this.state.createNewItem}
+            createAddItemGlobal={this.createAddItemGlobal}
           />
 
           <button onClick={this.handleCloseModalQuick}>Close Modal</button>
@@ -116,6 +135,7 @@ class Admin extends Component {
           products={this.state.products}
           clickItem={this.clickItem}
           handleEdit={this.handleEdit}
+          deleteItem={this.deleteItem}
         />
         <Footer />
       </div>

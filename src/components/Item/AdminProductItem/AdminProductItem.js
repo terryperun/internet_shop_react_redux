@@ -8,6 +8,7 @@ const AdminItem = ({
   clickItem,
   id,
   handleEdit,
+  deleteItem,
   propsItem,
 }) => (
   <div className={s.itemContainer}>
@@ -29,7 +30,7 @@ const AdminItem = ({
       </button>
       <button
         className={s.removeBtn}
-        onClick={() => console.log('delete')}
+        onClick={evt => deleteItem(id)}
       >
          Remove
       </button>

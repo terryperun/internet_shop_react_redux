@@ -5,6 +5,7 @@ const AdminItemList = ({
   products,
   clickItem,
   handleEdit,
+  deleteItem,
 }) => {
   if (!Array.isArray(products) || products.length === 0) {
     return (
@@ -25,6 +26,7 @@ const AdminItemList = ({
       clickItem={clickItem}
       handleEdit={handleEdit}
       propsItem={item}
+      deleteItem={deleteItem}
     />
   ));
   return (

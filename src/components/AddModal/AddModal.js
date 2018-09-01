@@ -3,20 +3,6 @@ import T from 'prop-types';
 
 
 const equal = (obj1, obj2) => {
-  // const OBJ1 = {
-  //   id: obj1.id,
-  //   title: obj1.title,
-  //   description: obj1.description,
-  //   image: obj1.image,
-  //   price: obj1.price,
-  // };
-  // const OBJ2 = {
-  //   id: obj2.id,
-  //   title: obj2.title,
-  //   description: obj2.description,
-  //   image: obj2.image,
-  //   price: obj2.price,
-  // };
   if (JSON.stringify(obj1) === JSON.stringify(obj2)) {
     return true;
   }
@@ -36,6 +22,7 @@ class AddModal extends Component {
     propsItem: T.object,
     closeModal: T.func,
     loadForm: T.bool.isRequired,
+    createNewItem: T.bool,
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -48,10 +35,15 @@ class AddModal extends Component {
   constructor(props) {
     super(props);
 
-    this.state = getProductState(props);
+    this.state = ({
+      ...getProductState(props),
+      createNewItem: this.props.createNewItem || false,
+    });
 
     this.handleChange = this.handleChange.bind(this);
-    this.edit = this.edit.bind(this);
+    this.editCreate = this.editCreate.bind(this);
+    this.getEditInfoFromJson = this.getEditInfoFromJson.bind(this);
+    this.getCreateInfoFromJson = this.getCreateInfoFromJson.bind(this);
   }
 
   handleChange(name) {
@@ -60,45 +52,52 @@ class AddModal extends Component {
     };
   }
 
-  edit() {
+  getEditInfoFromJson(item) {
+    console.log('Edit VLUE', item)
+    this.props.createAddItemGlobal(item);
+  }
+
+  getCreateInfoFromJson(item) {
+    console.log('Crete VLUE', item)
+    this.props.createAddItemGlobal(item);
+  }
+
+  editCreate() {
     const body = JSON.stringify({
-      title: this.state.title,
-      description: this.state.description,
-      price: this.state.price,
+      title: this.state.title || '',
+      description: this.state.description || '',
+      price: this.state.price || '',
       image: '',
     });
-    // const bodyJ = {
-    //   title: 'Phone 8 16Gb',
-    //   description: 'Екран Retina 4',
-    //   image: '',
-    //   price: 8457,
-    // };
-    // const body = JSON.stringify(bodyJ);
-    console.log('bodyJson', body);
-    fetch(`/api/v1/products/${this.state.id}`, {
-      method: 'PATCH',
-      body,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(res => res.json())
-      .then(json => console.log(json))
-      .catch((error) => {
-        console.log('Request failed', error);
-      });
-
-    //---------------
-    // const body = JSON.stringify({
-    //   title: this.state.title,
-    //   description: this.state.description,
-    //   price: this.state.price,
-    //   image: '',
-    // });
-    // fetch(`/admin/products/${this.state.id}`, {
-    //   method: 'POST',
-    //   body,
-    // });
+    if (this.props.createNewItem) {
+      fetch('/api/v1/products/', {
+        method: 'POST',
+        body,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then(res => res.json())
+        .then(json => this.getCreateInfoFromJson(json[0]))
+        .catch((error) => {
+          console.log('Create failed', error);
+        });
+      this.setState({ createNewItem: false });
+    } else {
+      console.log('bodyJson2', body);
+      fetch(`/api/v1/products/${this.state.id}`, {
+        method: 'PATCH',
+        body,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then(res => res.json())
+        .then(json => this.getEditInfoFromJson(json[0]))
+        .catch((error) => {
+          console.log('Add failed', error);
+        });
+    }
   }
 
   render() {
@@ -151,11 +150,8 @@ class AddModal extends Component {
               value={this.state.price}
               onChange={this.handleChange('price')}
             />
-            {/* {console.log('props.propsItem', props.propsItem)} */}
-            {console.log('state', this.state)}
             <br />
-            <button onMouseDown={this.edit} onClick={closeModal} >
-              {/* <button onClick={this.create} > */}
+            <button onMouseDown={this.editCreate} onClick={closeModal} >
               Create
             </button>
           </div>

@@ -25,12 +25,12 @@ class AddModal extends Component {
     createNewItem: T.bool,
   }
 
-  static getDerivedStateFromProps(props, state) {
-    if (equal(props.propsItem, state)) {
-      return getProductState(props);
-    }
-    return null;
-  }
+  // static getDerivedStateFromProps(props, state) {
+  //   if (!equal(props.propsItem, state)) {
+  //     return getProductState(props);
+  //   }
+  //   return null;
+  // }
 
   constructor(props) {
     super(props);
@@ -42,8 +42,9 @@ class AddModal extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.editCreate = this.editCreate.bind(this);
-    this.getEditInfoFromJson = this.getEditInfoFromJson.bind(this);
-    this.getCreateInfoFromJson = this.getCreateInfoFromJson.bind(this);
+    // this.getEditInfoFromJson = this.getEditInfoFromJson.bind(this);
+    // this.getCreateInfoFromJson = this.getCreateInfoFromJson.bind(this);
+    this.getItemInfoFromJson = this.getItemInfoFromJson.bind(this);
   }
 
   handleChange(name) {
@@ -52,14 +53,17 @@ class AddModal extends Component {
     };
   }
 
-  getEditInfoFromJson(item) {
-    console.log('Edit VLUE', item)
-    this.props.createAddItemGlobal(item);
-  }
-
-  getCreateInfoFromJson(item) {
-    console.log('Crete VLUE', item)
-    this.props.createAddItemGlobal(item);
+  // getEditInfoFromJson(item) {
+  //   console.log('Edit VLUE', item)
+  //   this.props.createAddItemGlobal(item);
+  // }
+  //
+  // getCreateInfoFromJson(item) {
+  //   console.log('Crete VLUE', item)
+  //   this.props.createAddItemGlobal(item);
+  // }
+  getItemInfoFromJson(item, type) {
+    this.props.createAddItemGlobal(item, type);
   }
 
   editCreate() {
@@ -69,7 +73,10 @@ class AddModal extends Component {
       price: this.state.price || '',
       image: '',
     });
+    console.log('createNewItemBEFORE', this.state.createNewItem)
     if (this.props.createNewItem) {
+      this.setState({ createNewItem: false });
+      console.log('createNewItemAFTER', this.state.createNewItem)
       fetch('/api/v1/products/', {
         method: 'POST',
         body,
@@ -78,13 +85,12 @@ class AddModal extends Component {
         },
       })
         .then(res => res.json())
-        .then(json => this.getCreateInfoFromJson(json[0]))
+        .then(json => this.getItemInfoFromJson(json[0], 1))
         .catch((error) => {
           console.log('Create failed', error);
         });
-      this.setState({ createNewItem: false });
     } else {
-      console.log('bodyJson2', body);
+      console.log('WORK ENATHER ELSE', body);
       fetch(`/api/v1/products/${this.state.id}`, {
         method: 'PATCH',
         body,
@@ -93,11 +99,12 @@ class AddModal extends Component {
         },
       })
         .then(res => res.json())
-        .then(json => this.getEditInfoFromJson(json[0]))
+        .then(json => this.getItemInfoFromJson(json[0], 2))
         .catch((error) => {
           console.log('Add failed', error);
         });
     }
+    this.setState({ createNewItem: false });
   }
 
   render() {

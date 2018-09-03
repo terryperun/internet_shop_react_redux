@@ -21,7 +21,7 @@ class Admin extends Component {
       showModal: false,
       showingLoadForms: false,
       // /
-      itemPost: false,
+      // itemPost: false,
       // /
     };
     this.clickItem = this.clickItem.bind(this);
@@ -39,13 +39,14 @@ class Admin extends Component {
     // console.log('need inf', productsJson)
     const products = await productsJson.json();
     this.setState({ products, isLading: false });
+
   }
 
   handleOpenModal() {
     this.setState({
       showModal: true,
       propsItem: undefined,
-      itemPost: true,
+      // itemPost: true,
       createNewItem: true,
     });
   }
@@ -99,8 +100,33 @@ class Admin extends Component {
       });
   }
 
-  createAddItemGlobal(elem) {
-    console.log('22222222222elem in admin', elem)
+  createAddItemGlobal(item, type) {
+    console.log('State Before---', this.state.products);
+    console.log('Comes Item---', item);
+    console.log('state---', this.state);
+    console.log('type---', type);
+    // console.log('this.state.products.push(item)', this.state.products.push(item))
+    const stateProductsNow = this.state.products;
+    if (type = 1) {
+      stateProductsNow.push(item);
+      this.setState({
+        products: stateProductsNow,
+      });
+      console.log('State After---', this.state.products);
+    } else if (type = 2) {
+      function getIndexById(idEl, arr) {
+        for (let i = 0; i < arr.length; i++) {
+          if (arr[i].id === idEl) {
+            return i;
+          }
+        }
+      }
+      const idItem = getIndexById(item.id, this.state.products);
+      stateProductsNow[idItem] = item;
+      this.setState({
+        products: stateProductsNow,
+      });
+    }
   }
 
   render() {
@@ -124,7 +150,7 @@ class Admin extends Component {
             loadForm={this.state.showingLoadForms}
             propsItem={this.state.propsItem}
             showModal={this.state.showModal}
-            itemPost={this.state.itemPost}
+            // itemPost={this.state.itemPost}
             createNewItem={this.state.createNewItem}
             createAddItemGlobal={this.createAddItemGlobal}
           />

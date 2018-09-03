@@ -29,7 +29,7 @@ class Admin extends Component {
     this.handleCloseModalQuick = this.handleCloseModalQuick.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
     this.createAddItemGlobal = this.createAddItemGlobal.bind(this);
-    this.handleCreate = this.handleCreate.bind(this);
+    this.modalCreate = this.modalCreate.bind(this);
   }
 
   async componentDidMount() {
@@ -93,28 +93,28 @@ class Admin extends Component {
       .then(res => res.json())
       .catch((error) => {
         console.log('Request failed', error);
-      });
-    this.setState({ products: this.state.products.filter(i => i.id !== id) });
+      })
+      .then(this.setState({ products: this.state.products.filter(i => i.id !== id) }));
   }
 
   createAddItemGlobal(item, type) {
+    const changeState = (value) => {
+      this.setState({
+        products: value,
+      });
+    };
     const stateProductsNow = [...this.state.products];
     if (type === 'addNewItem') {
       stateProductsNow.push(item);
-      this.setState({
-        products: stateProductsNow,
-      });
-      console.log('State After---', this.state.products);
+      changeState(this.state.products.concat(item));
     } else if (type === 'editItem') {
-      const idItem = this.state.products.findIndex(elem => elem.id === item.id);
-      stateProductsNow[idItem] = item;
-      this.setState({
-        products: stateProductsNow,
-      });
+      const indexItem = this.state.products.findIndex(elem => elem.id === item.id);
+      stateProductsNow[indexItem] = item;
+      changeState(stateProductsNow);
     }
   }
 
-  handleCreate(modalState) {
+  modalCreate(modalState) {
     const body = JSON.stringify({
       title: modalState.title || '',
       description: modalState.description || '',
@@ -173,7 +173,7 @@ class Admin extends Component {
             propsItem={this.state.propsItem}
             showModal={this.state.showModal}
             createNewItem={this.state.createNewItem}
-            onCreate={this.handleCreate}
+            onCreate={this.modalCreate}
             closeQuick={this.handleCloseModalQuick}
           />
         </Modal>

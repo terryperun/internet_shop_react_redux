@@ -65,51 +65,49 @@ class AddModal extends Component {
 
     return (
       <div>
-        {loadForm
-          ? <div>..Load..</div>
-          : <div>
-            <label htmlFor="L1">
+        <div>
+          <label htmlFor="L1">
               Title:
-              <br />
-            </label>
-            <textarea
-              id="L1"
-              name="title"
-              rows="2"
-              value={this.state.title}
-              onChange={this.handleChange('title')}
-            />
             <br />
-            <label htmlFor="L2">
-              Description:
-              <br />
-            </label>
-            <textarea
-              id="L2"
-              name="description"
-              rows="7"
-              value={this.state.description}
-              onChange={this.handleChange('description')}
-            />
+          </label>
+          <textarea
+            id="L1"
+            name="title"
+            rows="2"
+            value={this.state.title}
+            onChange={this.handleChange('title')}
+          />
+          <br />
+          <label htmlFor="L2">
+            Description:
             <br />
-            <label htmlFor="L3">
-              Price:
-              <br />
-            </label>
-            <textarea
-              id="L3"
-              name="price"
-              rows="1"
-              value={this.state.price}
-              onChange={this.handleChange('price')}
-            />
+          </label>
+          <textarea
+            id="L2"
+            name="description"
+            rows="7"
+            value={this.state.description}
+            onChange={this.handleChange('description')}
+          />
+          <br />
+          <label htmlFor="L3">
+            Price:
             <br />
-            <button onMouseDown={() => onCreate(this.state)} onClick={closeModal} >
-              Create
-            </button>
-            <button onClick={closeQuick}>Close Modal</button>
-          </div>
-        }
+          </label>
+          <textarea
+            id="L3"
+            name="price"
+            rows="1"
+            value={this.state.price}
+            onChange={this.handleChange('price')}
+          />
+          <br />
+          <button onMouseDown={() => onCreate(this.state)} onClick={closeModal} >
+            Create
+          </button>
+          <button onClick={closeQuick}>Close Modal</button>
+        </div>
+
       </div>
     );
   }

@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import T from 'prop-types';
 
 
-const equal = (obj1, obj2) => {
-  if (JSON.stringify(obj1) === JSON.stringify(obj2)) {
-    return true;
-  }
-  return false;
-};
+// const equal = (obj1, obj2) => {
+//   if (JSON.stringify(obj1) === JSON.stringify(obj2)) {
+//     return true;
+//   }
+//   return false;
+// };
 
 const getProductState = props => (props.propsItem || {
   id: '',
@@ -23,6 +23,8 @@ class AddModal extends Component {
     closeModal: T.func,
     loadForm: T.bool.isRequired,
     createNewItem: T.bool,
+    onCreate: T.func,
+    closeQuick: T.closeQuick,
   }
 
   // static getDerivedStateFromProps(props, state) {
@@ -41,10 +43,6 @@ class AddModal extends Component {
     });
 
     this.handleChange = this.handleChange.bind(this);
-    this.editCreate = this.editCreate.bind(this);
-    // this.getEditInfoFromJson = this.getEditInfoFromJson.bind(this);
-    // this.getCreateInfoFromJson = this.getCreateInfoFromJson.bind(this);
-    this.getItemInfoFromJson = this.getItemInfoFromJson.bind(this);
   }
 
   handleChange(name) {
@@ -53,64 +51,12 @@ class AddModal extends Component {
     };
   }
 
-  // getEditInfoFromJson(item) {
-  //   console.log('Edit VLUE', item)
-  //   this.props.createAddItemGlobal(item);
-  // }
-  //
-  // getCreateInfoFromJson(item) {
-  //   console.log('Crete VLUE', item)
-  //   this.props.createAddItemGlobal(item);
-  // }
-  getItemInfoFromJson(item, type) {
-    this.props.createAddItemGlobal(item, type);
-  }
-
-  editCreate() {
-    const body = JSON.stringify({
-      title: this.state.title || '',
-      description: this.state.description || '',
-      price: this.state.price || '',
-      image: '',
-    });
-    console.log('createNewItemBEFORE', this.state.createNewItem)
-    if (this.props.createNewItem) {
-      this.setState({ createNewItem: false });
-      console.log('createNewItemAFTER', this.state.createNewItem)
-      fetch('/api/v1/products/', {
-        method: 'POST',
-        body,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-        .then(res => res.json())
-        .then(json => this.getItemInfoFromJson(json[0], 1))
-        .catch((error) => {
-          console.log('Create failed', error);
-        });
-    } else {
-      console.log('WORK ENATHER ELSE', body);
-      fetch(`/api/v1/products/${this.state.id}`, {
-        method: 'PATCH',
-        body,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-        .then(res => res.json())
-        .then(json => this.getItemInfoFromJson(json[0], 2))
-        .catch((error) => {
-          console.log('Add failed', error);
-        });
-    }
-    this.setState({ createNewItem: false });
-  }
-
   render() {
     const {
       closeModal,
       loadForm,
+      onCreate,
+      closeQuick,
     } = this.props;
 
     if (loadForm) {
@@ -158,10 +104,10 @@ class AddModal extends Component {
               onChange={this.handleChange('price')}
             />
             <br />
-            <button onMouseDown={this.editCreate} onClick={closeModal} >
+            <button onMouseDown={() => onCreate(this.state)} onClick={closeModal} >
               Create
             </button>
-            <button onClick={this.handleCloseModalQuick}>Close Modal</button>
+            <button onClick={closeQuick}>Close Modal</button>
           </div>
         }
       </div>

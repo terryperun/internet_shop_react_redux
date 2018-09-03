@@ -20,10 +20,8 @@ class Admin extends Component {
       isLading: false,
       showModal: false,
       showingLoadForms: false,
-      // /
-      // itemPost: false,
-      // /
     };
+
     this.navigateToItem = this.navigateToItem.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.handleOpenModal = this.handleOpenModal.bind(this);
@@ -31,6 +29,7 @@ class Admin extends Component {
     this.handleCloseModalQuick = this.handleCloseModalQuick.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
     this.createAddItemGlobal = this.createAddItemGlobal.bind(this);
+    this.handleCreate = this.handleCreate.bind(this);
   }
 
   async componentDidMount() {
@@ -39,14 +38,12 @@ class Admin extends Component {
     // console.log('need inf', productsJson)
     const products = await productsJson.json();
     this.setState({ products, isLading: false });
-
   }
 
   handleOpenModal() {
     this.setState({
       showModal: true,
       propsItem: undefined,
-      // itemPost: true,
       createNewItem: true,
     });
   }
@@ -54,10 +51,10 @@ class Admin extends Component {
   handleCloseModal() {
     this.setState({
       showingLoadForms: true,
-      id: '',
-      title: '',
-      description: '',
-      price: '',
+      // id: '',
+      // title: '',
+      // description: '',
+      // price: '',
     });
     setTimeout(() => {
       this.setState({
@@ -66,17 +63,17 @@ class Admin extends Component {
       });
     }, 2000);
   }
-  //= ===============
+
   handleCloseModalQuick() {
     this.setState({
       showModal: false,
-      id: '',
-      title: '',
-      description: '',
-      price: '',
+      // id: '',
+      // title: '',
+      // description: '',
+      // price: '',
     });
   }
-  //= ===============
+
   navigateToItem = (evt, id) => {
     this.props.router.push(`/admin/product/${id}`);
     // browserHistory.push(`/admin/product/${id}`);
@@ -94,7 +91,6 @@ class Admin extends Component {
       method: 'DELETE',
     })
       .then(res => res.json())
-      // .then(json => console.log('delete', json))
       .catch((error) => {
         console.log('Request failed', error);
       });
@@ -102,24 +98,56 @@ class Admin extends Component {
   }
 
   createAddItemGlobal(item, type) {
-    console.log('State Before---', this.state.products);
-    console.log('Comes Item---', item);
-    console.log('state---', this.state);
-    console.log('type---', type);
-    // console.log('this.state.products.push(item)', this.state.products.push(item))
     const stateProductsNow = [...this.state.products];
-    if (type === 1) {
+    if (type === 'addNewItem') {
       stateProductsNow.push(item);
       this.setState({
         products: stateProductsNow,
       });
       console.log('State After---', this.state.products);
-    } else if (type === 2) {
+    } else if (type === 'editItem') {
       const idItem = this.state.products.findIndex(elem => elem.id === item.id);
       stateProductsNow[idItem] = item;
       this.setState({
         products: stateProductsNow,
       });
+    }
+  }
+
+  handleCreate(modalState) {
+    const body = JSON.stringify({
+      title: modalState.title || '',
+      description: modalState.description || '',
+      price: modalState.price || '',
+      image: '',
+    });
+    if (this.state.createNewItem) {
+      this.setState({ createNewItem: false });
+      fetch('/api/v1/products/', {
+        method: 'POST',
+        body,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then(res => res.json())
+        .then(json => this.createAddItemGlobal(json[0], 'addNewItem'))
+        .catch((error) => {
+          console.log('Create failed', error);
+        });
+    } else {
+      fetch(`/api/v1/products/${modalState.id}`, {
+        method: 'PATCH',
+        body,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then(res => res.json())
+        .then(json => this.createAddItemGlobal(json[0], 'editItem'))
+        .catch((error) => {
+          console.log('Add failed', error);
+        });
     }
   }
 
@@ -144,13 +172,10 @@ class Admin extends Component {
             loadForm={this.state.showingLoadForms}
             propsItem={this.state.propsItem}
             showModal={this.state.showModal}
-            // itemPost={this.state.itemPost}
             createNewItem={this.state.createNewItem}
-            createAddItemGlobal={this.createAddItemGlobal}
+            onCreate={this.handleCreate}
+            closeQuick={this.handleCloseModalQuick}
           />
-          {/* //================ */}
-          {/* <button onClick={this.handleCloseModalQuick}>Close Modal</button> */}
-          {/* //===== */}
         </Modal>
         <AdminItemList
           products={this.state.products}

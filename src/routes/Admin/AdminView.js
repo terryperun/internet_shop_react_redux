@@ -51,10 +51,6 @@ class Admin extends Component {
   handleCloseModal() {
     this.setState({
       showingLoadForms: true,
-      // id: '',
-      // title: '',
-      // description: '',
-      // price: '',
     });
     setTimeout(() => {
       this.setState({
@@ -67,10 +63,6 @@ class Admin extends Component {
   handleCloseModalQuick() {
     this.setState({
       showModal: false,
-      // id: '',
-      // title: '',
-      // description: '',
-      // price: '',
     });
   }
 

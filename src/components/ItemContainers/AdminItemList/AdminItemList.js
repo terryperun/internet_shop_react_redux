@@ -3,7 +3,7 @@ import AdminProductItem from '../../Item/AdminProductItem/AdminProductItem';
 
 const AdminItemList = ({
   products,
-  clickItem,
+  navigateToItem,
   handleEdit,
   deleteItem,
 }) => {
@@ -23,7 +23,7 @@ const AdminItemList = ({
       description={item.description}
       image={item.image}
       price={item.price}
-      clickItem={clickItem}
+      navigateToItem={navigateToItem}
       handleEdit={handleEdit}
       propsItem={item}
       deleteItem={deleteItem}

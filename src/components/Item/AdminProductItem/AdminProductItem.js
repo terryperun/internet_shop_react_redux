@@ -5,14 +5,14 @@ import s from './AdminProductItem.module.css';
 const AdminItem = ({
   image,
   title,
-  clickItem,
+  navigateToItem,
   id,
   handleEdit,
   deleteItem,
   propsItem,
 }) => (
   <div className={s.itemContainer}>
-    <div onClick={evt => clickItem(evt, id)}>
+    <div onClick={evt => navigateToItem(evt, id)}>
       <div className={s.image}>
         <img className={s.itemImg} src={image} alt="img" width="100px" />
       </div>

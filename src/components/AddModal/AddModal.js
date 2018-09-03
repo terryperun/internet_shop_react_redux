@@ -161,6 +161,7 @@ class AddModal extends Component {
             <button onMouseDown={this.editCreate} onClick={closeModal} >
               Create
             </button>
+            <button onClick={this.handleCloseModalQuick}>Close Modal</button>
           </div>
         }
       </div>

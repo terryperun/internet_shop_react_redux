@@ -24,7 +24,7 @@ class Admin extends Component {
       // itemPost: false,
       // /
     };
-    this.clickItem = this.clickItem.bind(this);
+    this.navigateToItem = this.navigateToItem.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
@@ -66,7 +66,7 @@ class Admin extends Component {
       });
     }, 2000);
   }
-
+  //= ===============
   handleCloseModalQuick() {
     this.setState({
       showModal: false,
@@ -76,8 +76,8 @@ class Admin extends Component {
       price: '',
     });
   }
-
-  clickItem = (evt, id) => {
+  //= ===============
+  navigateToItem = (evt, id) => {
     this.props.router.push(`/admin/product/${id}`);
     // browserHistory.push(`/admin/product/${id}`);
   }
@@ -94,10 +94,11 @@ class Admin extends Component {
       method: 'DELETE',
     })
       .then(res => res.json())
-      .then(json => console.log('delete', json))
+      // .then(json => console.log('delete', json))
       .catch((error) => {
         console.log('Request failed', error);
       });
+    this.setState({ products: this.state.products.filter(i => i.id !== id) });
   }
 
   createAddItemGlobal(item, type) {
@@ -106,22 +107,15 @@ class Admin extends Component {
     console.log('state---', this.state);
     console.log('type---', type);
     // console.log('this.state.products.push(item)', this.state.products.push(item))
-    const stateProductsNow = this.state.products;
-    if (type = 1) {
+    const stateProductsNow = [...this.state.products];
+    if (type === 1) {
       stateProductsNow.push(item);
       this.setState({
         products: stateProductsNow,
       });
       console.log('State After---', this.state.products);
-    } else if (type = 2) {
-      function getIndexById(idEl, arr) {
-        for (let i = 0; i < arr.length; i++) {
-          if (arr[i].id === idEl) {
-            return i;
-          }
-        }
-      }
-      const idItem = getIndexById(item.id, this.state.products);
+    } else if (type === 2) {
+      const idItem = this.state.products.findIndex(elem => elem.id === item.id);
       stateProductsNow[idItem] = item;
       this.setState({
         products: stateProductsNow,
@@ -154,12 +148,13 @@ class Admin extends Component {
             createNewItem={this.state.createNewItem}
             createAddItemGlobal={this.createAddItemGlobal}
           />
-
-          <button onClick={this.handleCloseModalQuick}>Close Modal</button>
+          {/* //================ */}
+          {/* <button onClick={this.handleCloseModalQuick}>Close Modal</button> */}
+          {/* //===== */}
         </Modal>
         <AdminItemList
           products={this.state.products}
-          clickItem={this.clickItem}
+          navigateToItem={this.navigateToItem}
           handleEdit={this.handleEdit}
           deleteItem={this.deleteItem}
         />

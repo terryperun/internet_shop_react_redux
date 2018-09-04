@@ -17,7 +17,7 @@ class Admin extends Component {
 
     this.state = {
       products: [],
-      isLading: false, //----------
+      isLading: true, //----------
       showModal: false,
       showingLoadForms: false,
     };
@@ -33,7 +33,7 @@ class Admin extends Component {
   }
 
   async componentDidMount() {
-    this.setState({ isLading: true });
+    // this.setState({ isLading: true });
     const productsJson = await fetch('/api/v1/products');
     // console.log('need inf', productsJson)
     const products = await productsJson.json();
@@ -50,8 +50,7 @@ class Admin extends Component {
 
   handleCloseModal() {
     this.setState({
-      showingLoadForms: false,
-      showModal: false,
+      showingLoadForms: true,
     });
   }
 
@@ -78,10 +77,10 @@ class Admin extends Component {
       method: 'DELETE',
     })
       .then(res => res.json())
+      .then(this.setState({ products: this.state.products.filter(i => i.id !== id) }))
       .catch((error) => {
         console.log('Request failed', error);
-      })
-      .then(this.setState({ products: this.state.products.filter(i => i.id !== id) }));
+      });
   }
 
   createAddItemGlobal(item, type) {
@@ -99,6 +98,10 @@ class Admin extends Component {
       stateProductsNow[indexItem] = item;
       changeState(stateProductsNow);
     }
+    this.setState({
+      showingLoadForms: false,
+      showModal: false,
+    })
   }
 
   modalCreate(modalState) {

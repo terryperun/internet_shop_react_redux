@@ -57,7 +57,10 @@ class AddModal extends Component {
       loadForm,
       onCreate,
       closeQuick,
+      createNewItem,
     } = this.props;
+
+    const valueBtn = createNewItem && 'Add';
 
     if (loadForm) {
       return <div>Loading...</div>;
@@ -103,7 +106,7 @@ class AddModal extends Component {
           />
           <br />
           <button onMouseDown={() => onCreate(this.state)} onClick={closeModal} >
-            Create
+            {valueBtn || 'Edit'}
           </button>
           <button onClick={closeQuick}>Close Modal</button>
         </div>

@@ -17,7 +17,7 @@ class Admin extends Component {
 
     this.state = {
       products: [],
-      isLading: false,
+      isLading: false, //----------
       showModal: false,
       showingLoadForms: false,
     };
@@ -50,14 +50,9 @@ class Admin extends Component {
 
   handleCloseModal() {
     this.setState({
-      showingLoadForms: true,
+      showingLoadForms: false,
+      showModal: false,
     });
-    setTimeout(() => {
-      this.setState({
-        showingLoadForms: false,
-        showModal: false,
-      });
-    }, 2000);
   }
 
   handleCloseModalQuick() {

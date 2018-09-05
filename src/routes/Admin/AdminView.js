@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-//
 import Modal from 'react-modal';
+import T from 'prop-types';
+
 import AddModal from '../../components/AddModal/AddModal';
-//
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import AdminItemList from '../../components/ItemContainers/AdminItemList/AdminItemList';
@@ -12,15 +12,26 @@ import Api from '../../api/Api';
 const appElement = document.getElementById('adminPage');
 Modal.setAppElement(appElement);
 
+const createBody = product => ({
+  title: product.title || '',
+  description: product.description || '',
+  price: product.price || '',
+  image: '',
+});
+
 class Admin extends Component {
+  static propTypes = {
+    router: T.object,
+  }
+
   constructor(props) {
     super(props);
 
     this.state = {
       products: [],
-      isLading: true, //----------
+      isLoading: true,
       showModal: false,
-      showingLoadForms: false,
+      showModalLoading: false,
     };
 
     this.navigateToItem = this.navigateToItem.bind(this);
@@ -29,14 +40,13 @@ class Admin extends Component {
     this.handleCloseModal = this.handleCloseModal.bind(this);
     this.handleCloseModalQuick = this.handleCloseModalQuick.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
-    this.createAddItemGlobal = this.createAddItemGlobal.bind(this);
-    this.modalCreate = this.modalCreate.bind(this);
+    this.createProduct = this.createProduct.bind(this);
+    this.updateProduct = this.updateProduct.bind(this);
   }
 
   async componentDidMount() {
-    const productsJson = await Api.getProducts();
-    const products = await productsJson.json();
-    this.setState({ products, isLading: false });
+    const products = await Api.getProducts();
+    this.setState({ products, isLoading: false });
   }
 
   handleOpenModal() {
@@ -49,7 +59,7 @@ class Admin extends Component {
 
   handleCloseModal() {
     this.setState({
-      showingLoadForms: true,
+      showModalLoading: true,
     });
   }
 
@@ -61,7 +71,6 @@ class Admin extends Component {
 
   navigateToItem = (evt, id) => {
     this.props.router.push(`/admin/product/${id}`);
-    // browserHistory.push(`/admin/product/${id}`);
   }
 
   handleEdit = (propsItem) => {
@@ -73,62 +82,58 @@ class Admin extends Component {
 
   deleteItem(id) {
     Api.removeProduct(id)
-      .then(res => res.json())
-      .then(this.setState({ products: this.state.products.filter(i => i.id !== id) }))
+      .then(() => this.setState({ products: this.state.products.filter(i => i.id !== id) }))
       .catch((error) => {
         console.log('Request failed', error);
       });
   }
 
-  createAddItemGlobal(item, type) {
-    const changeState = (value) => {
-      this.setState({
-        products: value,
-      });
-    };
-    const stateProductsNow = [...this.state.products];
-    if (type === 'addNewItem') {
-      stateProductsNow.push(item);
-      changeState(this.state.products.concat(item));
-    } else if (type === 'editItem') {
-      const indexItem = this.state.products.findIndex(elem => elem.id === item.id);
-      stateProductsNow[indexItem] = item;
-      changeState(stateProductsNow);
-    }
+  updateProduct(product) {
+    const body = createBody(product);
     this.setState({
-      showingLoadForms: false,
-      showModal: false,
+      showModalLoading: true,
     });
+
+    const editItemId = product.id;
+    Api.updateProduct(editItemId, body)
+      .then((json) => {
+        const stateProductsNow = [...this.state.products];
+        const newProduct = json[0];
+
+        const indexItem = this.state.products.findIndex(elem => elem.id === product.id);
+        stateProductsNow[indexItem] = newProduct;
+
+        this.setState({
+          products: stateProductsNow,
+          showModalLoading: false,
+          showModal: false,
+        });
+      })
+      .catch((error) => {
+        console.log('Add failed', error);
+      });
   }
 
-  modalCreate(modalState) {
-    const body = {
-      title: modalState.title || '',
-      description: modalState.description || '',
-      price: modalState.price || '',
-      image: '',
-    };
-    if (this.state.createNewItem) {
-      this.setState({ createNewItem: false });
-      Api.createProduct(body)
-        .then(res => res.json())
-        .then(json => this.createAddItemGlobal(json[0], 'addNewItem'))
-        .catch((error) => {
-          console.log('Create failed', error);
+  createProduct(product) {
+    const body = createBody(product);
+    this.setState({ createNewItem: false, showModalLoading: true });
+    Api.createProduct(body)
+      .then((json) => {
+        const newProduct = json[0];
+
+        this.setState({
+          products: this.state.products.concat(newProduct),
+          showModalLoading: false,
+          showModal: false,
         });
-    } else {
-      const idEditItem = modalState.id;
-      Api.updateProduct(body, idEditItem)
-        .then(res => res.json())
-        .then(json => this.createAddItemGlobal(json[0], 'editItem'))
-        .catch((error) => {
-          console.log('Add failed', error);
-        });
-    }
+      })
+      .catch((error) => {
+        console.log('Create failed', error);
+      });
   }
 
   render() {
-    if (this.state.isLading) {
+    if (this.state.isLoading) {
       return <div>Loading...</div>;
     }
 
@@ -145,11 +150,12 @@ class Admin extends Component {
         >
           <AddModal
             closeModal={this.handleCloseModal}
-            loadForm={this.state.showingLoadForms}
+            isLoading={this.state.showModalLoading}
             propsItem={this.state.propsItem}
             showModal={this.state.showModal}
             createNewItem={this.state.createNewItem}
-            onCreate={this.modalCreate}
+            onCreate={this.createProduct}
+            onUpdate={this.updateProduct}
             closeQuick={this.handleCloseModalQuick}
           />
         </Modal>

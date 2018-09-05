@@ -1,14 +1,6 @@
 import React, { Component } from 'react';
 import T from 'prop-types';
 
-
-// const equal = (obj1, obj2) => {
-//   if (JSON.stringify(obj1) === JSON.stringify(obj2)) {
-//     return true;
-//   }
-//   return false;
-// };
-
 const getProductState = props => (props.propsItem || {
   id: '',
   title: '',
@@ -19,20 +11,13 @@ const getProductState = props => (props.propsItem || {
 
 class AddModal extends Component {
   static propTypes = {
-    propsItem: T.object,
+    propsItem: T.object, // eslint-disable-line
     closeModal: T.func,
-    loadForm: T.bool.isRequired,
+    isLoading: T.bool.isRequired,
     createNewItem: T.bool,
     onCreate: T.func,
-    closeQuick: T.closeQuick,
+    onUpdate: T.func,
   }
-
-  // static getDerivedStateFromProps(props, state) {
-  //   if (!equal(props.propsItem, state)) {
-  //     return getProductState(props);
-  //   }
-  //   return null;
-  // }
 
   constructor(props) {
     super(props);
@@ -54,15 +39,15 @@ class AddModal extends Component {
   render() {
     const {
       closeModal,
-      loadForm,
-      onCreate,
-      closeQuick,
+      isLoading,
       createNewItem,
+      onCreate,
+      onUpdate,
     } = this.props;
 
     const valueBtn = createNewItem && 'Add';
 
-    if (loadForm) {
+    if (isLoading) {
       return <div>Loading...</div>;
     }
 
@@ -105,10 +90,17 @@ class AddModal extends Component {
             onChange={this.handleChange('price')}
           />
           <br />
-          <button onMouseDown={() => onCreate(this.state)} onClick={closeModal} >
+          <button onClick={() => {
+            if (createNewItem) {
+              onCreate(this.state);
+            } else {
+              onUpdate(this.state);
+            }
+          }}
+          >
             {valueBtn || 'Edit'}
           </button>
-          <button onClick={closeQuick}>Close Modal</button>
+          <button onClick={closeModal}>Close Modal</button>
         </div>
 
       </div>

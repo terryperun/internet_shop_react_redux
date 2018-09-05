@@ -7,6 +7,7 @@ import AddModal from '../../components/AddModal/AddModal';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import AdminItemList from '../../components/ItemContainers/AdminItemList/AdminItemList';
+import Api from '../../api/Api';
 
 const appElement = document.getElementById('adminPage');
 Modal.setAppElement(appElement);
@@ -33,9 +34,7 @@ class Admin extends Component {
   }
 
   async componentDidMount() {
-    // this.setState({ isLading: true });
-    const productsJson = await fetch('/api/v1/products');
-    // console.log('need inf', productsJson)
+    const productsJson = await Api.getProducts();
     const products = await productsJson.json();
     this.setState({ products, isLading: false });
   }
@@ -73,9 +72,7 @@ class Admin extends Component {
   }
 
   deleteItem(id) {
-    fetch(`/api/v1/products/${id}`, {
-      method: 'DELETE',
-    })
+    Api.removeProduct(id)
       .then(res => res.json())
       .then(this.setState({ products: this.state.products.filter(i => i.id !== id) }))
       .catch((error) => {
@@ -101,38 +98,27 @@ class Admin extends Component {
     this.setState({
       showingLoadForms: false,
       showModal: false,
-    })
+    });
   }
 
   modalCreate(modalState) {
-    const body = JSON.stringify({
+    const body = {
       title: modalState.title || '',
       description: modalState.description || '',
       price: modalState.price || '',
       image: '',
-    });
+    };
     if (this.state.createNewItem) {
       this.setState({ createNewItem: false });
-      fetch('/api/v1/products/', {
-        method: 'POST',
-        body,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
+      Api.createProduct(body)
         .then(res => res.json())
         .then(json => this.createAddItemGlobal(json[0], 'addNewItem'))
         .catch((error) => {
           console.log('Create failed', error);
         });
     } else {
-      fetch(`/api/v1/products/${modalState.id}`, {
-        method: 'PATCH',
-        body,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
+      const idEditItem = modalState.id;
+      Api.updateProduct(body, idEditItem)
         .then(res => res.json())
         .then(json => this.createAddItemGlobal(json[0], 'editItem'))
         .catch((error) => {

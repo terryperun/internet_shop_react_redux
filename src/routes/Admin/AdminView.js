@@ -1,43 +1,170 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
+import Modal from 'react-modal';
+import T from 'prop-types';
 
+import AddModal from '../../components/AddModal/AddModal';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import AdminItemList from '../../components/ItemContainers/AdminItemList/AdminItemList';
-// import EditProductView from '../EditProduct/EditProductView';
+import Api from '../../api/Api';
+
+const appElement = document.getElementById('adminPage');
+Modal.setAppElement(appElement);
+
+const createBody = product => ({
+  title: product.title || '',
+  description: product.description || '',
+  price: product.price || '',
+  image: '',
+});
 
 class Admin extends Component {
+  static propTypes = {
+    router: T.object,
+  }
+
   constructor(props) {
     super(props);
 
     this.state = {
       products: [],
-      isLading: false,
+      isLoading: true,
+      showModal: false,
+      showModalLoading: false,
     };
-    this.clickItem = this.clickItem.bind(this);
+
+    this.navigateToItem = this.navigateToItem.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
+    this.handleOpenModal = this.handleOpenModal.bind(this);
+    this.handleCloseModal = this.handleCloseModal.bind(this);
+    this.handleCloseModalQuick = this.handleCloseModalQuick.bind(this);
+    this.deleteItem = this.deleteItem.bind(this);
+    this.createProduct = this.createProduct.bind(this);
+    this.updateProduct = this.updateProduct.bind(this);
   }
 
   async componentDidMount() {
-    this.setState({ isLading: true });
-    const productsJson = await fetch('/api/v1/products');
-    const products = await productsJson.json();
-    this.setState({ products, isLading: false });
+    const products = await Api.getProducts();
+    this.setState({ products, isLoading: false });
   }
 
-  clickItem = (evt, id) => {
+  handleOpenModal() {
+    this.setState({
+      showModal: true,
+      propsItem: undefined,
+      createNewItem: true,
+    });
+  }
+
+  handleCloseModal() {
+    this.setState({
+      showModalLoading: true,
+    });
+  }
+
+  handleCloseModalQuick() {
+    this.setState({
+      showModal: false,
+    });
+  }
+
+  navigateToItem = (evt, id) => {
     this.props.router.push(`/admin/product/${id}`);
-    // browserHistory.push(`/admin/product/${id}`);
+  }
+
+  handleEdit = (propsItem) => {
+    this.setState({
+      showModal: true,
+      propsItem,
+    });
+  }
+
+  deleteItem(id) {
+    Api.removeProduct(id)
+      .then(() => this.setState({ products: this.state.products.filter(i => i.id !== id) }))
+      .catch((error) => {
+        console.log('Request failed', error);
+      });
+  }
+
+  updateProduct(product) {
+    const body = createBody(product);
+    this.setState({
+      showModalLoading: true,
+    });
+
+    const editItemId = product.id;
+    Api.updateProduct(editItemId, body)
+      .then((json) => {
+        const stateProductsNow = [...this.state.products];
+        const newProduct = json[0];
+
+        const indexItem = this.state.products.findIndex(elem => elem.id === product.id);
+        stateProductsNow[indexItem] = newProduct;
+
+        this.setState({
+          products: stateProductsNow,
+          showModalLoading: false,
+          showModal: false,
+        });
+      })
+      .catch((error) => {
+        console.log('Add failed', error);
+      });
+  }
+
+  createProduct(product) {
+    const body = createBody(product);
+    this.setState({ createNewItem: false, showModalLoading: true });
+    Api.createProduct(body)
+      .then((json) => {
+        const newProduct = json[0];
+
+        this.setState({
+          products: this.state.products.concat(newProduct),
+          showModalLoading: false,
+          showModal: false,
+        });
+      })
+      .catch((error) => {
+        console.log('Create failed', error);
+      });
   }
 
   render() {
-    const content = this.state.isLading
-      ? <div>Loading...</div>
-      : <AdminItemList products={this.state.products} clickItem={this.clickItem} />;
+    if (this.state.isLoading) {
+      return <div>Loading...</div>;
+    }
+
     return (
-      <div>
-        <Header />
-        <p>Admin</p>
-        {content}
+      <div id="adminPage">
+        <Header
+          openModal={this.handleOpenModal}
+        />
+        <Modal
+          isOpen={this.state.showModal}
+          contentLabel="Minimal Modal Example"
+          onRequestClose={this.handleCloseModal}
+          shouldCloseOnOverlayClick={false}
+        >
+          <AddModal
+            closeModal={this.handleCloseModal}
+            isLoading={this.state.showModalLoading}
+            propsItem={this.state.propsItem}
+            showModal={this.state.showModal}
+            createNewItem={this.state.createNewItem}
+            onCreate={this.createProduct}
+            onUpdate={this.updateProduct}
+            closeQuick={this.handleCloseModalQuick}
+          />
+        </Modal>
+        <AdminItemList
+          products={this.state.products}
+          navigateToItem={this.navigateToItem}
+          handleEdit={this.handleEdit}
+          deleteItem={this.deleteItem}
+        />
         <Footer />
       </div>
     );

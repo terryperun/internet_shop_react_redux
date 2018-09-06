@@ -3,8 +3,9 @@ import AdminProductItem from '../../Item/AdminProductItem/AdminProductItem';
 
 const AdminItemList = ({
   products,
-  clickItem,
-
+  navigateToItem,
+  handleEdit,
+  deleteItem,
 }) => {
   if (!Array.isArray(products) || products.length === 0) {
     return (
@@ -22,7 +23,10 @@ const AdminItemList = ({
       description={item.description}
       image={item.image}
       price={item.price}
-      clickItem={clickItem}
+      navigateToItem={navigateToItem}
+      handleEdit={handleEdit}
+      propsItem={item}
+      deleteItem={deleteItem}
     />
   ));
   return (

@@ -1,5 +1,5 @@
 import React from 'react';
-// import T from 'prop-types';
+import T from 'prop-types';
 import s from './AdminProductItem.module.css';
 
 const AdminItem = ({
@@ -38,14 +38,14 @@ const AdminItem = ({
   </div>
 );
 
-// AdminItem.propTypes = {
-//   propsItem: T.object,
-//   title: T.string,
-//   image: T.string,
-//   navigateToItem: T.func,
-//   id: T.string,
-//   handleEdit: T.func,
-//   deleteItem: T.func,
-// };
+AdminItem.propTypes = {
+  propsItem: T.object,
+  title: T.string,
+  image: T.string,
+  navigateToItem: T.func,
+  id: T.string,
+  handleEdit: T.func,
+  deleteItem: T.func,
+};
 
 export default AdminItem;

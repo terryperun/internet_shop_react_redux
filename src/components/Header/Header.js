@@ -1,10 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router';
 import s from './Header.module.css';
+import { withRouter } from 'react-router';
 
 const Header = ({
   openModal,
   closeModal,
+  router,
+  // match,
+  location,
+  // history,
 }) => (
   <header className={s.container}>
     <div className={s.logo}>
@@ -18,13 +23,20 @@ const Header = ({
     <div className={s.cart}>
       <Link to="/cart">Cart</Link>
     </div>
-    <button
-      id="addProductButton"
-      className={s.addItemAdminContainer}
-      onClick={openModal}
-    >
-      Add
-    </button>
+    111
+    {location.pathname === '/admin/'
+      ?<button
+        id="addProductButton"
+        className={s.addItemAdminContainer}
+        onClick={openModal}
+      >
+        Add
+      </button>
+    : undefined}
+    222
+    {location.pathname}
+    3333
+
   </header>
 );
-export default Header;
+export default withRouter(Header);

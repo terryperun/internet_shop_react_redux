@@ -30,7 +30,8 @@
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-jsx-a11y": "^5.0.1",
     "eslint-plugin-testcafe": "^0.2.1",
-    "react-scripts": "^2.0.0-next.3e165448"
+    "react-scripts": "^2.0.0-next.3e165448",
+    "remote-redux-devtools": "^0.5.13"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import Modal from 'react-modal';
 import T from 'prop-types';
+import { connect } from 'react-redux';
 
+import * as productsOperations from '../../modules/products/productsOperations';
 import AddModal from '../../components/AddModal/AddModal';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
@@ -22,14 +24,13 @@ const createBody = product => ({
 class Admin extends Component {
   static propTypes = {
     router: T.object,
-  }
+  };
 
   constructor(props) {
     super(props);
 
     this.state = {
       products: [],
-      isLoading: true,
       showModal: false,
       showModalLoading: false,
     };
@@ -44,9 +45,8 @@ class Admin extends Component {
     this.updateProduct = this.updateProduct.bind(this);
   }
 
-  async componentDidMount() {
-    const products = await Api.getProducts();
-    this.setState({ products, isLoading: false });
+  componentDidMount() {
+    this.props.fetchProducts();
   }
 
   handleOpenModal() {
@@ -71,18 +71,21 @@ class Admin extends Component {
 
   navigateToItem = (evt, id) => {
     this.props.router.push(`/admin/product/${id}`);
-  }
+  };
 
   handleEdit = (propsItem) => {
     this.setState({
       showModal: true,
       propsItem,
     });
-  }
+  };
 
   deleteItem(id) {
     Api.removeProduct(id)
-      .then(() => this.setState({ products: this.state.products.filter(i => i.id !== id) }))
+      .then(() =>
+        this.setState({
+          products: this.state.products.filter(i => i.id !== id),
+        }))
       .catch((error) => {
         console.log('Request failed', error);
       });
@@ -133,14 +136,12 @@ class Admin extends Component {
   }
 
   render() {
-    if (this.state.isLoading) {
+    if (this.props.isLoading) {
       return <div>Loading...</div>;
     }
     return (
       <div id="adminPage">
-        <Header
-          openModal={this.handleOpenModal}
-        />
+        <Header openModal={this.handleOpenModal} />
         <Modal
           isOpen={this.state.showModal}
           contentLabel="Minimal Modal Example"
@@ -159,7 +160,7 @@ class Admin extends Component {
           />
         </Modal>
         <AdminItemList
-          products={this.state.products}
+          products={this.props.products}
           navigateToItem={this.navigateToItem}
           handleEdit={this.handleEdit}
           deleteItem={this.deleteItem}
@@ -169,4 +170,21 @@ class Admin extends Component {
     );
   }
 }
-export default withRouter(Admin);
+
+const mapStateToProps = state => ({
+  products: state.products.items,
+  isLoading: state.products.isLoading,
+  isError: !!state.products.error,
+  errorMessage: state.products.error
+    ? state.products.error.message
+    : null,
+});
+
+const mapDispatchToProps = {
+  fetchProducts: productsOperations.fetchProducts,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Admin);

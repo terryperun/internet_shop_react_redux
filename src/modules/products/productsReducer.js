@@ -16,6 +16,20 @@ function reducer(state = initialState, action) {
 
     case types.FETCH_PRODUCTS_ERROR:
       return { ...state, error: action.payload };
+
+    case types.DELETE_PRODUCT_START:
+      return { ...state, isRemoving: false };
+
+    case types.DELETE_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        isRemoving: true,
+        items: state.items.filter(i => i.id !== action.payload),
+      };
+
+    case types.DELETE_PRODUCT_ERROR:
+      return { ...state, error: action.payload };
+
     default:
       return state;
   }

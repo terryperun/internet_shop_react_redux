@@ -81,14 +81,15 @@ class Admin extends Component {
   };
 
   deleteItem(id) {
-    Api.removeProduct(id)
-      .then(() =>
-        this.setState({
-          products: this.state.products.filter(i => i.id !== id),
-        }))
-      .catch((error) => {
-        console.log('Request failed', error);
-      });
+    this.props.deleteProduct(id)
+    // Api.removeProduct(id)
+    //   .then(() =>
+    //     this.setState({
+    //       products: this.state.products.filter(i => i.id !== id),
+    //     }))
+    //   .catch((error) => {
+    //     console.log('Request failed', error);
+    //   });
   }
 
   updateProduct(product) {
@@ -182,6 +183,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   fetchProducts: productsOperations.fetchProducts,
+  deleteProduct: productsOperations.deleteProduct,
 };
 
 export default connect(

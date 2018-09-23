@@ -12,3 +12,14 @@ export const fetchProducts = () => async (dispatch) => {
     dispatch(actions.fetchProductsError({ message: error.message }));
   }
 };
+
+export const deleteProduct = id => async (dispatch) => {
+  dispatch(actions.deleteProductStart());
+
+  try {
+    await Api.removeProduct(id);
+    dispatch(actions.deleteProductSuccess(id));
+  } catch (error) {
+    dispatch(actions.deleteProductError({ message: error.message }));
+  }
+};

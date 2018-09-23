@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router';
+// import { withRouter } from 'react-router';
 import T from 'prop-types';
+import { connect } from 'react-redux';
+
+import * as productsOperations from '../../modules/products/productsOperations';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import UserItemList from '../../components/ItemContainers/UserItemList/UserItemList';
@@ -9,7 +12,7 @@ import Api from '../../api/Api';
 class Store extends Component {
   static propTypes = {
     router: T.object,
-  }
+  };
   constructor(props) {
     super(props);
 
@@ -21,8 +24,7 @@ class Store extends Component {
   }
 
   async componentDidMount() {
-    const products = await Api.getProducts();
-    this.setState({ products, isLoading: false });
+    this.props.fetchProducts();
   }
 
   navigateToItem(id) {
@@ -30,18 +32,36 @@ class Store extends Component {
   }
 
   render() {
+    if (this.props.isLoading) {
+      return <div>Loading...</div>;
+    }
     return (
       <div>
         <Header />
-        {this.state.isLoading
-          ? <div>Loading...</div>
-          : <UserItemList
-            products={this.state.products}
-            navigateToItem={this.navigateToItem}
-          />}
+        <UserItemList
+          products={this.props.products}
+          navigateToItem={this.navigateToItem}
+        />
         <Footer />
       </div>
     );
   }
 }
-export default withRouter(Store);
+
+const mapStateToProps = state => ({
+  products: state.products.items,
+  isLoading: state.products.isLoading,
+  isError: state.products.error,
+  errorMessage: state.products.error
+    ? state.products.error.message
+    : null,
+});
+
+const mapDispatchToProps = {
+  fetchProducts: productsOperations.fetchProducts,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Store);

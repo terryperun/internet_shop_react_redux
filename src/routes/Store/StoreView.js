@@ -26,7 +26,7 @@ class Store extends Component {
   }
 
   navigateToItem(id) {
-    this.props.router.push(`/admin/product/${id}`);
+    this.props.router.push(`/product/${id}`);
   }
 
   render() {

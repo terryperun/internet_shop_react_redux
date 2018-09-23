@@ -6,8 +6,6 @@ import store from './store/createStore';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-
-
 import routes from './routes/router';
 
 ReactDOM.render(

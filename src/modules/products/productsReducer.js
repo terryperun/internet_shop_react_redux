@@ -49,6 +49,20 @@ function reducer(state = initialState, action) {
     case types.UPDATE_PRODUCT_ERROR:
       return { ...state, error: action.payload };
 
+    case types.CREATE_PRODUCT_START:
+      return { ...state, isLoading: true, error: null };
+
+    case types.CREATE_PRODUCT_SUCCESS: {
+      return {
+        ...state,
+        isLoading: false,
+        items: [...state.items, action.payload],
+      };
+    }
+
+    case types.CREATE_PRODUCT_ERROR:
+      return { ...state, error: action.payload };
+
     default:
       return state;
   }

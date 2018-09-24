@@ -43,3 +43,22 @@ export const updateProduct = (id, product) => async (dispatch) => {
     dispatch(actions.updateProductError({ message: error.message }));
   }
 };
+
+export const createProduct = product => async (dispatch) => {
+  dispatch(actions.createProductStart());
+
+  const createBody = product => ({
+    title: product.title || '',
+    description: product.description || '',
+    price: product.price || '',
+    image: '',
+  });
+  const body = createBody(product);
+
+  try {
+    const newProduct = await Api.createProduct(body);
+    dispatch(actions.createProductSuccess(newProduct[0]));
+  } catch (error) {
+    dispatch(actions.createProductError({ message: error.message }));
+  }
+};

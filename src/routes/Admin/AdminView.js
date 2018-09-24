@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router';
+// import { withRouter } from 'react-router';
 import Modal from 'react-modal';
 import T from 'prop-types';
 import { connect } from 'react-redux';
@@ -119,21 +119,27 @@ class Admin extends Component {
   }
 
   createProduct(product) {
-    const body = createBody(product);
     this.setState({ createNewItem: false, showModalLoading: true });
-    Api.createProduct(body)
-      .then((json) => {
-        const newProduct = json[0];
-
-        this.setState({
-          products: this.state.products.concat(newProduct),
-          showModalLoading: false,
-          showModal: false,
-        });
-      })
-      .catch((error) => {
-        console.log('Create failed', error);
-      });
+    this.props.createProduct(product);
+    this.setState({
+      showModalLoading: false,
+      showModal: false,
+    });
+    //-------------
+    // const body = createBody(product);
+    // this.setState({ createNewItem: false, showModalLoading: true });
+    // Api.createProduct(body)
+    //   .then((json) => {
+    //     const newProduct = json[0];
+    //     this.setState({
+    //       products: this.state.products.concat(newProduct),
+    //       showModalLoading: false,
+    //       showModal: false,
+    //     });
+    //   })
+    //   .catch((error) => {
+    //     console.log('Create failed', error);
+    //   });
   }
 
   render() {
@@ -185,6 +191,7 @@ const mapDispatchToProps = {
   fetchProducts: productsOperations.fetchProducts,
   deleteProduct: productsOperations.deleteProduct,
   updateProduct: productsOperations.updateProduct,
+  createProduct: productsOperations.createProduct,
 };
 
 export default connect(

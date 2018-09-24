@@ -23,3 +23,23 @@ export const deleteProduct = id => async (dispatch) => {
     dispatch(actions.deleteProductError({ message: error.message }));
   }
 };
+
+export const updateProduct = (id, product) => async (dispatch) => {
+  dispatch(actions.updateProductStart());
+
+  const createBody = product => ({
+    title: product.title || '',
+    description: product.description || '',
+    price: product.price || '',
+    image: '',
+  });
+
+  const body = createBody(product);
+
+  try {
+    const products = await Api.updateProduct(id, body);
+    dispatch(actions.updateProductSuccess({ id, product: products[0] }));
+  } catch (error) {
+    dispatch(actions.updateProductError({ message: error.message }));
+  }
+};

@@ -20,14 +20,33 @@ function reducer(state = initialState, action) {
     case types.DELETE_PRODUCT_START:
       return { ...state, isRemoving: false };
 
-    case types.DELETE_PRODUCT_SUCCESS:
+    case types.DELETE_PRODUCT_SUCCESS: {
       return {
         ...state,
         isRemoving: true,
         items: state.items.filter(i => i.id !== action.payload),
       };
+    }
 
     case types.DELETE_PRODUCT_ERROR:
+      return { ...state, error: action.payload };
+
+    case types.UPDATE_PRODUCT_START:
+      return { ...state, isUpdate: false };
+
+    case types.UPDATE_PRODUCT_SUCCESS: {
+      const indexItem = state.items.findIndex(i => i.id === action.payload.id);
+      const items = [...state.items];
+      items[indexItem] = action.payload.product;
+
+      return {
+        ...state,
+        isUpdate: true,
+        items,
+      };
+    }
+
+    case types.UPDATE_PRODUCT_ERROR:
       return { ...state, error: action.payload };
 
     default:

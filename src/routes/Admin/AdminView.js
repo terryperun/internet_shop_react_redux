@@ -81,41 +81,41 @@ class Admin extends Component {
   };
 
   deleteItem(id) {
-    this.props.deleteProduct(id)
-    // Api.removeProduct(id)
-    //   .then(() =>
-    //     this.setState({
-    //       products: this.state.products.filter(i => i.id !== id),
-    //     }))
-    //   .catch((error) => {
-    //     console.log('Request failed', error);
-    //   });
+    this.props.deleteProduct(id);
   }
 
-  updateProduct(product) {
-    const body = createBody(product);
+  async updateProduct(product) {
     this.setState({
       showModalLoading: true,
     });
+    await this.props.updateProduct(product.id, product);
+    this.setState({
+      showModal: false,
+      showModalLoading: false,
+    });
+    // const body = createBody(product);
+    // this.setState({
+    //   showModalLoading: true,
+    // });
 
-    const editItemId = product.id;
-    Api.updateProduct(editItemId, body)
-      .then((json) => {
-        const stateProductsNow = [...this.state.products];
-        const newProduct = json[0];
+    // const editItemId = product.id;
+    // Api.updateProduct(editItemId, body)
+    //   .then((json) => {
+    //     const stateProductsNow = [...this.state.products];
+    //     const newProduct = json[0];
 
-        const indexItem = this.state.products.findIndex(elem => elem.id === product.id);
-        stateProductsNow[indexItem] = newProduct;
+    //     const indexItem = this.state.products.findIndex(elem => elem.id === product.id);
+    //     stateProductsNow[indexItem] = newProduct;
 
-        this.setState({
-          products: stateProductsNow,
-          showModalLoading: false,
-          showModal: false,
-        });
-      })
-      .catch((error) => {
-        console.log('Add failed', error);
-      });
+    //     this.setState({
+    //       products: stateProductsNow,
+    //       showModalLoading: false,
+    //       showModal: false,
+    //     });
+    //   })
+    //   .catch((error) => {
+    //     console.log('Add failed', error);
+    //   });
   }
 
   createProduct(product) {
@@ -184,6 +184,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   fetchProducts: productsOperations.fetchProducts,
   deleteProduct: productsOperations.deleteProduct,
+  updateProduct: productsOperations.updateProduct,
 };
 
 export default connect(

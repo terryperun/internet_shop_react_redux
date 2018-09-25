@@ -15,6 +15,9 @@ class Product extends Component {
   }
 
   async componentDidMount() {
+    if (!this.props.product) {
+      // fetch product
+    }
     this.setState({ isLading: true });
     const productJson = await fetch(`/api/v1/products/${this.props.params.id}`);
     const product = await productJson.json();
@@ -34,4 +37,8 @@ class Product extends Component {
     );
   }
 }
+
+const mapStateToProps = (state, props) => ({
+  product: {},
+})
 export default Product;

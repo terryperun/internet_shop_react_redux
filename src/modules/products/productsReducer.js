@@ -9,17 +9,14 @@ const initialState = {
   error: null,
 };
 
-const normalize = (arr) => {
-  const ids = [];
-  const entities = {};
-
-  // fixme: write a function
-
-  return {
-    ids,
-    entities,
-  };
-};
+const normalize = arr => arr.reduce(
+  (acc, item) => {
+    acc.ids.push(item.id);
+    acc.entities[item.id] = item;
+    return acc;
+  },
+  { ids: [], entities: {} }
+);
 
 function reducer(state = initialState, action) {
   switch (action.type) {

@@ -179,7 +179,7 @@ class Admin extends Component {
 }
 
 const mapStateToProps = state => ({
-  products: state.products.items,
+  products: state.products.items.map(id => state.products.entities[id]),
   isLoading: state.products.isLoading,
   isError: !!state.products.error,
   errorMessage: state.products.error

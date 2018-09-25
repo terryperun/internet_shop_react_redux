@@ -2,8 +2,23 @@ import * as types from './productTypes';
 
 const initialState = {
   items: [],
+  entities: {
+    // [id]: { ...product }
+  },
   isLoading: false,
   error: null,
+};
+
+const normalize = (arr) => {
+  const ids = [];
+  const entities = {};
+
+  // fixme: write a function
+
+  return {
+    ids,
+    entities,
+  };
 };
 
 function reducer(state = initialState, action) {
@@ -11,8 +26,18 @@ function reducer(state = initialState, action) {
     case types.FETCH_PRODUCTS_START:
       return { ...state, isLoading: true, error: null };
 
-    case types.FETCH_PRODUCTS_SUCCESS:
-      return { ...state, isLoading: false, items: action.payload };
+    case types.FETCH_PRODUCTS_SUCCESS: {
+      const products = action.payload;
+
+      const { ids, entities } = normalize(products);
+
+      return {
+        ...state,
+        isLoading: false,
+        items: ids,
+        entities: Object.assign({}, state.entities, entities),
+      };
+    }
 
     case types.FETCH_PRODUCTS_ERROR:
       return { ...state, error: action.payload };
@@ -24,7 +49,7 @@ function reducer(state = initialState, action) {
       return {
         ...state,
         isRemoving: true,
-        items: state.items.filter(i => i.id !== action.payload),
+        items: state.items.filter(id => id !== action.payload),
       };
     }
 
@@ -35,14 +60,15 @@ function reducer(state = initialState, action) {
       return { ...state, isUpdate: false };
 
     case types.UPDATE_PRODUCT_SUCCESS: {
-      const indexItem = state.items.findIndex(i => i.id === action.payload.id);
-      const items = [...state.items];
-      items[indexItem] = action.payload.product;
+      const { id, product } = action.payload;
 
       return {
         ...state,
         isUpdate: true,
-        items,
+        entities: {
+          ...state.entities,
+          [id]: product,
+        },
       };
     }
 
@@ -53,10 +79,15 @@ function reducer(state = initialState, action) {
       return { ...state, isLoading: true, error: null };
 
     case types.CREATE_PRODUCT_SUCCESS: {
+      const { id } = action.payload;
       return {
         ...state,
         isLoading: false,
-        items: [...state.items, action.payload],
+        items: [id].concat(state.items),
+        entities: {
+          ...state.entities,
+          [id]: action.payload,
+        },
       };
     }
 

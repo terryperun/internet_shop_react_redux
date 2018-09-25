@@ -136,7 +136,6 @@ class Admin extends Component {
     if (this.state.isLoading) {
       return <div>Loading...</div>;
     }
-
     return (
       <div id="adminPage">
         <Header

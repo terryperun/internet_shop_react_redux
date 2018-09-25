@@ -1,23 +1,3 @@
-// import React, { Component } from 'react';
-// import Header from '../../components/Header/Header';
-// import Footer from '../../components/Footer/Footer';
-// import OpenedItem from '../../components/Item/OpenedItem/OpenedItem';
-//
-// const EditProduct = (props) => {
-//   console.log('wooooork', props.params.id);
-//   const { params } = props;
-//   return (
-//     <div>
-//       <Header />
-//       <p>EditProduct</p>
-//       <OpenedItem id={props.params.id} />
-//       {params.id}
-//       <Footer />
-//     </div>
-//   );
-// };
-// export default EditProduct;
-
 import React, { Component } from 'react';
 
 import Header from '../../components/Header/Header';

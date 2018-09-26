@@ -9,17 +9,17 @@ import AddModal from '../../components/AddModal/AddModal';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import AdminItemList from '../../components/ItemContainers/AdminItemList/AdminItemList';
-import Api from '../../api/Api';
+// import Api from '../../api/Api';
 
 const appElement = document.getElementById('adminPage');
 Modal.setAppElement(appElement);
 
-const createBody = product => ({
-  title: product.title || '',
-  description: product.description || '',
-  price: product.price || '',
-  image: '',
-});
+// const createBody = product => ({
+//   title: product.title || '',
+//   description: product.description || '',
+//   price: product.price || '',
+//   image: '',
+// });
 
 class Admin extends Component {
   static propTypes = {
@@ -71,6 +71,7 @@ class Admin extends Component {
 
   navigateToItem = (evt, id) => {
     this.props.router.push(`/admin/product/${id}`);
+    console.log('wooooooooork');
   };
 
   handleEdit = (propsItem) => {

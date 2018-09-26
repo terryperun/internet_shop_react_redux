@@ -14,27 +14,26 @@ const AdminItem = ({
   <div className={s.itemContainer}>
     <div onClick={evt => navigateToItem(evt, id)}>
       <div className={s.image}>
-        <img className={s.itemImg} src={image} alt="img" width="100px" />
+        <img
+          className={s.itemImg}
+          src={image}
+          alt="img"
+          width="100px"
+        />
       </div>
-      <div className={s.title}>
-        {title}
-      </div>
+      <div className={s.title}>{title}</div>
     </div>
     <div className={s.btn}>
       <button
         className={s.editBtn}
         onClick={() => handleEdit(propsItem)}
       >
-         Edit
+        Edit
       </button>
-      <button
-        className={s.removeBtn}
-        onClick={() => deleteItem(id)}
-      >
-         Remove
+      <button className={s.removeBtn} onClick={() => deleteItem(id)}>
+        Remove
       </button>
     </div>
-
   </div>
 );
 

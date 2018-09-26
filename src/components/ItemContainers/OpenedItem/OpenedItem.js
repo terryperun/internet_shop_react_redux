@@ -1,13 +1,9 @@
 import React from 'react';
 import OpenedItem from '../../Item/OpenedItem/OpenedItem';
 
-const AdminItemList = ({ product }) => {
+const AdminItemList = ({ product, navigateToItem }) => {
   if (!Array.isArray(product) || product.length === 0) {
-    return (
-      <div>
-        No items
-      </div>
-    );
+    return <div>No items</div>;
   }
   const items = product.map(item => (
     <OpenedItem
@@ -17,13 +13,12 @@ const AdminItemList = ({ product }) => {
       description={item.description}
       image={item.image}
       price={item.price}
+      navigateToItem={navigateToItem}
     />
   ));
   return (
     <div>
-      <ul>
-        {items}
-      </ul>
+      <ul>{items}</ul>
     </div>
   );
 };

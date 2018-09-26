@@ -2,10 +2,7 @@ import React from 'react';
 import T from 'prop-types';
 import ProductItem from '../../Item/ProductItem/ProductItem';
 
-const UserItemList = ({
-  products,
-  navigateToItem,
-}) => {
+const UserItemList = ({ products, navigateToItem }) => {
   const container = products.map(item => (
     <ProductItem
       id={item.id}
@@ -18,15 +15,13 @@ const UserItemList = ({
   ));
   return (
     <div>
-      <ul>
-        {container}
-      </ul>
+      <ul>{container}</ul>
     </div>
   );
 };
 
 UserItemList.propTypes = {
-  products: T.array,
+  // products: T.array,
   navigateToItem: T.func,
 };
 

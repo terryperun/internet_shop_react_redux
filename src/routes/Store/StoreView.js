@@ -7,7 +7,7 @@ import * as productsOperations from '../../modules/products/productsOperations';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import UserItemList from '../../components/ItemContainers/UserItemList/UserItemList';
-import Api from '../../api/Api';
+// import Api from '../../api/Api';
 
 class Store extends Component {
   static propTypes = {
@@ -42,6 +42,7 @@ class Store extends Component {
           products={this.props.products}
           navigateToItem={this.navigateToItem}
         />
+        {console.log('||||||||||||||||', this.props.products)}
         <Footer />
       </div>
     );
@@ -49,7 +50,7 @@ class Store extends Component {
 }
 
 const mapStateToProps = state => ({
-  products: state.products.items,
+  products: state.products.items.map(id => state.products.entities[id]),
   isLoading: state.products.isLoading,
   isError: state.products.error,
   errorMessage: state.products.error

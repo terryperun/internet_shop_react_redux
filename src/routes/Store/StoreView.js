@@ -30,11 +30,11 @@ class Store extends Component {
   navigateToItem(id) {
     this.props.router.push(`/product/${id}`);
   }
-
   render() {
     if (this.props.isLoading) {
       return <div>Loading...</div>;
     }
+    console.log('wwwwwwwaaaaaaaaaaawwwwwww', this.props.products);
     return (
       <div>
         <Header />
@@ -42,7 +42,6 @@ class Store extends Component {
           products={this.props.products}
           navigateToItem={this.navigateToItem}
         />
-        {console.log('||||||||||||||||', this.props.products)}
         <Footer />
       </div>
     );

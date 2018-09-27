@@ -8,11 +8,7 @@ const AdminItemList = ({
   deleteItem,
 }) => {
   if (!Array.isArray(products) || products.length === 0) {
-    return (
-      <div>
-        No items
-      </div>
-    );
+    return <div>No items</div>;
   }
 
   const items = products.map(item => (
@@ -31,9 +27,7 @@ const AdminItemList = ({
   ));
   return (
     <div>
-      <ul>
-        {items}
-      </ul>
+      <ul>{items}</ul>
     </div>
   );
 };

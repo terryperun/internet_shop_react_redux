@@ -9,14 +9,15 @@ const initialState = {
   error: null,
 };
 
-const normalize = arr => arr.reduce(
-  (acc, item) => {
-    acc.ids.push(item.id);
-    acc.entities[item.id] = item;
-    return acc;
-  },
-  { ids: [], entities: {} }
-);
+const normalize = arr =>
+  arr.reduce(
+    (acc, item) => {
+      acc.ids.push(item.id);
+      acc.entities[item.id] = item;
+      return acc;
+    },
+    { ids: [], entities: {} },
+  );
 
 function reducer(state = initialState, action) {
   switch (action.type) {
@@ -39,13 +40,31 @@ function reducer(state = initialState, action) {
     case types.FETCH_PRODUCTS_ERROR:
       return { ...state, error: action.payload };
 
+    case types.FETCH_PRODUCT_START:
+      return { ...state, isLoading: true, error: null };
+
+    case types.FETCH_PRODUCT_SUCCESS: {
+      const product = action.payload;
+
+      const { ids, entities } = normalize(product);
+      return {
+        ...state,
+        isLoading: false,
+        items: ids,
+        entities: Object.assign({}, state.entities, entities),
+      };
+    }
+
+    case types.FETCH_PRODUCT_ERROR:
+      return { ...state, error: action.payload };
+
     case types.DELETE_PRODUCT_START:
-      return { ...state, isRemoving: false };
+      return { ...state, isLoading: true };
 
     case types.DELETE_PRODUCT_SUCCESS: {
       return {
         ...state,
-        isRemoving: true,
+        isLoading: false,
         items: state.items.filter(id => id !== action.payload),
       };
     }
@@ -90,6 +109,20 @@ function reducer(state = initialState, action) {
 
     case types.CREATE_PRODUCT_ERROR:
       return { ...state, error: action.payload };
+
+    // case types.CREATE_NEW_ITEM_BOOL_START:
+    //   return { ...state, isLoading: true };
+
+    // case types.CREATE_NEW_ITEM_BOOL_SUCCESS: {
+    //   return {
+    //     ...state,
+    //     isLoading: false,
+    //     items: state.items.filter(id => id !== action.payload),
+    //   };
+    // }
+
+    // case types.CREATE_NEW_ITEM_BOOL_ERROR:
+    //   return { ...state, error: action.payload };
 
     default:
       return state;

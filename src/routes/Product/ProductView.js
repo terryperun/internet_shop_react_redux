@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
+import * as productsOperations from '../../modules/products/productsOperations';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
-// import OpenedItem from '../../components/ItemContainers/OpenedItem/OpenedItem';
+// import OpenedItem from '../../components/Item/OpenedItem/OpenedItem';
 // import UserItemList from '../../components/ItemContainers/UserItemList/UserItemList';
 import OpenedItem from '../../components/ItemContainers/OpenedItem/OpenedItem';
 
@@ -20,11 +22,16 @@ class Product extends Component {
   async componentDidMount() {
     // if (!this.props.product) {
     // fetch product
+
     // }
-    this.setState({ isLading: true });
-    const productJson = await fetch(`/api/v1/products/${this.props.params.id}`);
-    const product = await productJson.json();
-    this.setState({ product, isLading: false });
+    // console.log('-------------------', this.props.product);
+
+    this.props.fetchProduct(this.props.params.id);
+    // this.setState({ isLading: true });
+    // const productJson = await fetch(`/api/v1/products/${this.props.params.id}`);
+    // const product = await productJson.json();
+    // this.setState({ product, isLading: false });
+    // console.log('////////////////', this.state.product.id);
   }
 
   // navigateToItem = (evt, id) => {
@@ -37,22 +44,37 @@ class Product extends Component {
       <div>..Loading..</div>
     ) : (
       <OpenedItem
-        product={this.state.product}
+        product={this.props.product}
+        // product={this.state.product}
         // navigateToItem={this.navigateToItem}
       />
     );
+    console.log('wwwwwwwwwwwwww', this.props.product);
     return (
       <div>
         <Header />
         {content}
+        {/* {console.log( */}
+        {/* 'wwwww2wwwwwww', */}
+        {/* this.props.product[this.props.params.id], )} */}
         <Footer />
       </div>
     );
   }
 }
-
-// const mapStateToProps = (state, props) => ({
-//   product: {},
-// })
-export default Product;
-// -----------------------------------
+// state.products.entities[this.props.params.id];
+// state.products.items.map(id => state.products.entities[id]);
+// this.props.params.id;
+const mapStateToProps = state => ({
+  // product: state.products.entities,
+  // product: state.products.items.map(id => state.products.entities[id]),
+  product: state.products.items.map(id => state.products.entities[id]),
+});
+const mapDispatchToProps = {
+  fetchProduct: productsOperations.fetchProduct,
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Product);
+// export default Product;

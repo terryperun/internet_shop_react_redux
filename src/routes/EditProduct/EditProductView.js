@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
-import OpenedItem from '../../components/ItemContainers/OpenedItem/OpenedItem';
+import AdminOpenedItem from '../../components/ItemContainers/AdminOpenedItem/AdminOpenedItem';
 
 class EditProduct extends Component {
   constructor(props) {
@@ -22,9 +22,11 @@ class EditProduct extends Component {
   }
 
   render() {
-    const content = this.state.isLading
-      ? <div>..Loading..</div>
-      : <OpenedItem product={this.state.product} />;
+    const content = this.state.isLading ? (
+      <div>..Loading..</div>
+    ) : (
+      <AdminOpenedItem product={this.state.product} />
+    );
     return (
       <div>
         <Header />

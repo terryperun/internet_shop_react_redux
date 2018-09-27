@@ -3,6 +3,10 @@ export const FETCH_PRODUCTS_SUCCESS =
   'products/FETCH_PRODUCTS_SUCCESS';
 export const FETCH_PRODUCTS_ERROR = 'products/FETCH_PRODUCTS_ERROR';
 
+export const FETCH_PRODUCT_START = 'products/FETCH_PRODUCT_START';
+export const FETCH_PRODUCT_SUCCESS = 'products/FETCH_PRODUCT_SUCCESS';
+export const FETCH_PRODUCT_ERROR = 'products/FETCH_PRODUCT_ERROR';
+
 export const DELETE_PRODUCT_START = 'products/DELETE_PRODUCT_START';
 export const DELETE_PRODUCT_SUCCESS =
   'products/DELETE_PRODUCT_SUCCESS';
@@ -17,3 +21,10 @@ export const CREATE_PRODUCT_START = 'products/CREATE_PRODUCT_START';
 export const CREATE_PRODUCT_SUCCESS =
   'products/CREATE_PRODUCT_SUCCESS';
 export const CREATE_PRODUCT_ERROR = 'products/CREATE_PRODUCT_ERROR';
+
+// export const CREATE_NEW_ITEM_BOOL_START =
+//   'products/CREATE_NEW_ITEM_BOOL_START';
+// export const CREATE_NEW_ITEM_BOOL_SUCCESS =
+//   'products/CREATE_NEW_ITEM_BOOL_SUCCESS';
+// export const CREATE_NEW_ITEM_BOOL_ERROR =
+//   'products/CREATE_NEW_ITEM_BOOL_ERROR';

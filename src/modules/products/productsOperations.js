@@ -13,6 +13,18 @@ export const fetchProducts = () => async (dispatch) => {
   }
 };
 
+export const fetchProduct = id => async (dispatch) => {
+  dispatch(actions.fetchProductStart());
+
+  try {
+    const product = await Api.getProduct(id);
+    const action = actions.fetchProductSuccess(product);
+    dispatch(action);
+  } catch (error) {
+    dispatch(actions.fetchProductError({ message: error.message }));
+  }
+};
+
 export const deleteProduct = id => async (dispatch) => {
   dispatch(actions.deleteProductStart());
 
@@ -62,3 +74,14 @@ export const createProduct = product => async (dispatch) => {
     dispatch(actions.createProductError({ message: error.message }));
   }
 };
+
+// export const createNewItemBoll = boll => async (dispatch) => {
+//   dispatch(actions.createNewItemBollStart());
+
+//   try {
+//     const action = actions.createNewItemBollSuccess(!boll);
+//     dispatch(action);
+//   } catch (error) {
+//     dispatch(actions.createNewItemBollError({ message: error.message }));
+//   }
+// };

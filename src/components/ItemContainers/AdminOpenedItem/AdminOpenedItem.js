@@ -1,12 +1,12 @@
 import React from 'react';
-import OpenedItem from '../../Item/OpenedItem/OpenedItem';
+import AdminOpenedItem from '../../Item/AdminOpenedItem/AdminOpenedItem';
 // ni use component
 const AdminItemList = ({ product }) => {
   if (!Array.isArray(product) || product.length === 0) {
     return <div>No items </div>;
   }
   const items = product.map(item => (
-    <OpenedItem
+    <AdminOpenedItem
       key={item.id}
       id={item.id}
       title={item.title}

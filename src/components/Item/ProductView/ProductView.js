@@ -1,19 +1,13 @@
 import React from 'react';
-import s from './AdminOpenedItem.module.css';
+import s from './ProductView.module.css';
 
-const AdminOpenedItem = ({
-  image,
-  title,
-  description,
-  price,
-  navigateToItem,
-  id,
+const ProductView = ({
+  product: {
+    image, title, description, price, navigateToItem, id,
+  },
 }) => (
   <div>
-    <div
-      className={s.containerDescription}
-      onClick={evt => navigateToItem(evt, id)}
-    >
+    <div className={s.containerDescription}>
       <div className={s.image}>
         <img
           className={s.itemImg}
@@ -34,4 +28,4 @@ const AdminOpenedItem = ({
   </div>
 );
 
-export default AdminOpenedItem;
+export default ProductView;

@@ -16,32 +16,43 @@ class Store extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      products: [],
-      isLoading: true,
-    };
     this.navigateToItem = this.navigateToItem.bind(this);
   }
 
   async componentDidMount() {
     this.props.fetchProducts();
+    // if (!this.props.products) {
+    //   this.props.fetchProducts();
+    // }
   }
 
   navigateToItem(id) {
     this.props.router.push(`/product/${id}`);
   }
-  render() {
+
+  renderProduct() {
     if (this.props.isLoading) {
-      return <div>Loading...</div>;
+      return <div>..Loading..</div>;
     }
-    console.log('wwwwwwwaaaaaaaaaaawwwwwww', this.props.products);
+
+    if (!this.props.products) {
+      return <div>No product</div>;
+    }
+
+    return (
+      <UserItemList
+        products={this.props.products}
+        navigateToItem={this.navigateToItem}
+      />
+    );
+  }
+
+  render() {
+    const content = this.renderProduct();
     return (
       <div>
         <Header />
-        <UserItemList
-          products={this.props.products}
-          navigateToItem={this.navigateToItem}
-        />
+        {content}
         <Footer />
       </div>
     );

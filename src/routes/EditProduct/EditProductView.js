@@ -1,32 +1,36 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
+import * as productsOperations from '../../modules/products/productsOperations';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
-import AdminOpenedItem from '../../components/ItemContainers/AdminOpenedItem/AdminOpenedItem';
+import AdminProductView from '../../components/Item/AdminProductView/AdminProductView';
 
 class EditProduct extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      product: [],
-      isLading: false,
-    };
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   async componentDidMount() {
-    this.setState({ isLading: true });
-    const productJson = await fetch(`/api/v1/products/${this.props.params.id}`);
-    const product = await productJson.json();
-    this.setState({ product, isLading: false });
+    if (!this.props.product) {
+      this.props.fetchProduct(this.props.params.id);
+    }
+  }
+  renderProduct() {
+    if (this.props.isLoading) {
+      return <div>..Loading..</div>;
+    }
+
+    if (!this.props.product) {
+      return <div>No product</div>;
+    }
+
+    return <AdminProductView product={this.props.product} />;
   }
 
   render() {
-    const content = this.state.isLading ? (
-      <div>..Loading..</div>
-    ) : (
-      <AdminOpenedItem product={this.state.product} />
-    );
+    const content = this.renderProduct();
+
     return (
       <div>
         <Header />
@@ -36,4 +40,19 @@ class EditProduct extends Component {
     );
   }
 }
-export default EditProduct;
+const mapStateToProps = (state, props) => ({
+  product: state.products.entities[props.params.id],
+  isLoading: state.products.isLoading,
+  isError: !!state.products.error,
+  errorMessage: state.products.error
+    ? state.products.error.message
+    : null,
+});
+
+const mapDispatchToProps = {
+  fetchProduct: productsOperations.fetchProduct,
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(EditProduct);

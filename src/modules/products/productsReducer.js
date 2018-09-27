@@ -51,7 +51,7 @@ function reducer(state = initialState, action) {
         ...state,
         isLoading: false,
         items: ids,
-        entities: Object.assign({}, state.entities, entities),
+        entities,
       };
     }
 
@@ -73,14 +73,14 @@ function reducer(state = initialState, action) {
       return { ...state, error: action.payload };
 
     case types.UPDATE_PRODUCT_START:
-      return { ...state, isUpdate: false };
+      return { ...state, isLoading: true };
 
     case types.UPDATE_PRODUCT_SUCCESS: {
       const { id, product } = action.payload;
 
       return {
         ...state,
-        isUpdate: true,
+        isLoading: false,
         entities: {
           ...state.entities,
           [id]: product,

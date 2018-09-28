@@ -39,9 +39,10 @@ class Admin extends Component {
   }
 
   componentDidMount() {
-    if (this.props.products) {
-      this.props.fetchProducts();
-    }
+    // if (!this.props.products) {
+    //   this.props.fetchProducts();
+    // }
+    this.props.fetchProducts();
   }
 
   handleOpenModal() {
@@ -100,7 +101,7 @@ class Admin extends Component {
     });
   }
 
-  renderProduct() {
+  renderProducts() {
     if (this.props.isLoading) {
       return <div>..Loading..</div>;
     }
@@ -120,7 +121,7 @@ class Admin extends Component {
   }
 
   render() {
-    const content = this.renderProduct();
+    const content = this.renderProducts();
 
     return (
       <div id="adminPage">

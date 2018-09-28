@@ -4,6 +4,7 @@ import T from 'prop-types';
 import { connect } from 'react-redux';
 
 import * as productsOperations from '../../modules/products/productsOperations';
+import * as cartActions from '../../modules/cart/cartActions';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import UserItemList from '../../components/ItemContainers/UserItemList/UserItemList';
@@ -17,6 +18,7 @@ class Store extends Component {
     super(props);
 
     this.navigateToItem = this.navigateToItem.bind(this);
+    this.addToCart = this.addToCart.bind(this);
   }
 
   async componentDidMount() {
@@ -30,7 +32,11 @@ class Store extends Component {
     this.props.router.push(`/product/${id}`);
   }
 
-  renderProduct() {
+  addToCart(product) {
+    this.props.addToCart(product);
+  }
+
+  renderProducts() {
     if (this.props.isLoading) {
       return <div>..Loading..</div>;
     }
@@ -43,12 +49,13 @@ class Store extends Component {
       <UserItemList
         products={this.props.products}
         navigateToItem={this.navigateToItem}
+        onAddInCart={this.addToCart}
       />
     );
   }
 
   render() {
-    const content = this.renderProduct();
+    const content = this.renderProducts();
     return (
       <div>
         <Header />
@@ -66,10 +73,12 @@ const mapStateToProps = state => ({
   errorMessage: state.products.error
     ? state.products.error.message
     : null,
+  cart: state.cart.totalPrice,
 });
 
 const mapDispatchToProps = {
   fetchProducts: productsOperations.fetchProducts,
+  addToCart: cartActions.addToCart,
 };
 
 export default connect(

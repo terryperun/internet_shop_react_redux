@@ -47,7 +47,6 @@ class Product extends Component {
       <div>
         <Header />
         {content}
-        {/* this.props.product[this.props.params.id], )} */}
         <Footer />
       </div>
     );

@@ -2,7 +2,7 @@ import React from 'react';
 import T from 'prop-types';
 import ProductItem from '../../Item/ProductItem/ProductItem';
 
-const UserItemList = ({ products, navigateToItem }) => {
+const UserItemList = ({ products, navigateToItem, onAddInCart }) => {
   const container = products.map(item => (
     <ProductItem
       id={item.id}
@@ -11,6 +11,8 @@ const UserItemList = ({ products, navigateToItem }) => {
       image={item.image}
       price={item.price}
       navigateToItem={navigateToItem}
+      item={item}
+      onAddInCart={onAddInCart}
     />
   ));
   return (

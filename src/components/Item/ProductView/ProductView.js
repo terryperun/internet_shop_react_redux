@@ -24,7 +24,7 @@ const ProductView = ({
       <div className={s.price}>Price: {price}</div>
       <div className={s.btn}>
         <button className={s.addBtn} onClick={onAddtoCart}>
-          Add to card
+          Add to cart
         </button>
       </div>
     </div>

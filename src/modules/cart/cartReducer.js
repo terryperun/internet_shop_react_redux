@@ -19,9 +19,6 @@ export default function reducer(state = initialState, action) {
     case types.REMOVE_FROM_CART:
       return {};
 
-    // case productTypes.DELETE_PRODUCT_SUCCESS:
-    //   return {};
-
     default:
       return state;
   }

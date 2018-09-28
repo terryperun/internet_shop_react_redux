@@ -8,20 +8,22 @@ import Footer from '../../components/Footer/Footer';
 import AdminProductView from '../../components/Item/AdminProductView/AdminProductView';
 
 class EditProduct extends Component {
-  // constructor(props) {
-  //   super(props);
+  constructor(props) {
+    super(props);
 
-  // this.addToCart = this.addToCart.bind(this);
-  // }
+    this.addToCart = this.addToCart.bind(this);
+  }
 
   async componentDidMount() {
     if (!this.props.product) {
       this.props.fetchProduct(this.props.params.id);
     }
-    console.log('--', this.props);
   }
 
-  // addToCart(id) {}
+  addToCart() {
+    this.props.addToCart(this.props.product);
+    console.log('--', this.props.cart);
+  }
 
   renderProduct() {
     if (this.props.isLoading) {
@@ -35,7 +37,7 @@ class EditProduct extends Component {
     return (
       <AdminProductView
         product={this.props.product}
-        onAddtoCart={this.props.addToCart}
+        onAddtoCart={this.addToCart}
       />
     );
   }
@@ -47,9 +49,9 @@ class EditProduct extends Component {
       <div>
         <Header />
         {content}
-        <button
+        {/* <button
           onClick={() => this.props.addToCart(this.props.product)}
-        />
+        /> */}
         <Footer />
       </div>
     );
@@ -62,6 +64,7 @@ const mapStateToProps = (state, props) => ({
   errorMessage: state.products.error
     ? state.products.error.message
     : null,
+  cart: state.cart.totalPrice,
 });
 
 const mapDispatchToProps = {

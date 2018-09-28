@@ -5,6 +5,7 @@ const ProductView = ({
   product: {
     image, title, description, price, navigateToItem, id,
   },
+  onAddtoCart,
 }) => (
   <div>
     <div className={s.containerDescription}>
@@ -22,7 +23,9 @@ const ProductView = ({
     <div className={s.buy}>
       <div className={s.price}>Price: {price}</div>
       <div className={s.btn}>
-        <button className={s.addBtn}>Add to card</button>
+        <button className={s.addBtn} onClick={onAddtoCart}>
+          Add to card
+        </button>
       </div>
     </div>
   </div>

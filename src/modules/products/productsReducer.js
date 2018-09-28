@@ -2,22 +2,9 @@ import * as types from './productTypes';
 
 const initialState = {
   items: [],
-  entities: {
-    // [id]: { ...product }
-  },
   isLoading: false,
   error: null,
 };
-
-const normalize = arr =>
-  arr.reduce(
-    (acc, item) => {
-      acc.ids.push(item.id);
-      acc.entities[item.id] = item;
-      return acc;
-    },
-    { ids: [], entities: {} },
-  );
 
 function reducer(state = initialState, action) {
   switch (action.type) {
@@ -25,15 +12,12 @@ function reducer(state = initialState, action) {
       return { ...state, isLoading: true, error: null };
 
     case types.FETCH_PRODUCTS_SUCCESS: {
-      const products = action.payload;
-
-      const { ids, entities } = normalize(products);
+      const { ids } = action.payload;
 
       return {
         ...state,
         isLoading: false,
         items: ids,
-        entities: Object.assign({}, state.entities, entities),
       };
     }
 
@@ -44,14 +28,9 @@ function reducer(state = initialState, action) {
       return { ...state, isLoading: true, error: null };
 
     case types.FETCH_PRODUCT_SUCCESS: {
-      const product = action.payload;
-
-      const { ids, entities } = normalize(product);
       return {
         ...state,
         isLoading: false,
-        items: ids,
-        entities,
       };
     }
 
@@ -76,15 +55,9 @@ function reducer(state = initialState, action) {
       return { ...state, isLoading: true };
 
     case types.UPDATE_PRODUCT_SUCCESS: {
-      const { id, product } = action.payload;
-
       return {
         ...state,
         isLoading: false,
-        entities: {
-          ...state.entities,
-          [id]: product,
-        },
       };
     }
 

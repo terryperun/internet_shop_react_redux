@@ -21,10 +21,3 @@ export const CREATE_PRODUCT_START = 'products/CREATE_PRODUCT_START';
 export const CREATE_PRODUCT_SUCCESS =
   'products/CREATE_PRODUCT_SUCCESS';
 export const CREATE_PRODUCT_ERROR = 'products/CREATE_PRODUCT_ERROR';
-
-// export const CREATE_NEW_ITEM_BOOL_START =
-//   'products/CREATE_NEW_ITEM_BOOL_START';
-// export const CREATE_NEW_ITEM_BOOL_SUCCESS =
-//   'products/CREATE_NEW_ITEM_BOOL_SUCCESS';
-// export const CREATE_NEW_ITEM_BOOL_ERROR =
-//   'products/CREATE_NEW_ITEM_BOOL_ERROR';

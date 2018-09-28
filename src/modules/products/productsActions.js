@@ -23,7 +23,3 @@ export const updateProductError = createAction(types.UPDATE_PRODUCT_ERROR);
 export const createProductStart = createAction(types.CREATE_PRODUCT_START);
 export const createProductSuccess = createAction(types.CREATE_PRODUCT_SUCCESS);
 export const createProductError = createAction(types.CREATE_PRODUCT_ERROR);
-
-// export const createNewItemBollStart = createAction(types.CREATE_NEW_ITEM_BOOL_START);
-// export const createNewItemBollSuccess = createAction(types.CREATE_NEW_ITEM_BOOL_SUCCESS);
-// export const createNewItemBollError = createAction(types.CREATE_NEW_ITEM_BOOL_ERROR);

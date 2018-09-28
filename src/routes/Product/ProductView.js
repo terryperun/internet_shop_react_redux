@@ -45,7 +45,7 @@ class Product extends Component {
 // this.props.params.id;
 const mapStateToProps = (state, props) => ({
   // product: state.products.entities,
-  product: state.products.entities[props.params.id],
+  product: state.entities.products[props.params.id],
   isLoading: state.products.isLoading,
   isError: !!state.products.error,
   errorMessage: state.products.error

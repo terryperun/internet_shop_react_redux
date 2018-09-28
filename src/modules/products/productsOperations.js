@@ -1,13 +1,17 @@
 import * as actions from './productsActions';
 import Api from '../../api/Api';
+import normalize from '../../utils/normalize';
 
 export const fetchProducts = () => async (dispatch) => {
   dispatch(actions.fetchProductsStart());
 
   try {
     const products = await Api.getProducts();
-    const action = actions.fetchProductsSuccess(products);
-    dispatch(action);
+    const { ids, entities } = normalize(products);
+    dispatch(actions.fetchProductsSuccess({
+      ids,
+      entities: { products: entities },
+    }));
   } catch (error) {
     dispatch(actions.fetchProductsError({ message: error.message }));
   }
@@ -49,8 +53,14 @@ export const updateProduct = (id, product) => async (dispatch) => {
   const body = createBody(product);
 
   try {
-    const products = await Api.updateProduct(id, body);
-    dispatch(actions.updateProductSuccess({ id, product: products[0] }));
+    const [product] = await Api.updateProduct(id, body);
+    dispatch(actions.updateProductSuccess({
+      entities: {
+        products: {
+          [product.id]: product,
+        },
+      },
+    }));
   } catch (error) {
     dispatch(actions.updateProductError({ message: error.message }));
   }
@@ -74,14 +84,3 @@ export const createProduct = product => async (dispatch) => {
     dispatch(actions.createProductError({ message: error.message }));
   }
 };
-
-// export const createNewItemBoll = boll => async (dispatch) => {
-//   dispatch(actions.createNewItemBollStart());
-
-//   try {
-//     const action = actions.createNewItemBollSuccess(!boll);
-//     dispatch(action);
-//   } catch (error) {
-//     dispatch(actions.createNewItemBollError({ message: error.message }));
-//   }
-// };

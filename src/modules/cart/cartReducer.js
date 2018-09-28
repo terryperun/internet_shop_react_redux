@@ -9,10 +9,10 @@ const initialState = {
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case types.ADD_TO_CART: {
-      const { id } = action.payload;
       return {
         ...state,
-        items: [...state.items, id],
+        items: [...state.items, action.payload.id],
+        totalPrice: state.totalPrice + action.payload.price,
       };
     }
 

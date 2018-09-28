@@ -2,24 +2,26 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import * as productsOperations from '../../modules/products/productsOperations';
+import * as cartActions from '../../modules/cart/cartActions';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import AdminProductView from '../../components/Item/AdminProductView/AdminProductView';
 
 class EditProduct extends Component {
-  constructor(props) {
-    super(props);
+  // constructor(props) {
+  //   super(props);
 
-    this.addToCart = this.addToCart.bind(this);
-  }
+  // this.addToCart = this.addToCart.bind(this);
+  // }
 
   async componentDidMount() {
     if (!this.props.product) {
       this.props.fetchProduct(this.props.params.id);
     }
+    console.log('--', this.props);
   }
 
-  addToCart(id) {}
+  // addToCart(id) {}
 
   renderProduct() {
     if (this.props.isLoading) {
@@ -45,6 +47,9 @@ class EditProduct extends Component {
       <div>
         <Header />
         {content}
+        <button
+          onClick={() => this.props.addToCart(this.props.product)}
+        />
         <Footer />
       </div>
     );
@@ -57,11 +62,11 @@ const mapStateToProps = (state, props) => ({
   errorMessage: state.products.error
     ? state.products.error.message
     : null,
-  // addToCart:
 });
 
 const mapDispatchToProps = {
   fetchProduct: productsOperations.fetchProduct,
+  addToCart: cartActions.addToCart,
 };
 export default connect(
   mapStateToProps,

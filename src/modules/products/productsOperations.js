@@ -21,8 +21,14 @@ export const fetchProduct = id => async (dispatch) => {
   dispatch(actions.fetchProductStart());
 
   try {
-    const product = await Api.getProduct(id);
-    const action = actions.fetchProductSuccess(product);
+    const [product] = await Api.getProduct(id);
+    const action = actions.fetchProductSuccess({
+      entities: {
+        products: {
+          [product.id]: product,
+        },
+      },
+    });
     dispatch(action);
   } catch (error) {
     dispatch(actions.fetchProductError({ message: error.message }));

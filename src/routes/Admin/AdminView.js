@@ -5,6 +5,7 @@ import T from 'prop-types';
 import { connect } from 'react-redux';
 
 import * as productsOperations from '../../modules/products/productsOperations';
+import cartActions from '../../modules/cart/cartActions';
 import AddModal from '../../components/AddModal/AddModal';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';

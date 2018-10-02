@@ -10,7 +10,6 @@ const AdminItemList = ({
   if (!Array.isArray(products) || products.length === 0) {
     return <div>No items</div>;
   }
-
   const items = products.map(item => (
     <AdminProductItem
       key={item.id}
@@ -28,6 +27,7 @@ const AdminItemList = ({
   return (
     <div>
       <ul>{items}</ul>
+      {console.log('iddddddddddddddddddd', products)}
     </div>
   );
 };

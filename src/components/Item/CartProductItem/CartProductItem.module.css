@@ -1,0 +1,52 @@
+.itemContainer {
+  height: 100px;
+  width: 80%;
+  margin: auto;
+  padding: 5px;
+  border-bottom: 2px solid #f2f1f2;
+}
+
+.image {
+  float: left;
+}
+
+.title {
+  float: left;
+  margin-top: 40px;
+  margin-left: 50px;
+
+}
+
+.price {
+  /* float: left; */
+  margin-top: 40px;
+  margin-left: 70%;
+
+}
+
+.btn {
+  float: right;
+  /* margin-right: 20px; */
+  /* margin-top: 5px; */
+  /* height: 90%; */
+  width: 20px;
+}
+
+.changeInput {
+  float: left;
+  margin-top: 40px;
+  margin-left: 10%;
+  /* width: 100px; */
+}
+
+.editBtn {
+  margin-top: 20px;
+  padding-right: 100%;
+  width: 40px;
+}
+
+.removeBtn {
+  margin-top: 15px;
+  padding-right: 100%;
+  width: 40px;
+}

@@ -91,13 +91,27 @@ class Admin extends Component {
     });
   }
 
-  createProduct(product) {
+  // createProduct(product) {
+  //   // debugger;
+  //   console.log('STATE BEFOR SEND TO SERV', product);
+  //   this.setState({
+  //     createNewItem: false,
+  //   });
+  //   this.props.createProduct(product);
+  //   this.setState({
+  //     showModal: false,
+  //   });
+  // }
+
+  async createProduct(product) {
     this.setState({
-      createNewItem: false,
+      createNewItem: true,
+      showModalLoading: true,
     });
-    this.props.createProduct(product);
+    await this.props.createProduct(product);
     this.setState({
       showModal: false,
+      showModalLoading: false,
     });
   }
 

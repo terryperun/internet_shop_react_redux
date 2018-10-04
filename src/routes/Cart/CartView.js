@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import CartItemList from '../../components/ItemContainers/CartItemList/CartItemList';
+import CartItemList from '../../components/ItemContainers/CartItemList/CartItemList';
 // import * as productsOperations from '../../modules/products/productsOperations';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
@@ -17,23 +17,32 @@ import Footer from '../../components/Footer/Footer';
 class Cart extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      products: [],
+    };
   }
 
-  // const getProductsByIds = (ids) => {
-  //   const queryString = ids.map(id => `ids[]=${id}`).join('&&');
+  async componentDidMount() {
+    const getProductsByIds = (ids) => {
+      const queryString = ids.map(id => `ids[]=${id}`).join('&&');
 
-  //   return fetch(`/api/v1/products?${queryString}`)
-  //     .then(raw => raw.json());
-  // }
-
-  // const produts = await getProductsByIds(this.props.cartIds)
-  // this.setState({ products })
+      return fetch(`/api/v1/products?${queryString}`).then(raw =>
+        raw.json());
+      // .then(data => this.setState({ ItemList: data }));
+    };
+    if (this.props.cartIds.length > 0) {
+      const products = await getProductsByIds(this.props.cartIds);
+      this.setState({ products });
+      console.log('323232323232', products);
+    }
+  }
 
   render() {
     return (
       <div>
         <Header />
-        {/* <CartItemList products={this.state.prod} /> */}
+        <CartItemList products={this.state.products} />
         <Footer />
       </div>
     );
@@ -41,7 +50,6 @@ class Cart extends Component {
 }
 
 const mapStateToProps = state => ({
-  // cart: state.cart.items.map(id => state.entities.products[id]),
   cartIds: state.cart.items,
 });
 

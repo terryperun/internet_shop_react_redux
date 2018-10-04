@@ -2,7 +2,12 @@ import React from 'react';
 import T from 'prop-types';
 import CartProductItem from '../../Item/CartProductItem/CartProductItem';
 
-const CartItemList = ({ products, navigateToItem, onAddInCart }) => {
+const CartItemList = ({
+  products,
+  navigateToItem,
+  onAddInCart,
+  onRemoveFromCart,
+}) => {
   const container = products.map(item => (
     <CartProductItem
       id={item.id}
@@ -13,6 +18,7 @@ const CartItemList = ({ products, navigateToItem, onAddInCart }) => {
       navigateToItem={navigateToItem}
       item={item}
       onAddInCart={onAddInCart}
+      onRemoveFromCart={onRemoveFromCart}
     />
   ));
   return (

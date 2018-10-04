@@ -1,9 +1,2 @@
 export const ADD_TO_CART = 'cart/ADD_TO_CART';
 export const REMOVE_FROM_CART = 'cart/REMOVE_FROM_CART';
-
-// export const FETCH_PRODUCTS_CART_START =
-//   'cart/FETCH_PRODUCTS_CART_START';
-// export const FETCH_PRODUCTS_CART_SUCCSESS =
-//   'cart/FETCH_PRODUCTS_CART_SUCCSESS';
-// export const FETCH_PRODUCTS_CART_ERROR =
-//   'cart/FETCH_PRODUCTS_CART_ERROR';

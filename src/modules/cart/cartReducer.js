@@ -17,6 +17,16 @@ export default function reducer(state = initialState, action) {
         // products: [...state.products, action.payload],
       };
     }
+    case types.REMOVE_FROM_CART: {
+      const { item } = action.payload;
+      console.log('69696969696969696969696969', item);
+      return {
+        ...state,
+        items: [state.items.filter(i => i.id !== item.id)],
+        totalPrice: state.totalPrice - item.price,
+        // products: [...state.products, action.payload],
+      };
+    }
 
     // case types.FETCH_PRODUCTS_CART_START:
     //   return { ...state, isLoading: true, error: null };

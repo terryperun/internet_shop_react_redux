@@ -10,8 +10,10 @@ const AdminItem = ({
   id,
   price,
   handleEdit,
-  deleteItem,
+  // deleteItem,
   propsItem,
+  onRemoveFromCart,
+  item,
 }) => (
   <div className={s.itemContainer}>
     <div onClick={evt => navigateToItem(evt, id)}>
@@ -30,7 +32,10 @@ const AdminItem = ({
     </div>
     <div className={s.price}>{`${price} грн`}</div>
     <div className={s.btn}>
-      <button className={s.removeBtn} onClick={() => deleteItem(id)}>
+      <button
+        className={s.removeBtn}
+        onClick={() => onRemoveFromCart(item)}
+      >
         x
       </button>
     </div>

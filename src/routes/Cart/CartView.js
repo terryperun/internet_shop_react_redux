@@ -4,6 +4,7 @@ import CartItemList from '../../components/ItemContainers/CartItemList/CartItemL
 // import * as productsOperations from '../../modules/products/productsOperations';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
+import * as cartActions from '../../modules/cart/cartActions';
 
 // window.onload = function () {
 //   if (localStorage.getItem('cartProductsId') !== null) {
@@ -21,6 +22,7 @@ class Cart extends Component {
     this.state = {
       products: [],
     };
+    this.onRemoveFromCart = this.onRemoveFromCart.bind(this);
   }
 
   async componentDidMount() {
@@ -38,11 +40,19 @@ class Cart extends Component {
     }
   }
 
+  onRemoveFromCart(item) {
+    this.props.removeFromCart(item);
+    console.log('item', item);
+  }
+
   render() {
     return (
       <div>
         <Header />
-        <CartItemList products={this.state.products} />
+        <CartItemList
+          products={this.state.products}
+          onRemoveFromCart={this.onRemoveFromCart}
+        />
         <Footer />
       </div>
     );
@@ -53,4 +63,11 @@ const mapStateToProps = state => ({
   cartIds: state.cart.items,
 });
 
-export default connect(mapStateToProps)(Cart);
+const mapDispatchToProps = {
+  removeFromCart: cartActions.removeFromCart,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Cart);

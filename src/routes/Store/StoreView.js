@@ -34,6 +34,17 @@ class Store extends Component {
 
   addToCart(product) {
     this.props.addToCart(product);
+
+    // if (localStorage.getItem('cartProductsId') == null) {
+    //   const cartProduct = [];
+    //   cartProduct.push(product);
+    //   localStorage.setItem('cartProductsId', cartProduct);
+    // } else {
+    //   const cartProducts = JSON.parse(localStorage.getItem('cartProductsId'));
+    //   cartProducts.push(product);
+    //   localStorage.setItem('cartProductsId', cartProducts);
+    // }
+    // const products = JSON.stringify(product);
   }
 
   renderProducts() {
@@ -73,7 +84,8 @@ const mapStateToProps = state => ({
   errorMessage: state.products.error
     ? state.products.error.message
     : null,
-  cart: state.cart.totalPrice,
+  cartIds: state.cart.items,
+  // carts: state.cart,
 });
 
 const mapDispatchToProps = {

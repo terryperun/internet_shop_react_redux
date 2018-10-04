@@ -9,8 +9,8 @@ export default combineReducers({
   cart,
 });
 
-console.log(combineReducers({
-  products,
-  entities,
-  cart,
-}));
+// console.log(combineReducers({
+//   products,
+//   entities,
+//   cart,
+// }));

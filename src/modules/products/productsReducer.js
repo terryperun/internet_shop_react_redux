@@ -83,20 +83,6 @@ function reducer(state = initialState, action) {
     case types.CREATE_PRODUCT_ERROR:
       return { ...state, error: action.payload };
 
-    // case types.CREATE_NEW_ITEM_BOOL_START:
-    //   return { ...state, isLoading: true };
-
-    // case types.CREATE_NEW_ITEM_BOOL_SUCCESS: {
-    //   return {
-    //     ...state,
-    //     isLoading: false,
-    //     items: state.items.filter(id => id !== action.payload),
-    //   };
-    // }
-
-    // case types.CREATE_NEW_ITEM_BOOL_ERROR:
-    //   return { ...state, error: action.payload };
-
     default:
       return state;
   }

@@ -3,7 +3,7 @@ import T from 'prop-types';
 
 const getProductState = props =>
   props.propsItem || {
-    id: '',
+    // id: '',
     title: '',
     description: '',
     image: '',
@@ -47,7 +47,7 @@ class AddModal extends Component {
     } = this.props;
 
     const valueBtn = createNewItem && 'Add';
-    console.log('state------------', this.state);
+    // console.log('state------------', this.state);
     if (isLoading) {
       return <div>Loading...</div>;
     }
@@ -94,12 +94,12 @@ class AddModal extends Component {
           <button
             onClick={() => {
               if (createNewItem) {
-                // debugger;
+                debugger;
                 onCreate(this.state);
-                console.log('STATE IN CREATE', this.state);
+                // console.log('STATE IN CREATE', this.state);
               } else {
                 onUpdate(this.state);
-                console.log('STATE IN UPDATE', this.state);
+                // console.log('STATE IN UPDATE', this.state);
               }
             }}
           >

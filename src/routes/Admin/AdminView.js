@@ -128,6 +128,7 @@ class Admin extends Component {
 
     return (
       <AdminItemList
+      debugger
         products={this.props.products}
         navigateToItem={this.navigateToItem}
         handleEdit={this.handleEdit}

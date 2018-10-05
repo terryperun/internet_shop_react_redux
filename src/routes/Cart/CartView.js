@@ -23,6 +23,7 @@ class Cart extends Component {
       products: [],
     };
     this.onRemoveFromCart = this.onRemoveFromCart.bind(this);
+    this.navigateToItem = this.navigateToItem.bind(this);
   }
 
   async componentDidMount() {
@@ -36,7 +37,6 @@ class Cart extends Component {
     if (this.props.cartIds.length > 0) {
       const products = await getProductsByIds(this.props.cartIds);
       this.setState({ products });
-      console.log('323232323232', products);
     }
   }
 
@@ -45,12 +45,18 @@ class Cart extends Component {
     console.log('item', item);
   }
 
+  navigateToItem(id) {
+    console.log('PUUUUUUUUUUUUUUUUUSJJKKLMNBVJHH', id);
+    this.props.router.push(`/product/${id}`);
+  }
+
   render() {
     return (
       <div>
         <Header />
         <CartItemList
           products={this.state.products}
+          navigateToItem={this.navigateToItem}
           onRemoveFromCart={this.onRemoveFromCart}
         />
         <Footer />

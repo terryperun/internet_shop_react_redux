@@ -9,14 +9,11 @@ const AdminItem = ({
   navigateToItem,
   id,
   price,
-  handleEdit,
-  // deleteItem,
-  propsItem,
   onRemoveFromCart,
   item,
 }) => (
   <div className={s.itemContainer}>
-    <div onClick={evt => navigateToItem(evt, id)}>
+    <div onClick={() => navigateToItem(id)}>
       <div className={s.image}>
         <img
           className={s.itemImg}
@@ -43,14 +40,13 @@ const AdminItem = ({
 );
 
 AdminItem.propTypes = {
-  propsItem: T.object,
+  item: T.object,
   title: T.string,
   image: T.string,
   navigateToItem: T.func,
   id: T.string,
   price: T.string,
-  handleEdit: T.func,
-  deleteItem: T.func,
+  onRemoveFromCart: T.func,
 };
 
 export default AdminItem;

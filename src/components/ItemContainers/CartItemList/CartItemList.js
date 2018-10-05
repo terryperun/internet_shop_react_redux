@@ -5,7 +5,6 @@ import CartProductItem from '../../Item/CartProductItem/CartProductItem';
 const CartItemList = ({
   products,
   navigateToItem,
-  onAddInCart,
   onRemoveFromCart,
 }) => {
   const container = products.map(item => (
@@ -17,7 +16,6 @@ const CartItemList = ({
       price={item.price}
       navigateToItem={navigateToItem}
       item={item}
-      onAddInCart={onAddInCart}
       onRemoveFromCart={onRemoveFromCart}
     />
   ));

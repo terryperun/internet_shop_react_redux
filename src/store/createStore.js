@@ -35,7 +35,7 @@ const composeEnhancers =
 const persistConfig = {
   key: 'root',
   storage,
-  stateReconciler: hardSet,
+  whitelist: ['cart'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

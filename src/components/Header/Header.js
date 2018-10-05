@@ -22,6 +22,7 @@ class Header extends Component {
     };
 
     this.pushToCard = this.pushToCard.bind(this);
+    this.navigateToItem = this.navigateToItem.bind(this);
   }
   pushToCard() {
     const page = '';
@@ -29,6 +30,10 @@ class Header extends Component {
     this.setState({
       showModal: true,
     });
+  }
+
+  navigateToItem(id) {
+    this.props.router.push(`/product/${id}`);
   }
 
   render() {
@@ -65,7 +70,10 @@ class Header extends Component {
           onRequestClose={this.handleCloseModal}
           shouldCloseOnOverlayClick={false}
         >
-          <CartItemList products={this.props.cart} />
+          <CartItemList
+            products={this.props.cart}
+            navigateToItem={this.navigateToItem}
+          />
         </Modal>
       </header>
     );

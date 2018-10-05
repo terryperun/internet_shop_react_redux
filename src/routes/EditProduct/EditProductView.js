@@ -49,9 +49,6 @@ class EditProduct extends Component {
       <div>
         <Header />
         {content}
-        {/* <button
-          onClick={() => this.props.addToCart(this.props.product)}
-        /> */}
         <Footer />
       </div>
     );

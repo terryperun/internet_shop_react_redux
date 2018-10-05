@@ -27,7 +27,6 @@ const AdminItemList = ({
   return (
     <div>
       <ul>{items}</ul>
-      {console.log('iddddddddddddddddddd', products)}
     </div>
   );
 };

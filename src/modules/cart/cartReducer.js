@@ -19,7 +19,7 @@ export default function reducer(state = initialState, action) {
     }
     case types.REMOVE_FROM_CART: {
       const { item } = action.payload;
-      console.log('69696969696969696969696969', item);
+      console.log('-----------4-----------', item);
       return {
         ...state,
         items: [state.items.filter(i => i.id !== item.id)],

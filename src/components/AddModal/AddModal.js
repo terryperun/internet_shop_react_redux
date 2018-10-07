@@ -94,7 +94,6 @@ class AddModal extends Component {
           <button
             onClick={() => {
               if (createNewItem) {
-                // debugger;
                 onCreate(this.state);
                 // console.log('STATE IN CREATE', this.state);
               } else {

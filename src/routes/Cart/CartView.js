@@ -19,9 +19,6 @@ class Cart extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      products: [],
-    };
     this.onRemoveFromCart = this.onRemoveFromCart.bind(this);
     this.navigateToItem = this.navigateToItem.bind(this);
   }
@@ -34,19 +31,18 @@ class Cart extends Component {
         raw.json());
       // .then(data => this.setState({ ItemList: data }));
     };
-    if (this.props.cartIds.length > 0) {
-      const products = await getProductsByIds(this.props.cartIds);
-      this.setState({ products });
+    if (this.props.cart !== undefined) {
+      const products = await getProductsByIds(this.props.cart);
+      // this.setState({ products });
     }
   }
 
   onRemoveFromCart(item) {
     this.props.removeFromCart(item);
-    console.log('item', item);
   }
 
   navigateToItem(id) {
-    console.log('PUUUUUUUUUUUUUUUUUSJJKKLMNBVJHH', id);
+    console.log('navigateToItem navigateToItem', id);
     this.props.router.push(`/product/${id}`);
   }
 
@@ -55,7 +51,7 @@ class Cart extends Component {
       <div>
         <Header />
         <CartItemList
-          products={this.state.products}
+          products={this.props.cart}
           navigateToItem={this.navigateToItem}
           onRemoveFromCart={this.onRemoveFromCart}
         />
@@ -66,7 +62,7 @@ class Cart extends Component {
 }
 
 const mapStateToProps = state => ({
-  cartIds: state.cart.items,
+  cart: state.cart.items.map(id => state.entities.products[id]),
 });
 
 const mapDispatchToProps = {

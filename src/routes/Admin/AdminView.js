@@ -90,17 +90,18 @@ class Admin extends Component {
       showModalLoading: false,
     });
   }
-
-  createProduct(product) {
-    // debugger;
+  // add async/await
+  async createProduct(product) {
     console.log('STATE BEFOR SEND TO SERV', product);
-    this.setState({
-      createNewItem: false,
-    });
-    this.props.createProduct(product);
+    // this.setState({
+    //   createNewItem: false,
+    // });
+    await this.props.createProduct(product);
     this.setState({
       showModal: false,
+      createNewItem: false,
     });
+    console.log('entities in adminView', this.props.ent);
   }
 
   // async createProduct(product) {
@@ -119,16 +120,19 @@ class Admin extends Component {
 
   renderProducts() {
     if (this.props.isLoading) {
+      console.log('START LOADING');
       return <div>..Loading..</div>;
     }
 
     if (!this.props.products) {
       return <div>No product</div>;
     }
-
+    console.log(
+      'PRODUCTS RENDERED IN ADMIN VIEW',
+      this.props.products,
+    );
     return (
       <AdminItemList
-      debugger
         products={this.props.products}
         navigateToItem={this.navigateToItem}
         handleEdit={this.handleEdit}
@@ -152,11 +156,10 @@ class Admin extends Component {
         >
           <AddModal
             closeModal={this.handleCloseModal}
-            isLoading={this.state.showModalLoading}
-            // isLoading={this.props.isLoading}
+            // isLoading={this.state.showModalLoading}
+            isLoading={this.props.isLoading}
             propsItem={this.state.propsItem}
             showModal={this.state.showModal}
-            // showModal={this.props.isLoading}
             createNewItem={this.state.createNewItem}
             onCreate={this.createProduct}
             onUpdate={this.updateProduct}
@@ -172,6 +175,7 @@ class Admin extends Component {
 
 const mapStateToProps = state => ({
   products: state.products.items.map(id => state.entities.products[id]),
+  ent: state.entities.products,
   isLoading: state.products.isLoading,
   isError: !!state.products.error,
   errorMessage: state.products.error

@@ -68,15 +68,11 @@ function reducer(state = initialState, action) {
       return { ...state, isLoading: true, error: null };
 
     case types.CREATE_PRODUCT_SUCCESS: {
-      const { id } = action.payload;
+      const { ids } = action.payload;
       return {
         ...state,
         isLoading: false,
-        items: [id].concat(state.items),
-        entities: {
-          ...state.entities,
-          [id]: action.payload,
-        },
+        items: [ids].concat(state.items),
       };
     }
 

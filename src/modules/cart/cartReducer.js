@@ -18,12 +18,13 @@ export default function reducer(state = initialState, action) {
       };
     }
     case types.REMOVE_FROM_CART: {
-      const { item } = action.payload;
-      console.log('-----------4-----------', item);
+      const { id, price } = action.payload;
+      console.log('-----------4-----------', id);
       return {
         ...state,
-        items: [state.items.filter(i => i.id !== item.id)],
-        totalPrice: state.totalPrice - item.price,
+        items: state.items.filter(i => i !== id),
+        // items: state.items.filter(id => id !== action.payload),
+        totalPrice: state.totalPrice - price,
         // products: [...state.products, action.payload],
       };
     }
@@ -44,8 +45,8 @@ export default function reducer(state = initialState, action) {
     // case types.FETCH_PRODUCTS_CART_ERROR:
     //   return { ...state, error: action.payload };
 
-    case types.REMOVE_FROM_CART:
-      return {};
+    // case types.REMOVE_FROM_CART:
+    // return {};
 
     default:
       return state;

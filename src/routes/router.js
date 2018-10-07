@@ -19,7 +19,7 @@ const routes = (
   <Router>
     <Route path="/admin" component={props => <Admin {...props} />} />
     <Route path="/" component={props => <Store {...props} />} />
-    <Route path="/cart" component={Cart} />
+    <Route path="/cart" component={props => <Cart {...props} />} />
     <Route path="/cart/checkout" component={Checkout} />
     <Route path="/about" component={About} />
     <Route path="/contact" component={Contact} />

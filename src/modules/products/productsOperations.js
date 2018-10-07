@@ -85,7 +85,11 @@ export const createProduct = product => async (dispatch) => {
 
   try {
     const newProduct = await Api.createProduct(body);
-    dispatch(actions.createProductSuccess(newProduct[0]));
+    const { ids, entities } = normalize(newProduct);
+    dispatch(actions.createProductSuccess({
+      ids,
+      entities: { products: entities },
+    }));
   } catch (error) {
     dispatch(actions.createProductError({ message: error.message }));
   }

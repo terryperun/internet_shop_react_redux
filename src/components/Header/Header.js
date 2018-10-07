@@ -4,9 +4,11 @@
 // import { withRouter } from 'react-router';
 
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { Link, withRouter } from 'react-router';
 import Modal from 'react-modal';
 import { connect } from 'react-redux';
+
+import * as cartActions from '../../modules/cart/cartActions';
 
 import s from './Header.module.css';
 import CartItemList from '../ItemContainers/CartItemList/CartItemList';
@@ -23,7 +25,13 @@ class Header extends Component {
 
     this.pushToCard = this.pushToCard.bind(this);
     this.navigateToItem = this.navigateToItem.bind(this);
+    this.onRemoveFromCart = this.onRemoveFromCart.bind(this);
   }
+
+  onRemoveFromCart(item) {
+    this.props.removeFromCart(item);
+  }
+
   pushToCard() {
     const page = '';
     window.history.pushState(page, 'Cart', '/cart');
@@ -33,6 +41,7 @@ class Header extends Component {
   }
 
   navigateToItem(id) {
+    console.log('HEADER navigateToItem', id);
     this.props.router.push(`/product/${id}`);
   }
 
@@ -49,20 +58,24 @@ class Header extends Component {
           </form>
         </div>
         <div className={s.cart}>
-          <button onClick={this.pushToCard}>Cart</button>
+          {window.location.pathname !== '/cart' ? (
+            <button onClick={this.pushToCard}>Cart</button>
+          ) : (
+            undefined
+          )}
         </div>
 
-        {/* {location.pathname === '/admin' ? ( */}
-        <button
-          id="addProductButton"
-          className={s.addItemAdminContainer}
-          onClick={openModal}
-        >
-          Add
-        </button>
-        {/* ) : (
-          undefined */}
-        {/* )} */}
+        {window.location.pathname === '/admin' ? (
+          <button
+            id="addProductButton"
+            className={s.addItemAdminContainer}
+            onClick={openModal}
+          >
+            Add
+          </button>
+        ) : (
+          undefined
+        )}
 
         <Modal
           isOpen={this.state.showModal}
@@ -73,6 +86,7 @@ class Header extends Component {
           <CartItemList
             products={this.props.cart}
             navigateToItem={this.navigateToItem}
+            onRemoveFromCart={this.onRemoveFromCart}
           />
         </Modal>
       </header>
@@ -80,45 +94,15 @@ class Header extends Component {
   }
 }
 
-const mapStateToProps = (state, props) => ({
+const mapStateToProps = state => ({
   cart: state.cart.items.map(id => state.entities.products[id]),
-  state,
 });
 
-const mapDispatchToProps = {};
-export default connect(
+const mapDispatchToProps = {
+  removeFromCart: cartActions.removeFromCart,
+};
+
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Header);
-// export default withRouter(Header);
-
-// const Header = ({
-//   openModal,
-//   closeModal,
-//   router,
-//   location,
-// }) => (
-//   <header className={s.container}>
-//     <div className={s.logo}>
-//       <Link to="/">MLTrcPublic</Link>
-//     </div>
-//     <div className={s.searchContainer}>
-//       <form>
-//         <input placeholder="I'm looking for..." />
-//       </form>
-//     </div>
-//     <div className={s.cart}>
-//       <Link to="/cart">Cart</Link>
-//     </div>
-//     {location.pathname === '/admin'
-//       ? <button
-//         id="addProductButton"
-//         className={s.addItemAdminContainer}
-//         onClick={openModal}
-//       >
-//         Add
-//         </button>
-//     : undefined}
-//   </header>
-// );
-// export default withRouter(Header);
+)(Header));

@@ -1,18 +1,19 @@
 import React from 'react';
 import T from 'prop-types';
-import s from './AdminProductItem.module.css';
+
+import s from './CartProductItem.module.css';
 
 const AdminItem = ({
   image,
   title,
   navigateToItem,
   id,
-  handleEdit,
-  deleteItem,
-  propsItem,
+  price,
+  onRemoveFromCart,
+  item,
 }) => (
   <div className={s.itemContainer}>
-    <div onClick={evt => navigateToItem(evt, id)}>
+    <div onClick={() => navigateToItem(id)}>
       <div className={s.image}>
         <img
           className={s.itemImg}
@@ -23,28 +24,29 @@ const AdminItem = ({
       </div>
       <div className={s.title}>{title}</div>
     </div>
+    <div className={s.changeInput}>
+      <input type="number" />
+    </div>
+    <div className={s.price}>{`${price} грн`}</div>
     <div className={s.btn}>
       <button
-        className={s.editBtn}
-        onClick={() => handleEdit(propsItem)}
+        className={s.removeBtn}
+        onClick={() => onRemoveFromCart(item)}
       >
-        Edit
-      </button>
-      <button className={s.removeBtn} onClick={() => deleteItem(id)}>
-        Remove
+        x
       </button>
     </div>
   </div>
 );
 
 AdminItem.propTypes = {
-  propsItem: T.object,
+  item: T.object,
   title: T.string,
   image: T.string,
   navigateToItem: T.func,
   id: T.string,
-  handleEdit: T.func,
-  deleteItem: T.func,
+  price: T.string,
+  onRemoveFromCart: T.func,
 };
 
 export default AdminItem;

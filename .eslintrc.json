@@ -29,7 +29,7 @@
     "jsx-a11y/anchor-is-valid": [ "error", { "components": [ "Link" ], "specialLink": [ "to" ] } ],
     "eol-last": 0,
     "jsx-a11y/href-no-hash": "off",
-    "max-len": [1, 150, 2],
+    "max-len": [1, 70, 2],
     "import/no-extraneous-dependencies": [
       "error",
       {
@@ -43,6 +43,7 @@
     "no-underscore-dangle": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/forbid-prop-types": 0,
-    "react/require-default-props": 0
+    "react/require-default-props": 0,
+    "no-debugger": 0
   }
 }

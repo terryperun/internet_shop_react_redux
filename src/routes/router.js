@@ -16,18 +16,27 @@ import Store from './Store/StoreView';
 import { products } from '../mocks/Product';
 
 const routes = (
-  <Router >
+  <Router>
     <Route path="/admin" component={props => <Admin {...props} />} />
     <Route path="/" component={props => <Store {...props} />} />
-    <Route path="/cart" component={Cart} />
+    <Route path="/cart" component={props => <Cart {...props} />} />
     <Route path="/cart/checkout" component={Checkout} />
     <Route path="/about" component={About} />
     <Route path="/contact" component={Contact} />
-    <Route path="/termsandconditions" component={TermsAndConditions} />
+    <Route
+      path="/termsandconditions"
+      component={TermsAndConditions}
+    />
     <Route path="/privacypolicy" component={PrivacyPolicy} />
     {/* <Route path="*" component={Error} /> */}
-    <Route path="/admin/product/:id" component={props => <EditProduct {...props} />} />
-    <Route path="/product/:id" component={Product} />
+    <Route
+      path="/admin/product/:id"
+      component={props => <EditProduct {...props} />}
+    />
+    <Route
+      path="/product/:id"
+      component={props => <Product {...props} />}
+    />
   </Router>
 );
 

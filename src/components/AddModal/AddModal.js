@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import T from 'prop-types';
 
-const getProductState = props => (props.propsItem || {
-  id: '',
-  title: '',
-  description: '',
-  image: '',
-  price: '',
-});
+const getProductState = props =>
+  props.propsItem || {
+    // id: '',
+    title: '',
+    description: '',
+    image: '',
+    price: '',
+  };
 
 class AddModal extends Component {
   static propTypes = {
@@ -17,15 +18,15 @@ class AddModal extends Component {
     createNewItem: T.bool,
     onCreate: T.func,
     onUpdate: T.func,
-  }
+  };
 
   constructor(props) {
     super(props);
 
-    this.state = ({
+    this.state = {
       ...getProductState(props),
       createNewItem: this.props.createNewItem || false,
-    });
+    };
 
     this.handleChange = this.handleChange.bind(this);
   }
@@ -46,7 +47,7 @@ class AddModal extends Component {
     } = this.props;
 
     const valueBtn = createNewItem && 'Add';
-
+    // console.log('state------------', this.state);
     if (isLoading) {
       return <div>Loading...</div>;
     }
@@ -55,7 +56,7 @@ class AddModal extends Component {
       <div>
         <div>
           <label htmlFor="L1">
-              Title:
+            Title:
             <br />
           </label>
           <textarea
@@ -90,19 +91,21 @@ class AddModal extends Component {
             onChange={this.handleChange('price')}
           />
           <br />
-          <button onClick={() => {
-            if (createNewItem) {
-              onCreate(this.state);
-            } else {
-              onUpdate(this.state);
-            }
-          }}
+          <button
+            onClick={() => {
+              if (createNewItem) {
+                onCreate(this.state);
+                // console.log('STATE IN CREATE', this.state);
+              } else {
+                onUpdate(this.state);
+                // console.log('STATE IN UPDATE', this.state);
+              }
+            }}
           >
             {valueBtn || 'Edit'}
           </button>
           <button onClick={closeModal}>Close Modal</button>
         </div>
-
       </div>
     );
   }

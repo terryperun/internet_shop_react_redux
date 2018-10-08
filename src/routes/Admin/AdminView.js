@@ -1,37 +1,31 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router';
+// import { withRouter } from 'react-router';
 import Modal from 'react-modal';
 import T from 'prop-types';
+import { connect } from 'react-redux';
 
+import * as productsOperations from '../../modules/products/productsOperations';
+import cartActions from '../../modules/cart/cartActions';
 import AddModal from '../../components/AddModal/AddModal';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import AdminItemList from '../../components/ItemContainers/AdminItemList/AdminItemList';
-import Api from '../../api/Api';
+// import Api from '../../api/Api';
 
 const appElement = document.getElementById('adminPage');
 Modal.setAppElement(appElement);
 
-const createBody = product => ({
-  title: product.title || '',
-  description: product.description || '',
-  price: product.price || '',
-  image: '',
-});
-
 class Admin extends Component {
   static propTypes = {
     router: T.object,
-  }
+  };
 
   constructor(props) {
     super(props);
 
     this.state = {
-      products: [],
-      isLoading: true,
       showModal: false,
-      showModalLoading: false,
+      // showModalLoading: false,
     };
 
     this.navigateToItem = this.navigateToItem.bind(this);
@@ -44,9 +38,11 @@ class Admin extends Component {
     this.updateProduct = this.updateProduct.bind(this);
   }
 
-  async componentDidMount() {
-    const products = await Api.getProducts();
-    this.setState({ products, isLoading: false });
+  componentDidMount() {
+    // if (!this.props.products) {
+    //   this.props.fetchProducts();
+    // }
+    this.props.fetchProducts();
   }
 
   handleOpenModal() {
@@ -71,85 +67,97 @@ class Admin extends Component {
 
   navigateToItem = (evt, id) => {
     this.props.router.push(`/admin/product/${id}`);
-  }
+  };
 
   handleEdit = (propsItem) => {
     this.setState({
       showModal: true,
       propsItem,
     });
-  }
+  };
 
   deleteItem(id) {
-    Api.removeProduct(id)
-      .then(() => this.setState({ products: this.state.products.filter(i => i.id !== id) }))
-      .catch((error) => {
-        console.log('Request failed', error);
-      });
+    this.props.deleteProduct(id);
   }
 
-  updateProduct(product) {
-    const body = createBody(product);
+  async updateProduct(product) {
     this.setState({
       showModalLoading: true,
     });
-
-    const editItemId = product.id;
-    Api.updateProduct(editItemId, body)
-      .then((json) => {
-        const stateProductsNow = [...this.state.products];
-        const newProduct = json[0];
-
-        const indexItem = this.state.products.findIndex(elem => elem.id === product.id);
-        stateProductsNow[indexItem] = newProduct;
-
-        this.setState({
-          products: stateProductsNow,
-          showModalLoading: false,
-          showModal: false,
-        });
-      })
-      .catch((error) => {
-        console.log('Add failed', error);
-      });
+    await this.props.updateProduct(product.id, product);
+    this.setState({
+      showModal: false,
+      showModalLoading: false,
+    });
+  }
+  // add async/await
+  async createProduct(product) {
+    console.log('STATE BEFOR SEND TO SERV', product);
+    // this.setState({
+    //   createNewItem: false,
+    // });
+    await this.props.createProduct(product);
+    this.setState({
+      showModal: false,
+      createNewItem: false,
+    });
+    console.log('entities in adminView', this.props.ent);
   }
 
-  createProduct(product) {
-    const body = createBody(product);
-    this.setState({ createNewItem: false, showModalLoading: true });
-    Api.createProduct(body)
-      .then((json) => {
-        const newProduct = json[0];
+  // async createProduct(product) {
+  //   console.log('STATE BEFOR SEND TO SERV', product);
+  //   debugger
+  //   this.setState({
+  //     createNewItem: true,
+  //     showModalLoading: true,
+  //   });
+  //   await this.props.createProduct(product);
+  //   this.setState({
+  //     showModal: false,
+  //     showModalLoading: false,
+  //   });
+  // }
 
-        this.setState({
-          products: this.state.products.concat(newProduct),
-          showModalLoading: false,
-          showModal: false,
-        });
-      })
-      .catch((error) => {
-        console.log('Create failed', error);
-      });
+  renderProducts() {
+    if (this.props.isLoading) {
+      console.log('START LOADING');
+      return <div>..Loading..</div>;
+    }
+
+    if (!this.props.products) {
+      return <div>No product</div>;
+    }
+    console.log(
+      'PRODUCTS RENDERED IN ADMIN VIEW',
+      this.props.products,
+    );
+    return (
+      <AdminItemList
+        products={this.props.products}
+        navigateToItem={this.navigateToItem}
+        handleEdit={this.handleEdit}
+        deleteItem={this.deleteItem}
+      />
+    );
   }
 
   render() {
-    if (this.state.isLoading) {
-      return <div>Loading...</div>;
-    }
+    const content = this.renderProducts();
+
     return (
       <div id="adminPage">
-        <Header
-          openModal={this.handleOpenModal}
-        />
+        <Header openModal={this.handleOpenModal} />
         <Modal
           isOpen={this.state.showModal}
+          // isOpen={this.props.isLoading}
           contentLabel="Minimal Modal Example"
           onRequestClose={this.handleCloseModal}
           shouldCloseOnOverlayClick={false}
         >
           <AddModal
             closeModal={this.handleCloseModal}
-            isLoading={this.state.showModalLoading}
+            // isLoading={this.state.showModalLoading}
+            isLoading={this.props.isLoading}
             propsItem={this.state.propsItem}
             showModal={this.state.showModal}
             createNewItem={this.state.createNewItem}
@@ -158,15 +166,31 @@ class Admin extends Component {
             closeQuick={this.handleCloseModalQuick}
           />
         </Modal>
-        <AdminItemList
-          products={this.state.products}
-          navigateToItem={this.navigateToItem}
-          handleEdit={this.handleEdit}
-          deleteItem={this.deleteItem}
-        />
+        {content}
         <Footer />
       </div>
     );
   }
 }
-export default withRouter(Admin);
+
+const mapStateToProps = state => ({
+  products: state.products.items.map(id => state.entities.products[id]),
+  ent: state.entities.products,
+  isLoading: state.products.isLoading,
+  isError: !!state.products.error,
+  errorMessage: state.products.error
+    ? state.products.error.message
+    : null,
+});
+
+const mapDispatchToProps = {
+  fetchProducts: productsOperations.fetchProducts,
+  deleteProduct: productsOperations.deleteProduct,
+  updateProduct: productsOperations.updateProduct,
+  createProduct: productsOperations.createProduct,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Admin);

@@ -8,7 +8,13 @@
     "react-dom": "^16.4.1",
     "react-modal": "^3.5.1",
     "react-recaptcha": "^2.3.10",
-    "react-router": "^3.2.1"
+    "react-redux": "^5.0.7",
+    "react-router": "^3.2.1",
+    "redux": "^4.0.0",
+    "redux-actions": "^2.6.1",
+    "redux-persist": "^5.10.0",
+    "redux-thunk": "^2.3.0",
+    "reselect": "^3.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -25,7 +31,8 @@
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-jsx-a11y": "^5.0.1",
     "eslint-plugin-testcafe": "^0.2.1",
-    "react-scripts": "^2.0.0-next.3e165448"
+    "react-scripts": "^2.0.0-next.3e165448",
+    "remote-redux-devtools": "^0.5.13"
   },
   "eslintConfig": {
     "extends": "react-app"

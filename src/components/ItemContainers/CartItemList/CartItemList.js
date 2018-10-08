@@ -1,10 +1,14 @@
 import React from 'react';
 import T from 'prop-types';
-import ProductItem from '../../Item/ProductItem/ProductItem';
+import CartProductItem from '../../Item/CartProductItem/CartProductItem';
 
-const UserItemList = ({ products, navigateToItem, onAddInCart }) => {
+const CartItemList = ({
+  products,
+  navigateToItem,
+  onRemoveFromCart,
+}) => {
   const container = products.map(item => (
-    <ProductItem
+    <CartProductItem
       id={item.id}
       title={item.title}
       description={item.description}
@@ -12,7 +16,7 @@ const UserItemList = ({ products, navigateToItem, onAddInCart }) => {
       price={item.price}
       navigateToItem={navigateToItem}
       item={item}
-      onAddInCart={onAddInCart}
+      onRemoveFromCart={onRemoveFromCart}
     />
   ));
   return (
@@ -22,9 +26,9 @@ const UserItemList = ({ products, navigateToItem, onAddInCart }) => {
   );
 };
 
-UserItemList.propTypes = {
+CartItemList.propTypes = {
   // products: T.array,
   navigateToItem: T.func,
 };
 
-export default UserItemList;
+export default CartItemList;

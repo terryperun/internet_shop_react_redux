@@ -4,6 +4,7 @@ import CartItemList from '../../components/ItemContainers/CartItemList/CartItemL
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import * as cartActions from '../../modules/cart/cartActions';
+import s from './CartView.module.css';
 
 class Cart extends Component {
   constructor(props) {
@@ -49,11 +50,16 @@ class Cart extends Component {
       return <div>..no cookies :( ..</div>;
     }
     return (
-      <CartItemList
-        products={this.state.products}
-        navigateToItem={this.navigateToItem}
-        onRemoveFromCart={this.onRemoveFromCart}
-      />
+      <div>
+        <CartItemList
+          products={this.state.products}
+          navigateToItem={this.navigateToItem}
+          onRemoveFromCart={this.onRemoveFromCart}
+        />
+        <div className={s.totalPrice}>
+          Total price: {this.props.totalPrice}
+        </div>
+      </div>
     );
   }
 
@@ -71,6 +77,7 @@ class Cart extends Component {
 
 const mapStateToProps = state => ({
   cartIds: state.cart.items,
+  totalPrice: state.cart.totalPrice,
 });
 
 const mapDispatchToProps = {

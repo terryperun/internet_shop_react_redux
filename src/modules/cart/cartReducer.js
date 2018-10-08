@@ -18,7 +18,6 @@ export default function reducer(state = initialState, action) {
     }
     case types.REMOVE_FROM_CART: {
       const { id, price } = action.payload;
-      console.log('-----------4-----------', id);
       return {
         ...state,
         items: state.items.filter(i => i !== id),

@@ -64,15 +64,19 @@ class Header extends Component {
 
   renderProduct() {
     if (this.state.products.length === 0) {
-      console.log('this message will show ');
       return <div>..no cookies :( ..</div>;
     }
     return (
-      <CartItemList
-        products={this.state.products}
-        navigateToItem={this.navigateToItem}
-        onRemoveFromCart={this.onRemoveFromCart}
-      />
+      <div>
+        <CartItemList
+          products={this.state.products}
+          navigateToItem={this.navigateToItem}
+          onRemoveFromCart={this.onRemoveFromCart}
+        />
+        <div className={s.totalPrice}>
+          Total price: {this.props.totalPrice}
+        </div>
+      </div>
     );
   }
 
@@ -124,6 +128,7 @@ class Header extends Component {
 
 const mapStateToProps = state => ({
   cartIds: state.cart.items,
+  totalPrice: state.cart.totalPrice,
 });
 
 const mapDispatchToProps = {

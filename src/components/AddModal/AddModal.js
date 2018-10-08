@@ -47,7 +47,6 @@ class AddModal extends Component {
     } = this.props;
 
     const valueBtn = createNewItem && 'Add';
-    // console.log('state------------', this.state);
     if (isLoading) {
       return <div>Loading...</div>;
     }

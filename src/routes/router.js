@@ -13,7 +13,9 @@ import PrivacyPolicy from './Privacypolicy/PrivacypolicyView';
 import TermsAndConditions from './Termsandconditions/TermsandconditionsView';
 import Checkout from './Checkout/CheckoutView';
 import Store from './Store/StoreView';
-import { products } from '../mocks/Product';
+// import Register from './Register/RegisterView';
+// import Login from './Login/LoginView';
+// import Remember from './Remember/RememberView';
 
 const routes = (
   <Router>
@@ -37,6 +39,15 @@ const routes = (
       path="/product/:id"
       component={props => <Product {...props} />}
     />
+    {/* <Route path="/login" component={props => <Login {...props} />} />
+    <Route
+      path="/register"
+      component={props => <Register {...props} />}
+    />
+    <Route
+      path="/remember"
+      component={props => <Remember {...props} />}
+    /> */}
   </Router>
 );
 

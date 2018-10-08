@@ -1,19 +1,11 @@
-// import React from 'react';
-// import { Link } from 'react-router';
-// import s from './Header.module.css';
-// import { withRouter } from 'react-router';
-
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router';
 import Modal from 'react-modal';
 import { connect } from 'react-redux';
 
 import * as cartActions from '../../modules/cart/cartActions';
-
 import s from './Header.module.css';
 import CartItemList from '../ItemContainers/CartItemList/CartItemList';
-
-// import Cart from '../../routes/Cart/CartView';
 
 class Header extends Component {
   constructor(props) {
@@ -21,15 +13,39 @@ class Header extends Component {
 
     this.state = {
       showModal: false,
+      products: [],
     };
 
     this.pushToCard = this.pushToCard.bind(this);
     this.navigateToItem = this.navigateToItem.bind(this);
     this.onRemoveFromCart = this.onRemoveFromCart.bind(this);
+    this.fetchProductsById = this.fetchProductsById.bind(this);
   }
 
   onRemoveFromCart(item) {
     this.props.removeFromCart(item);
+    this.setState({
+      products: this.state.products.filter(i => i !== item),
+    });
+  }
+
+  async fetchProductsById() {
+    const getProductsByIds = (ids) => {
+      const queryString = ids.map(id => `ids[]=${id}`).join('&&');
+
+      return fetch(`/api/v1/products?${queryString}`).then(raw =>
+        raw.json());
+      // .then(data => this.setState({ ItemList: data }));
+    };
+    if (this.props.cartIds.length > 0) {
+      const products = await getProductsByIds(this.props.cartIds);
+      this.setState({ products });
+      console.log(
+        'product fetchIDSMODAL',
+        this.props.cartIds.length,
+        this.state.products,
+      );
+    }
   }
 
   pushToCard() {
@@ -38,6 +54,7 @@ class Header extends Component {
     this.setState({
       showModal: true,
     });
+    this.fetchProductsById();
   }
 
   navigateToItem(id) {
@@ -45,8 +62,23 @@ class Header extends Component {
     this.props.router.push(`/product/${id}`);
   }
 
+  renderProduct() {
+    if (this.state.products.length === 0) {
+      console.log('this message will show ');
+      return <div>..no cookies :( ..</div>;
+    }
+    return (
+      <CartItemList
+        products={this.state.products}
+        navigateToItem={this.navigateToItem}
+        onRemoveFromCart={this.onRemoveFromCart}
+      />
+    );
+  }
+
   render() {
     const { openModal } = this.props;
+    const content = this.renderProduct();
     return (
       <header className={s.container}>
         <div className={s.logo}>
@@ -83,11 +115,7 @@ class Header extends Component {
           onRequestClose={this.handleCloseModal}
           shouldCloseOnOverlayClick={false}
         >
-          <CartItemList
-            products={this.props.cart}
-            navigateToItem={this.navigateToItem}
-            onRemoveFromCart={this.onRemoveFromCart}
-          />
+          {content}
         </Modal>
       </header>
     );
@@ -95,7 +123,7 @@ class Header extends Component {
 }
 
 const mapStateToProps = state => ({
-  cart: state.cart.items.map(id => state.entities.products[id]),
+  cartIds: state.cart.items,
 });
 
 const mapDispatchToProps = {

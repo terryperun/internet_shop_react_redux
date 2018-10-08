@@ -1,24 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CartItemList from '../../components/ItemContainers/CartItemList/CartItemList';
-// import * as productsOperations from '../../modules/products/productsOperations';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import * as cartActions from '../../modules/cart/cartActions';
-
-// window.onload = function () {
-//   if (localStorage.getItem('cartProductsId') !== null) {
-//     const cartItemsJSON = localStorage.getItem('cartProductsId');
-//     const cartItems = JSON.parse(cartItemsJSON);
-//   }
-//   console.log('locallocallocal', cartItems);
-//   return cartItems;
-// };
 
 class Cart extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      products: [],
+    };
     this.onRemoveFromCart = this.onRemoveFromCart.bind(this);
     this.navigateToItem = this.navigateToItem.bind(this);
   }
@@ -29,11 +22,15 @@ class Cart extends Component {
 
       return fetch(`/api/v1/products?${queryString}`).then(raw =>
         raw.json());
-      // .then(data => this.setState({ ItemList: data }));
     };
-    if (this.props.cart !== undefined) {
-      const products = await getProductsByIds(this.props.cart);
-      // this.setState({ products });
+    if (this.props.cartIds.length > 0) {
+      const products = await getProductsByIds(this.props.cartIds);
+      this.setState({ products });
+      console.log(
+        'product fetchIDS',
+        this.props.cartIds.length,
+        this.state.products,
+      );
     }
   }
 
@@ -46,15 +43,26 @@ class Cart extends Component {
     this.props.router.push(`/product/${id}`);
   }
 
+  renderProduct() {
+    if (this.state.products.length === 0) {
+      console.log('this message will show ');
+      return <div>..no cookies :( ..</div>;
+    }
+    return (
+      <CartItemList
+        products={this.state.products}
+        navigateToItem={this.navigateToItem}
+        onRemoveFromCart={this.onRemoveFromCart}
+      />
+    );
+  }
+
   render() {
+    const content = this.renderProduct();
     return (
       <div>
         <Header />
-        <CartItemList
-          products={this.props.cart}
-          navigateToItem={this.navigateToItem}
-          onRemoveFromCart={this.onRemoveFromCart}
-        />
+        {content}
         <Footer />
       </div>
     );
@@ -62,7 +70,7 @@ class Cart extends Component {
 }
 
 const mapStateToProps = state => ({
-  cart: state.cart.items.map(id => state.entities.products[id]),
+  cartIds: state.cart.items,
 });
 
 const mapDispatchToProps = {

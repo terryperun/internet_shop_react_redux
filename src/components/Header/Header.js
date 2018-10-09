@@ -40,11 +40,6 @@ class Header extends Component {
     if (this.props.cartIds.length > 0) {
       const products = await getProductsByIds(this.props.cartIds);
       this.setState({ products });
-      console.log(
-        'product fetchIDSMODAL',
-        this.props.cartIds.length,
-        this.state.products,
-      );
     }
   }
 

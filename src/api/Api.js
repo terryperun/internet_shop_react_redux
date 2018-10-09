@@ -25,6 +25,12 @@ class Api {
     });
   }
 
+  loging(body) {
+    return this._request('api/v1/auth/login', body, {
+      method: 'POST',
+    });
+  }
+
   // getProductsByIds(ids) {
   //   const queryString = ids.map(id => `ids[]=${id}`).join('&&');
   //   return fetch(`/api/v1/products?${queryString}`).then(raw =>

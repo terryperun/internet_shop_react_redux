@@ -27,11 +27,6 @@ class Cart extends Component {
     if (this.props.cartIds.length > 0) {
       const products = await getProductsByIds(this.props.cartIds);
       this.setState({ products });
-      console.log(
-        'product fetchIDS',
-        this.props.cartIds.length,
-        this.state.products,
-      );
     }
   }
 
@@ -46,7 +41,6 @@ class Cart extends Component {
 
   renderProduct() {
     if (this.state.products.length === 0) {
-      console.log('this message will show ');
       return <div>..no cookies :( ..</div>;
     }
     return (

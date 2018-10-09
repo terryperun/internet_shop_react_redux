@@ -90,7 +90,6 @@ class Admin extends Component {
       showModalLoading: false,
     });
   }
-  // add async/await
   async createProduct(product) {
     console.log('STATE BEFOR SEND TO SERV', product);
     // this.setState({

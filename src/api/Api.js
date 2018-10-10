@@ -25,11 +25,17 @@ class Api {
     });
   }
 
-  loging(body) {
-    return this._request('api/v1/auth/login', body, {
-      method: 'POST',
-    });
-  }
+  // loging(body) {
+  //   return this._request('api/v1/auth/login', body, {
+  //     method: 'POST',
+  //   });
+  // }
+
+  // remember(body) {
+  //   return this._request('api/v1/auth/login', body, {
+  //     method: 'POST',
+  //   });
+  // }
 
   // getProductsByIds(ids) {
   //   const queryString = ids.map(id => `ids[]=${id}`).join('&&');

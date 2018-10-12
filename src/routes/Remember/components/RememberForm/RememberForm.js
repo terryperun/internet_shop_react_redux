@@ -26,20 +26,22 @@ class RememberForm extends Component {
 
   render() {
     return (
-      <div className={s.formContainer}>
-        <div className={s.email}>
+      <div className={s.wrapper}>
+        <div className={s.emailContainer}>
           <label>
-            Email: <br />
             <input
               type="text"
+              className={s.email}
               name="email"
               id="about-email"
+              placeholder="Write your email"
               onChange={this.handleChange('emailForm')}
             />
           </label>
         </div>
         <button
           type="submit"
+          className={s.btnSend}
           onClick={() => this.props.onSubmit(this.state)}
           disabled={this.state.notValid}
         >

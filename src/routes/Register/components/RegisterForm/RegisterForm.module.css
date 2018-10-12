@@ -1,0 +1,92 @@
+.wrapper {
+  max-width: 450px; 
+  margin: 0 auto; 
+  background: #333;
+  font-family: 'PT Sans', sans-serif;
+  padding: 20px;
+  box-sizing: border-box
+}
+
+.email {
+  width: 100%;
+  border: 0;
+  padding: 20px 0px 20px 0px;
+  background: #eee;
+}
+
+.name {
+  width: 100%;
+  border: 0;
+  padding: 20px 0px 20px 0px;
+  background: #eee;
+}
+
+.surname {
+  width: 100%;
+  border: 0;
+  padding: 20px 0px 20px 0px;
+  background: #eee;
+}
+
+.btnRegistration:focus {
+  outline: 0;
+  background: rgb(6, 70, 1);
+}
+
+/* .btnLogin:valid {
+  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/check.svg);
+  background-size: 20px;
+  background-repeat: no-repeat;
+  background-position: 20px 20px;
+} */
+
+
+
+.password1 {
+  width: 100%;
+  border: 0;
+  padding: 20px 0px 20px 0px;
+  background: #eee;
+}
+
+.password2 {
+  width: 100%;
+  border: 0;
+  padding: 20px 0px 20px 0px;
+  background: #eee;
+}
+
+/* .registration {
+  display: block;
+  width: 100%;
+  margin: 20px 0;
+  background: rgb(136, 182, 151);
+  color: white;
+  border: 0;
+  padding: 20px;
+  font-size: 1.2rem;
+} */
+
+.havntAccount {
+  display: block;
+  width: 100%;
+  margin: 20px 0;
+  background: rgb(6, 188, 194);
+  color: white;
+  border: 0;
+  padding: 20px;
+  font-size: 1.2rem;
+}
+
+
+.btnRegistration {
+  display: block;
+  width: 100%;
+  margin: 20px 0;
+  background: #41D873;
+  color: white;
+  border: 0;
+  padding: 20px;
+  font-size: 1.2rem;
+
+}

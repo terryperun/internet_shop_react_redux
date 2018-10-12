@@ -32,6 +32,9 @@ class Cart extends Component {
 
   onRemoveFromCart(item) {
     this.props.removeFromCart(item);
+    this.setState({
+      products: this.state.products.filter(i => i !== item),
+    });
   }
 
   navigateToItem(id) {

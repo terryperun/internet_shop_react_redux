@@ -20,6 +20,7 @@ class Header extends Component {
     this.navigateToItem = this.navigateToItem.bind(this);
     this.onRemoveFromCart = this.onRemoveFromCart.bind(this);
     this.fetchProductsById = this.fetchProductsById.bind(this);
+    this.handleCloseModal = this.handleCloseModal.bind(this);
   }
 
   onRemoveFromCart(item) {
@@ -57,6 +58,12 @@ class Header extends Component {
     this.props.router.push(`/product/${id}`);
   }
 
+  handleCloseModal() {
+    this.setState({
+      showModal: false,
+    });
+  }
+
   renderProduct() {
     if (this.state.products.length === 0) {
       return <div>..no cookies :( ..</div>;
@@ -67,6 +74,7 @@ class Header extends Component {
           products={this.state.products}
           navigateToItem={this.navigateToItem}
           onRemoveFromCart={this.onRemoveFromCart}
+          // isOpen={this.state.showModal}
         />
         <div className={s.totalPrice}>
           Total price: {this.props.totalPrice}

@@ -3,11 +3,10 @@ import T from 'prop-types';
 
 const getProductState = props =>
   props.propsItem || {
-    // id: '',
     title: '',
     description: '',
     image: '',
-    price: '',
+    price: '0',
   };
 
 class AddModal extends Component {
@@ -94,10 +93,8 @@ class AddModal extends Component {
             onClick={() => {
               if (createNewItem) {
                 onCreate(this.state);
-                // console.log('STATE IN CREATE', this.state);
               } else {
                 onUpdate(this.state);
-                // console.log('STATE IN UPDATE', this.state);
               }
             }}
           >

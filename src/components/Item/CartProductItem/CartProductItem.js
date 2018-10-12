@@ -11,6 +11,7 @@ const AdminItem = ({
   price,
   onRemoveFromCart,
   item,
+  // isOpen,
 }) => (
   <div className={s.itemContainer}>
     <div onClick={() => navigateToItem(id)}>

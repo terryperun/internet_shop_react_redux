@@ -32,7 +32,6 @@ class Admin extends Component {
     this.handleEdit = this.handleEdit.bind(this);
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
-    this.handleCloseModalQuick = this.handleCloseModalQuick.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
     this.createProduct = this.createProduct.bind(this);
     this.updateProduct = this.updateProduct.bind(this);
@@ -55,12 +54,6 @@ class Admin extends Component {
 
   handleCloseModal() {
     this.setState({
-      showModalLoading: true,
-    });
-  }
-
-  handleCloseModalQuick() {
-    this.setState({
       showModal: false,
     });
   }
@@ -73,6 +66,7 @@ class Admin extends Component {
     this.setState({
       showModal: true,
       propsItem,
+      createNewItem: false,
     });
   };
 
@@ -91,45 +85,21 @@ class Admin extends Component {
     });
   }
   async createProduct(product) {
-    console.log('STATE BEFOR SEND TO SERV', product);
-    // this.setState({
-    //   createNewItem: false,
-    // });
     await this.props.createProduct(product);
     this.setState({
       showModal: false,
-      createNewItem: false,
     });
-    console.log('entities in adminView', this.props.ent);
   }
-
-  // async createProduct(product) {
-  //   console.log('STATE BEFOR SEND TO SERV', product);
-  //   debugger
-  //   this.setState({
-  //     createNewItem: true,
-  //     showModalLoading: true,
-  //   });
-  //   await this.props.createProduct(product);
-  //   this.setState({
-  //     showModal: false,
-  //     showModalLoading: false,
-  //   });
-  // }
 
   renderProducts() {
     if (this.props.isLoading) {
-      console.log('START LOADING');
       return <div>..Loading..</div>;
     }
 
     if (!this.props.products) {
       return <div>No product</div>;
     }
-    console.log(
-      'PRODUCTS RENDERED IN ADMIN VIEW',
-      this.props.products,
-    );
+
     return (
       <AdminItemList
         products={this.props.products}
@@ -148,21 +118,18 @@ class Admin extends Component {
         <Header openModal={this.handleOpenModal} />
         <Modal
           isOpen={this.state.showModal}
-          // isOpen={this.props.isLoading}
           contentLabel="Minimal Modal Example"
           onRequestClose={this.handleCloseModal}
           shouldCloseOnOverlayClick={false}
         >
           <AddModal
             closeModal={this.handleCloseModal}
-            // isLoading={this.state.showModalLoading}
             isLoading={this.props.isLoading}
             propsItem={this.state.propsItem}
             showModal={this.state.showModal}
             createNewItem={this.state.createNewItem}
             onCreate={this.createProduct}
             onUpdate={this.updateProduct}
-            closeQuick={this.handleCloseModalQuick}
           />
         </Modal>
         {content}

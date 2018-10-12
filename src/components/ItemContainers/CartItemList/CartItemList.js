@@ -6,6 +6,8 @@ const CartItemList = ({
   products,
   navigateToItem,
   onRemoveFromCart,
+  // isOpen,
+  createNewItem,
 }) => {
   const container = products.map(item => (
     <CartProductItem

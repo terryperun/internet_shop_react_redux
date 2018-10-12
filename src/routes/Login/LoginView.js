@@ -12,11 +12,12 @@ class Login extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  async handleSubmit(loginState) {
-    await fetch('api/v1/auth/login', {
+  handleSubmit(loginState) {
+    fetch('api/v1/auth/login', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
+        // Accept: 'application/json',
       },
       body: JSON.stringify({
         email: loginState.email,

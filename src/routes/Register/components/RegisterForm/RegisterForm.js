@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import s from './RegisterForm.module.css';
-import Api from '../../../../api/Api';
+// import Api from '../../../../api/Api';
 
 class RegisterForm extends Component {
   constructor(props) {
@@ -48,60 +48,67 @@ class RegisterForm extends Component {
   render() {
     console.log('state', this.state);
     return (
-      <div>
-        <div className={s.name}>
+      <div className={s.wrapper}>
+        <div className={s.nameContainer}>
           <label>
-            Name: <br />
             <input
               type="text"
               name="name"
               className={s.name}
+              placeholder=" Name"
               onChange={this.handleChange('name')}
             />
           </label>
         </div>
-        <div className={s.email}>
+        <br />
+        <div className={s.surnameContainer}>
           <label>
-            Surname: <br />
             <input
               type="text"
               name="surname"
               className={s.surname}
+              placeholder=" Surname"
               onChange={this.handleChange('surname')}
             />
           </label>
         </div>
-        <div className={s.email}>
+        <br />
+        <div className={s.emailContainer}>
           <label>
-            Email: <br />
             <input
               type="text"
               name="email"
               className={s.email}
+              placeholder=" Email"
               onChange={this.handleChange('emailForm')}
             />
           </label>
         </div>
-        <div className={s.password}>
+        <br />
+        <div className={s.passwordContainer}>
           <label>
-            Your password: <br />
             <input
               type="password"
               name="password"
               className={s.password1}
+              placeholder=" Password"
               onChange={this.handleChange('passwordForm1')}
             />
+          </label>
+          <label>
             <input
               type="password"
               name="password"
               className={s.password2}
+              placeholder=" Repeat password"
               onChange={this.handleChange('passwordForm2')}
             />
           </label>
         </div>
-        <div className={s.btnLogin}>
+        <div className={s.registration}>
           <button
             type="submit"
+            className={s.btnRegistration}
             onClick={() => this.onSubmit(this.state)}
             disabled={this.state.notValid}
           >

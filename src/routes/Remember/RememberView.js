@@ -28,6 +28,7 @@ class Remember extends Component {
     this.setState({
       showingAlert: true,
     });
+    
   }
 
   render() {

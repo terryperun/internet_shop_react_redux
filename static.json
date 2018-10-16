@@ -1,0 +1,8 @@
+{
+  "root": "build/",
+  "proxies": {
+    "/api/v1": {
+      "origin": "https://perun-site-api.herokuapp.com/api/v1"
+    }
+  }
+}

@@ -84,7 +84,7 @@ class Header extends Component {
   }
 
   render() {
-    const { openModal } = this.props;
+    const { openModal, location } = this.props;
     const content = this.renderProduct();
     return (
       <header className={s.container}>
@@ -97,14 +97,15 @@ class Header extends Component {
           </form>
         </div>
         <div className={s.cart}>
-          {window.location.pathname !== '/cart' ? (
+          {location.pathname !== '/cart' ? (
             <button onClick={this.pushToCard}>Cart</button>
           ) : (
             undefined
           )}
         </div>
 
-        {window.location.pathname === '/admin' ? (
+        {location.pathname === '/admin/' ||
+        location.pathname === '/admin' ? (
           <button
             id="addProductButton"
             className={s.addItemAdminContainer}

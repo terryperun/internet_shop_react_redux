@@ -29,7 +29,7 @@ class Remember extends Component {
     this.setState({
       showingAlert: true,
     });
-    // setTimeout(browserHistory.push('/login'), 2000);
+    // setTimeout(browserHistory.push('/login'), 5000);
   }
 
   render() {

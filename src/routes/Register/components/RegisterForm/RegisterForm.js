@@ -19,22 +19,33 @@ class RegisterForm extends Component {
     // this.logged = this.logged.bind(this);
   }
 
+  // handleChange(name) {
+  //   return (event) => {
+  //     this.setState = {
+  //       [name]: event.target.value,
+  //     };
+  //   };
+  // }
+
   handleChange(name) {
     return (event) => {
-      this.setState({ [name]: event.target.value }, () => {
-        const notValid =
-          !this.state.name.trim().length !== 0 &&
-          !this.state.surname.trim().length !== 0 &&
-          !this.state.emailForm.trim().length !== 0 &&
-          !this.state.emailForm.includes('@') &&
-          !this.state.passwordForm1.trim().length !== 0;
+      this.setState({ [name]: event.target.value },
+        // , () => {
+        // const notValid =
+        //   !this.state.name.trim().length !== 0 &&
+        //   !this.state.surname.trim().length !== 0 &&
+        //   !this.state.emailForm.trim().length !== 0 &&
+        //   !this.state.emailForm.includes('@') &&
+        //   !this.state.passwordForm1.trim().length !== 0;
         // !this.state.passwordForm2.trim().length >= 8 &&
         // !this.state.passwordForm1 === !this.state.passwordForm2 &&
         // !this.state.passwordForm1.includes('0-9');
 
-        this.setState({ notValid });
-      });
+        // this.setState({ notValid });
+        // }
+      );
     };
+    // console.log('wwq', this.state);
   }
 
   // async logged() {
@@ -46,7 +57,8 @@ class RegisterForm extends Component {
   // }
 
   render() {
-    console.log('state', this.state);
+    // console.log('state', this.state);
+    const { onSubmit } = this.props;
     return (
       <div className={s.wrapper}>
         <div className={s.nameContainer}>
@@ -109,8 +121,8 @@ class RegisterForm extends Component {
           <button
             type="submit"
             className={s.btnRegistration}
-            onClick={() => this.onSubmit(this.state)}
-            disabled={this.state.notValid}
+            onClick={() => onSubmit(this.state)}
+            // disabled={this.state.notValid}
           >
             Registration
           </button>

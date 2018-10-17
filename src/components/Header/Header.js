@@ -14,6 +14,7 @@ class Header extends Component {
     this.state = {
       showModal: false,
       products: [],
+      // findInPage: '',
     };
 
     this.pushToCard = this.pushToCard.bind(this);
@@ -21,6 +22,7 @@ class Header extends Component {
     this.onRemoveFromCart = this.onRemoveFromCart.bind(this);
     this.fetchProductsById = this.fetchProductsById.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
+    // this.findInPage = this.findInPage.bind(this);
   }
 
   onRemoveFromCart(item) {
@@ -29,6 +31,15 @@ class Header extends Component {
       products: this.state.products.filter(i => i !== item),
     });
   }
+
+  // findInPage() {
+  //   return (event) => {
+  //     this.setState({
+  //       findInPage: event.target.value,
+  //     });
+  //     console.log(this.state.findInPage);
+  //   };
+  // }
 
   async fetchProductsById() {
     const getProductsByIds = (ids) => {
@@ -93,7 +104,10 @@ class Header extends Component {
         </div>
         <div className={s.searchContainer}>
           <form>
-            <input placeholder="I'm looking for..." />
+            <input
+              placeholder="I'm looking for..."
+              // onChange={this.findInPage()}
+            />
           </form>
         </div>
         <div className={s.cart}>

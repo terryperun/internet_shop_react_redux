@@ -27,6 +27,7 @@ class Register extends Component {
       .then(res => res.json())
       .then(res => console.log(res));
     this.props.router.push('/loging');
+    // console.log('2', registerState);
   }
 
   render() {

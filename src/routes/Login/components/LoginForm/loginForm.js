@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
+import T from 'prop-types';
 import s from './loginForm.module.css';
 
 class LoginForm extends Component {
+  static propTypes = {
+    onLogin: T.func,
+    onRemember: T.func,
+    onRegister: T.func,
+  };
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
@@ -18,6 +24,7 @@ class LoginForm extends Component {
 
   render() {
     console.log('state', this.state);
+    const { onLogin, onRemember, onRegister } = this.props;
     return (
       <div className={s.wrapper}>
         <div className={s.emailContainer}>
@@ -49,7 +56,7 @@ class LoginForm extends Component {
           <button
             className={s.btnLogin}
             type="submit"
-            onClick={() => this.props.onSubmit(this.state)}
+            onClick={() => onLogin(this.state)}
           >
             Login
           </button>
@@ -57,7 +64,7 @@ class LoginForm extends Component {
         <div className={s.forgotPasswordContainer}>
           <button
             className={s.forgotPassword}
-            onClick={() => console.log('work btn forgot')}
+            onClick={() => onRemember()}
           >
             I forgot password
           </button>
@@ -65,7 +72,7 @@ class LoginForm extends Component {
         <div className={s.havntAccountContainer}>
           <button
             className={s.havntAccount}
-            onClick={() => console.log('work btn hvnt acc')}
+            onClick={() => onRegister()}
           >
             I havn't account
           </button>
@@ -74,4 +81,5 @@ class LoginForm extends Component {
     );
   }
 }
+
 export default LoginForm;

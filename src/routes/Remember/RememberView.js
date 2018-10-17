@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { withRouter, browserHistory } from 'react-router';
 
-import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer/Footer';
+// import Header from '../../components/Header/Header';
+// import Footer from '../../components/Footer/Footer';
 import { RememberForm, FormSuccess } from './components';
 
 class Remember extends Component {
@@ -20,7 +21,7 @@ class Remember extends Component {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email: rememberState.email }),
+      body: JSON.stringify({ email: rememberState.emailForm }),
     })
       .then(res => res.json())
       .then(res => console.log(res));
@@ -28,22 +29,20 @@ class Remember extends Component {
     this.setState({
       showingAlert: true,
     });
-    
+    // setTimeout(browserHistory.push('/login'), 2000);
   }
 
   render() {
     return (
       <div>
-        <Header />
         {this.state.showingAlert ? (
           <FormSuccess showingAlert={this.state.showingAlert} />
         ) : (
           <RememberForm onSubmit={this.handleSubmit} />
         )}
-        <Footer />
       </div>
     );
   }
 }
 
-export default Remember;
+export default withRouter(Remember);

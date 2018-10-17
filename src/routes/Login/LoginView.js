@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter, browserHistory } from 'react-router';
 
 import LoginForm from './components/LoginForm/LoginForm';
 
@@ -9,10 +10,13 @@ class Login extends Component {
     this.state = {
       showingAlert: false,
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.login = this.login.bind(this);
+    this.forgotPassword = this.forgotPassword.bind(this);
+    this.haveNotAccount = this.haveNotAccount.bind(this);
   }
 
-  handleSubmit(loginState) {
+  login(loginState) {
+    console.log('worK');
     fetch('api/v1/auth/login', {
       method: 'post',
       headers: {
@@ -20,8 +24,8 @@ class Login extends Component {
         // Accept: 'application/json',
       },
       body: JSON.stringify({
-        email: loginState.email,
-        password: loginState.password,
+        email: loginState.emailForm,
+        password: loginState.passwordForm,
       }),
     })
       .then(res => res.json())
@@ -32,22 +36,31 @@ class Login extends Component {
     });
   }
 
+  forgotPassword() {
+    browserHistory.push('/remember');
+  }
+
+  haveNotAccount() {
+    browserHistory.push('/register');
+  }
+
   initializationEnter() {
     if (!this.state.showingAlert) {
-      return <LoginForm onSubmit={this.handleSubmit} />;
+      return (
+        <LoginForm
+          onLogin={this.login}
+          onRemember={this.forgotPassword}
+          onRegister={this.haveNotAccount}
+        />
+      );
     }
     return <div>Data validation</div>;
   }
 
   render() {
     const content = this.initializationEnter();
-    return (
-      <div>
-        {content}
-        {/* <LoginForm onSubmit={this.handleSubmit} /> */}
-      </div>
-    );
+    return <div>{content}</div>;
   }
 }
 
-export default Login;
+export default withRouter(Login);

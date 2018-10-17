@@ -10,17 +10,14 @@ const UserItem = ({
   onAddInCart,
   item,
 }) => (
-  <div className={s.itemContainer}>
+  <li className={s.itemContainer}>
     <div onClick={() => navigateToItem(id)}>
       <div className={s.image}>
-        <img
-          className={s.itemImg}
-          src={image}
-          alt="img"
-          width="200px"
-        />
+        <img className={s.itemImg} src={image} alt="img" />
       </div>
-      <div className={s.title}>{title}</div>
+      <div className={s.title}>
+        <div className={s.titleText}>{title}</div>
+      </div>
       <div className={s.price}>{price}</div>
     </div>
     <div className={s.btn}>
@@ -28,7 +25,7 @@ const UserItem = ({
         Add to cart
       </button>
     </div>
-  </div>
+  </li>
 );
 
 export default UserItem;

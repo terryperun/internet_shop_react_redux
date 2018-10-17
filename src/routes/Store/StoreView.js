@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import { withRouter } from 'react-router';
 import T from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -34,17 +33,6 @@ class Store extends Component {
 
   addToCart(product) {
     this.props.addToCart(product);
-
-    // if (localStorage.getItem('cartProductsId') == null) {
-    //   const cartProduct = [];
-    //   cartProduct.push(product);
-    //   localStorage.setItem('cartProductsId', cartProduct);
-    // } else {
-    //   const cartProducts = JSON.parse(localStorage.getItem('cartProductsId'));
-    //   cartProducts.push(product);
-    //   localStorage.setItem('cartProductsId', cartProducts);
-    // }
-    // const products = JSON.stringify(product);
   }
 
   renderProducts() {

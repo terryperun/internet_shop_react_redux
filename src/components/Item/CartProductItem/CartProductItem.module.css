@@ -6,47 +6,59 @@
   border-bottom: 2px solid #f2f1f2;
 }
 
+
 .image {
   float: left;
+  width: 100px;
+}
+
+.itemImg {
+  width: 100px;
 }
 
 .title {
   float: left;
   margin-top: 40px;
   margin-left: 50px;
-
+  width: 50%;
+  height: 100%;
 }
 
+.priceContainer {
+  width: 80px;
+  float: left;
+  height: 100%;
+  display: flex;
+}
 .price {
-  /* float: left; */
-  margin-top: 40px;
-  margin-left: 70%;
-
+  justify-content: center;
+  align-items: center;
+  margin-left: 5px;
+  margin: auto;
 }
 
 .btn {
   float: right;
-  /* margin-right: 20px; */
-  /* margin-top: 5px; */
-  /* height: 90%; */
-  width: 20px;
+  height: 100%;
+  display: flex;
+}
+
+.input {
+  float: left;
+  height: 100%;
+  width: 7%;
+  display: flex;
 }
 
 .changeInput {
-  float: left;
-  margin-top: 40px;
-  margin-left: 10%;
-  /* width: 100px; */
-}
-
-.editBtn {
-  margin-top: 20px;
-  padding-right: 100%;
-  width: 40px;
+  width: 90%;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
 }
 
 .removeBtn {
-  margin-top: 15px;
-  padding-right: 100%;
-  width: 40px;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
 }

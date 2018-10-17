@@ -1,6 +1,7 @@
 import React from 'react';
 import T from 'prop-types';
 import ProductItem from '../../Item/ProductItem/ProductItem';
+import s from './UserItemList.module.css';
 
 const UserItemList = ({ products, navigateToItem, onAddInCart }) => {
   const container = products.map(item => (
@@ -16,15 +17,16 @@ const UserItemList = ({ products, navigateToItem, onAddInCart }) => {
     />
   ));
   return (
-    <div>
+    <div className={s.itemsContainer}>
       <ul>{container}</ul>
     </div>
   );
 };
 
 UserItemList.propTypes = {
-  // products: T.array,
+  products: T.array,
   navigateToItem: T.func,
+  onAddInCart: T.func,
 };
 
 export default UserItemList;

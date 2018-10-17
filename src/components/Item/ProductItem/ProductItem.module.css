@@ -1,15 +1,29 @@
 .itemContainer {
   float: left;
-  width: 150px;
-  height: 150px;
-  margin: 20px;
+  width: 200px;
+  height: 350px;
+  margin: 10px;
+  list-style-type: none;
+}
+
+.image {
+  width: 100%;
+  height: 200px;
+}
+
+.itemImg {
+  width: 200px;
 }
 
 .title {
-  margin-left: 40px;
+  margin: auto;
+  height: 70px;
+}
+
+.price {
+  margin: auto;
 }
 
 .btn {
-  float: left;
   margin-left: 57px;
 }

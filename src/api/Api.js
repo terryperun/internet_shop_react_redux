@@ -1,4 +1,11 @@
 class Api {
+  // var token;
+  setToken(localToken) {
+    //   console.log('Api setToken', localToken);
+    //   token = localToken;
+    //   return token;
+  }
+
   getProducts() {
     return this._request('/api/v1/products');
   }
@@ -12,7 +19,7 @@ class Api {
       method: 'POST',
     });
   }
-  //
+
   updateProduct(id, body) {
     return this._request(`/api/v1/products/${id}`, body, {
       method: 'PATCH',
@@ -25,29 +32,13 @@ class Api {
     });
   }
 
-  // loging(body) {
-  //   return this._request('api/v1/auth/login', body, {
-  //     method: 'POST',
-  //   });
-  // }
-
-  // remember(body) {
-  //   return this._request('api/v1/auth/login', body, {
-  //     method: 'POST',
-  //   });
-  // }
-
-  // getProductsByIds(ids) {
-  //   const queryString = ids.map(id => `ids[]=${id}`).join('&&');
-  //   return fetch(`/api/v1/products?${queryString}`).then(raw =>
-  //     raw.json());
-  // }
-
   _request(url, body, params = {}) {
+    console.log('main token', this.token);
     return fetch(url, {
       mathod: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        // Authorization: `Bearer ${token}`,
       },
       ...params,
       body:

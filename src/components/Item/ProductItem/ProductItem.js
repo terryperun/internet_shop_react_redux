@@ -18,7 +18,9 @@ const UserItem = ({
       <div className={s.title}>
         <div className={s.titleText}>{title}</div>
       </div>
-      <div className={s.price}>{price}</div>
+      <div className={s.priceContainer}>
+        <div>{price}</div>
+      </div>
     </div>
     <div className={s.btn}>
       <button className={s.addBtn} onClick={() => onAddInCart(item)}>

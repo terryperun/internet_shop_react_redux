@@ -16,7 +16,7 @@ class Login extends Component {
   }
 
   login(loginState) {
-    console.log('worK');
+    // console.log('work login');
     fetch('api/v1/auth/login', {
       method: 'post',
       headers: {
@@ -29,7 +29,7 @@ class Login extends Component {
       }),
     })
       .then(res => res.json())
-      .then(res => console.log(res));
+      .then(res => localStorage.setItem('token', res.token));
 
     this.setState({
       showingAlert: true,

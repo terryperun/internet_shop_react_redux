@@ -20,10 +20,27 @@
   height: 70px;
 }
 
+.titleText {
+  margin: auto;
+  margin-top: 15px;
+}
+
+.priceContainer {
+  margin-left: 43%;
+  margin-bottom: 10px;
+}
+
 .price {
   margin: auto;
 }
 
 .btn {
   margin-left: 57px;
+}
+
+.addBtn {
+  background-color: #61b4ebfb;
+  width: 100px;
+  height: 30px;
+  border-radius: 5px;
 }

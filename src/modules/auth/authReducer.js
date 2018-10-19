@@ -3,15 +3,15 @@ import * as types from './authTypes';
 const initialState = {
   isLoading: true,
   isLoginedIn: false,
+  isRemember: false,
   viewer: null,
   error: null,
-  token: null,
 };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    // case types.GET_USER_START:
-    // return { ...state, isLoginedIn: true, error: null };
+    case types.GET_USER_START:
+      return { ...state, isLoginedIn: true, error: null };
 
     case types.GET_USER_SUCCESS: {
       const { user } = action.payload;
@@ -22,22 +22,20 @@ export default function reducer(state = initialState, action) {
       };
     }
 
-    // case types.GET_USER_ERROR:
-    //   return { ...state, error: action.payload };
+    case types.GET_USER_ERROR:
+      return { ...state, error: action.payload };
 
     case types.LOGIN_USER_START:
       return { ...state, isLoginedIn: true, error: null };
 
     case types.LOGIN_USER_SUCCESS: {
-      const { token, user } = action.payload;
+      const { user } = action.payload;
 
       return {
         ...state,
         isLoading: false,
         isLoginedIn: true,
-        isRegister: false,
         viewer: user,
-        token,
       };
     }
 
@@ -53,12 +51,27 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         isLoading: false,
-        // isLoginedIn: true,
         isRegister: success,
       };
     }
 
     case types.REGISTER_USER_ERROR:
+      return { ...state, error: action.payload };
+
+    case types.REMEMBER_USER_START:
+      return { ...state, isLoading: true, error: null };
+
+    case types.REMEMBER_USER_SUCCESS: {
+      const { success } = action.payload;
+
+      return {
+        ...state,
+        isLoading: false,
+        isRemember: success,
+      };
+    }
+
+    case types.REMEMBER_USER_ERROR:
       return { ...state, error: action.payload };
 
     default:

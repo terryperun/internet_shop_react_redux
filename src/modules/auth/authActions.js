@@ -12,3 +12,7 @@ export const getUserError = createAction(types.GET_USER_ERROR);
 export const registerUserStart = createAction(types.REGISTER_USER_START);
 export const registerUserSuccess = createAction(types.REGISTER_USER_SUCCESS);
 export const registerUserError = createAction(types.REGISTER_USER_ERROR);
+
+export const rememberUserStart = createAction(types.REMEMBER_USER_START);
+export const rememberUserSuccess = createAction(types.REMEMBER_USER_SUCCESS);
+export const rememberUserError = createAction(types.REMEMBER_USER_ERROR);

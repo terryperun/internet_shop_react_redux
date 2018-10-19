@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import { withRouter, browserHistory } from 'react-router';
-
-// import Header from '../../components/Header/Header';
-// import Footer from '../../components/Footer/Footer';
 import { RememberForm, FormSuccess } from './components';
 
 class Remember extends Component {
@@ -15,8 +12,8 @@ class Remember extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  async handleSubmit(rememberState) {
-    await fetch('api/v1/auth/remember', {
+  handleSubmit(rememberState) {
+    fetch('api/v1/auth/remember', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
@@ -29,7 +26,7 @@ class Remember extends Component {
     this.setState({
       showingAlert: true,
     });
-    // setTimeout(browserHistory.push('/login'), 5000);
+    setTimeout(() => browserHistory.push('/login'), 3000);
   }
 
   render() {

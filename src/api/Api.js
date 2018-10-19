@@ -51,17 +51,12 @@ class Api {
     return this._request('api/v1/auth/register', body, {
       method: 'POST',
     });
-    // const body = JSON.stringify(registerState);
-    // console.log('register State', body);
-    // return fetch('api/v1/auth/register', {
-    //   method: 'post',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body,
-    // })
-    //   .then(res => res.json())
-    //   .then(res => console.log('rez', res));
+  }
+
+  rememberUser(body) {
+    return this._request('api/v1/auth/register', body, {
+      method: 'POST',
+    });
   }
 
   _request(url, body, params = {}) {

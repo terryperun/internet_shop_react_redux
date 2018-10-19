@@ -43,3 +43,19 @@ export const registerUser = userInfo => async (dispatch) => {
     dispatch(actions.registerUserError({ message: error.message }));
   }
 };
+
+export const rememberUser = userInfo => async (dispatch) => {
+  dispatch(actions.rememberUserStart());
+  const createBody = user => ({
+    email: user.emailForm,
+  });
+
+  const body = createBody(userInfo);
+
+  try {
+    const request = await Api.rememberUser(body);
+    dispatch(actions.rememberUserSuccess(request));
+  } catch (error) {
+    dispatch(actions.rememberUserError({ message: error.message }));
+  }
+};

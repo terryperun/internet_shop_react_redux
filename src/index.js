@@ -11,7 +11,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
 // import store from './store/createStore';
-import * as appOperations from './modules/app/operations';
+import * as authOperations from './modules/auth/authOperations';
 import { store, persistor } from './store/createStore';
 import './index.css';
 import App from './App';
@@ -29,14 +29,13 @@ class Wrapper extends Component {
 
   async componentDidMount() {
     await persistor.persist();
-    await store.dispatch(appOperations.init());
-    // console.log(appOperations);
+    await store.dispatch(authOperations.init());
     this.setState({ isInitialized: true });
   }
 
   render() {
     if (!this.state.isInitialized) {
-      return <div>Loading..</div>;
+      return <div>Please login</div>;
     }
     return (
       <Provider store={store}>

@@ -1,0 +1,11 @@
+export const LOGIN_USER_START = 'auth/LOGIN_USER_START';
+export const LOGIN_USER_SUCCESS = 'auth/LOGIN_USER_SUCCESS';
+export const LOGIN_USER_ERROR = 'auth/LOGIN_USER_ERROR';
+
+export const GET_USER_START = 'auth/GET_USER_START';
+export const GET_USER_SUCCESS = 'auth/GET_USER_SUCCESS';
+export const GET_USER_ERROR = 'auth/GET_USER_ERROR';
+
+export const REGISTER_USER_START = 'auth/REGISTER_USER_START';
+export const REGISTER_USER_SUCCESS = 'auth/REGISTER_USER_SUCCESS';
+export const REGISTER_USER_ERROR = 'auth/REGISTER_USER_ERROR';

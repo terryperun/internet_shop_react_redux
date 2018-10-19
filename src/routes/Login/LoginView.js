@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import { withRouter, browserHistory } from 'react-router';
+import { connect } from 'react-redux';
+import T from 'prop-types';
 
 import LoginForm from './components/LoginForm/LoginForm';
+import * as authOperations from '../../modules/auth/authOperations';
 
 class Login extends Component {
+  static propTypes = {
+    loginUser: T.func,
+  };
   constructor(props) {
     super(props);
 
@@ -16,24 +22,10 @@ class Login extends Component {
   }
 
   login(loginState) {
-    // console.log('work login');
-    fetch('api/v1/auth/login', {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json',
-        // Accept: 'application/json',
-      },
-      body: JSON.stringify({
-        email: loginState.emailForm,
-        password: loginState.passwordForm,
-      }),
-    })
-      .then(res => res.json())
-      .then(res => localStorage.setItem('token', res.token));
-
-    this.setState({
-      showingAlert: true,
-    });
+    this.props.loginUser(
+      loginState.emailForm,
+      loginState.passwordForm,
+    );
   }
 
   forgotPassword() {
@@ -62,5 +54,12 @@ class Login extends Component {
     return <div>{content}</div>;
   }
 }
+const mapStateToProps = () => ({});
+const mapDispatchToProps = {
+  loginUser: authOperations.loginUser,
+};
 
-export default withRouter(Login);
+export default withRouter(connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Login));

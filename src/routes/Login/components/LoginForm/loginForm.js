@@ -23,7 +23,6 @@ class LoginForm extends Component {
   }
 
   render() {
-    console.log('state', this.state);
     const { onLogin, onRemember, onRegister } = this.props;
     return (
       <div className={s.wrapper}>

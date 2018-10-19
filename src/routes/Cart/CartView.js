@@ -38,7 +38,6 @@ class Cart extends Component {
   }
 
   navigateToItem(id) {
-    console.log('navigateToItem navigateToItem', id);
     this.props.router.push(`/product/${id}`);
   }
 

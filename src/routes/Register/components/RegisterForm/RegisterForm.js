@@ -7,7 +7,7 @@ class RegisterForm extends Component {
     super(props);
 
     this.state = {
-      notValid: true,
+      // notValid: true,
       name: '',
       surname: '',
       emailForm: '',
@@ -57,7 +57,6 @@ class RegisterForm extends Component {
   // }
 
   render() {
-    // console.log('state', this.state);
     const { onSubmit } = this.props;
     return (
       <div className={s.wrapper}>

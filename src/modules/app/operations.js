@@ -1,15 +1,21 @@
 import Api from '../../api/Api';
+import * as actions from './actions';
 
-export const initApi = token => () => {
-  Api.setToken(token);
-};
+// export const initApi = token => () => {
+//   Api.login()
+// Api.setToken(token);
+// };
 
 export const init = () => async (dispatch) => {
-  const token = await localStorage.getItem('token');
-  console.log('111111111111111111111111', token);
+  const token = window.localStorage.getItem('token');
   if (token) {
-    dispatch(initApi(token));
-    // console.log('111111111111111111111111');
-    // const response = await
+    Api.setToen(token);
+    dispatch(actions.getUser(token));
+    // dispatch(initApi(token));
+    // dispatch(action.fetchUser)
   }
 };
+
+// export const login = () => async (dispatch) => {
+
+// }

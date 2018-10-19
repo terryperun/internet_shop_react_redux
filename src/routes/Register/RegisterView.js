@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import RegisterForm from './components/RegisterForm/RegisterForm';
+import * as authOperations from '../../modules/auth/authOperations';
+// import Api from '../../api/Api';
 
 class Register extends Component {
   constructor(props) {
@@ -11,23 +14,23 @@ class Register extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  async handleSubmit(registerState) {
-    await fetch('api/v1/auth/register', {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: registerState.emailForm,
-        password: registerState.passwordForm1,
-        name: registerState.name,
-        surname: registerState.surname,
-      }),
-    })
-      .then(res => res.json())
-      .then(res => console.log(res));
-    this.props.router.push('/loging');
-    // console.log('2', registerState);
+  handleSubmit(registerState) {
+    this.props.registerUser(registerState);
+    // authOperations.registerUser(registerState);
+    // Api.registerUser(registerState);
+    // const wrapBody = createBody(registerState);
+    // const body = JSON.stringify(wrapBody);
+    // console.log('register State', body);
+    // fetch('api/v1/auth/register', {
+    //   method: 'post',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body,
+    // })
+    //   .then(res => res.json())
+    //   .then(res => console.log('rez', res));
+    // this.props.router.push('/loging');
   }
 
   render() {
@@ -38,5 +41,14 @@ class Register extends Component {
     );
   }
 }
+const mapStateToProps = () => ({});
 
-export default Register;
+const mapDispatchToProps = {
+  registerUser: authOperations.registerUser,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Register);
+// export default Register;

@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 import * as cartActions from '../../modules/cart/cartActions';
 import s from './Header.module.css';
 import CartItemList from '../ItemContainers/CartItemList/CartItemList';
+import Api from '../../api/Api';
+import * as authOperations from '../../modules/auth/authOperations';
 
 class Header extends Component {
   constructor(props) {
@@ -22,6 +24,7 @@ class Header extends Component {
     this.onRemoveFromCart = this.onRemoveFromCart.bind(this);
     this.fetchProductsById = this.fetchProductsById.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
+    this.interactLogBtn = this.interactLogBtn.bind(this);
     // this.findInPage = this.findInPage.bind(this);
   }
 
@@ -40,6 +43,15 @@ class Header extends Component {
   //     console.log(this.state.findInPage);
   //   };
   // }
+  interactLogBtn() {
+    console.log('do');
+    if (this.props.userInfo) {
+      window.localStorage.removeItem('token');
+      this.props.removeConectedUser();
+    } else {
+      this.props.router.push('/login');
+    }
+  }
 
   async fetchProductsById() {
     const getProductsByIds = (ids) => {
@@ -65,7 +77,6 @@ class Header extends Component {
   }
 
   navigateToItem(id) {
-    console.log('HEADER navigateToItem', id);
     this.props.router.push(`/product/${id}`);
   }
 
@@ -73,6 +84,13 @@ class Header extends Component {
     this.setState({
       showModal: false,
     });
+  }
+
+  loginBtn() {
+    if (this.props.userInfo) {
+      return <div>Logout</div>;
+    }
+    return <div>Login</div>;
   }
 
   renderProduct() {
@@ -97,6 +115,7 @@ class Header extends Component {
   render() {
     const { openModal, location } = this.props;
     const content = this.renderProduct();
+    const loginBtn = this.loginBtn();
     return (
       <header className={s.container}>
         <div className={s.logo}>
@@ -131,6 +150,10 @@ class Header extends Component {
           undefined
         )}
 
+        <button onClick={() => this.interactLogBtn()}>
+          {loginBtn}
+        </button>
+
         <Modal
           isOpen={this.state.showModal}
           contentLabel="Minimal Modal Example"
@@ -147,10 +170,12 @@ class Header extends Component {
 const mapStateToProps = state => ({
   cartIds: state.cart.items,
   totalPrice: state.cart.totalPrice,
+  userInfo: state.auth.viewer,
 });
 
 const mapDispatchToProps = {
   removeFromCart: cartActions.removeFromCart,
+  removeConectedUser: authOperations.removeConectedUser,
 };
 
 export default withRouter(connect(

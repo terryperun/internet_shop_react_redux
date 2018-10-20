@@ -16,3 +16,7 @@ export const registerUserError = createAction(types.REGISTER_USER_ERROR);
 export const rememberUserStart = createAction(types.REMEMBER_USER_START);
 export const rememberUserSuccess = createAction(types.REMEMBER_USER_SUCCESS);
 export const rememberUserError = createAction(types.REMEMBER_USER_ERROR);
+
+export const removeConnectedUserStart = createAction(types.REMOVE_CONNECTED_USER_START);
+export const removeConnectedUserSuccess = createAction(types.REMOVE_CONNECTED_USER_SUCCESS);
+export const removeConnectedUserError = createAction(types.REMOVE_CONNECTED_USER_ERROR);

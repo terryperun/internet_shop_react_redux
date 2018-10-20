@@ -74,6 +74,18 @@ export default function reducer(state = initialState, action) {
     case types.REMEMBER_USER_ERROR:
       return { ...state, error: action.payload };
 
+    case types.REMOVE_CONNECTED_USER_START:
+      return { ...state, isLoading: true, error: null };
+
+    case types.REMOVE_CONNECTED_USER_SUCCESS:
+      return {
+        ...state,
+        viewer: null,
+      };
+
+    case types.REMOVE_CONNECTED_USER_ERROR:
+      return { ...state, error: action.payload };
+
     default:
       return state;
   }

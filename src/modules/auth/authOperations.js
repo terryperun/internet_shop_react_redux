@@ -59,3 +59,14 @@ export const rememberUser = userInfo => async (dispatch) => {
     dispatch(actions.rememberUserError({ message: error.message }));
   }
 };
+
+export const removeConectedUser = () => async (dispatch) => {
+  dispatch(actions.removeConnectedUserStart());
+
+  try {
+    Api.setToken(null);
+    dispatch(actions.removeConnectedUserSuccess());
+  } catch (error) {
+    dispatch(actions.removeConnectedUserError({ message: error.message }));
+  }
+};

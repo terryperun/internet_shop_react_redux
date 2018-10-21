@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter, browserHistory } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import { RememberForm, FormSuccess } from './components';
 
 class Remember extends Component {
@@ -26,7 +26,7 @@ class Remember extends Component {
     this.setState({
       showingAlert: true,
     });
-    setTimeout(() => browserHistory.push('/login'), 3000);
+    setTimeout(() => this.props.history.push('/login'), 3000);
   }
 
   render() {

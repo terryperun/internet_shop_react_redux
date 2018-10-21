@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter, browserHistory } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import T from 'prop-types';
 
@@ -21,19 +21,20 @@ class Login extends Component {
     this.haveNotAccount = this.haveNotAccount.bind(this);
   }
 
-  login(loginState) {
-    this.props.loginUser(
+  async login(loginState) {
+    await this.props.loginUser(
       loginState.emailForm,
       loginState.passwordForm,
     );
+    this.props.history.push('/');
   }
 
   forgotPassword() {
-    browserHistory.push('/remember');
+    this.props.history.push('/remember');
   }
 
   haveNotAccount() {
-    browserHistory.push('/register');
+    this.props.history.push('/register');
   }
 
   initializationEnter() {

@@ -15,6 +15,7 @@ class EditProduct extends Component {
   }
 
   async componentDidMount() {
+    console.log('star');
     if (!this.props.product) {
       this.props.fetchProduct(this.props.match.params.id);
     }
@@ -22,7 +23,6 @@ class EditProduct extends Component {
 
   addToCart() {
     this.props.addToCart(this.props.product);
-    console.log('--', this.props.cart);
   }
 
   renderProduct() {

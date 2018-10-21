@@ -53,7 +53,7 @@ export const updateProduct = (id, product) => async (dispatch) => {
     title: product.title || '',
     description: product.description || '',
     price: product.price || '',
-    image: '',
+    image: product.image || '',
   });
 
   const body = createBody(product);
@@ -78,8 +78,8 @@ export const createProduct = product => async (dispatch) => {
   const createBody = product => ({
     title: product.title || '',
     description: product.description || '',
-    price: product.price || '',
-    image: '',
+    price: product.price || '0',
+    image: product.image || '',
   });
   const body = createBody(product);
 

@@ -22,7 +22,6 @@ class Product extends Component {
 
   addToCart() {
     this.props.addToCart(this.props.product);
-    console.log('--', this.props.cart);
   }
 
   renderProduct() {
@@ -52,11 +51,8 @@ class Product extends Component {
     );
   }
 }
-// state.products.entities[this.props.params.id];
-// state.products.items.map(id => state.products.entities[id]);
-// this.props.params.id;
+
 const mapStateToProps = (state, props) => ({
-  // product: state.products.entities,
   product: state.entities.products[props.match.params.id],
   isLoading: state.products.isLoading,
   isError: !!state.products.error,

@@ -6,7 +6,7 @@ const getProductState = props =>
     title: '',
     description: '',
     image: '',
-    price: '0',
+    price: '',
   };
 
 class AddModal extends Component {
@@ -88,6 +88,12 @@ class AddModal extends Component {
             value={this.state.price}
             onChange={this.handleChange('price')}
           />
+          <br />
+          <label htmlFor="L3">
+            URL IMG:
+            <br />
+          </label>
+          <input type="text" onChange={this.handleChange('image')} />
           <br />
           <button
             onClick={() => {

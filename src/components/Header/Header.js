@@ -93,6 +93,17 @@ class Header extends Component {
     return <div>Login</div>;
   }
 
+  fullName() {
+    if (!this.props.userInfo) {
+      return;
+    }
+    return (
+      <div>
+        {this.props.userInfo.firstName} {this.props.userInfo.lastName}
+      </div>
+    );
+  }
+
   renderProduct() {
     if (this.state.products.length === 0) {
       return <div>..no cookies :( ..</div>;
@@ -116,6 +127,7 @@ class Header extends Component {
     const { openModal, location } = this.props;
     const content = this.renderProduct();
     const loginBtn = this.loginBtn();
+    const fullName = this.fullName();
     return (
       <header className={s.container}>
         <div className={s.logo}>
@@ -153,6 +165,7 @@ class Header extends Component {
         <button onClick={() => this.interactLogBtn()}>
           {loginBtn}
         </button>
+        <div>{fullName}</div>
 
         <Modal
           isOpen={this.state.showModal}

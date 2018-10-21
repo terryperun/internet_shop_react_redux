@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router';
+import { Link, withRouter } from 'react-router-dom';
 import Modal from 'react-modal';
 import { connect } from 'react-redux';
 
@@ -49,7 +49,7 @@ class Header extends Component {
       window.localStorage.removeItem('token');
       this.props.removeConectedUser();
     } else {
-      this.props.router.push('/login');
+      this.props.history.push('/login');
     }
   }
 
@@ -77,7 +77,7 @@ class Header extends Component {
   }
 
   navigateToItem(id) {
-    this.props.router.push(`/product/${id}`);
+    this.props.history.push(`/product/${id}`);
   }
 
   handleCloseModal() {

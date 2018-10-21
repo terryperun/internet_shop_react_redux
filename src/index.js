@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {
-  Router,
-  browserHistory,
+  BrowserRouter,
   // Route,
   // Link,
   // Redirect,
-} from 'react-router';
+} from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
@@ -16,7 +15,7 @@ import { store, persistor } from './store/createStore';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-import routes from './routes/router';
+import Router from './routes/router';
 
 class Wrapper extends Component {
   constructor(props) {
@@ -41,7 +40,9 @@ class Wrapper extends Component {
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <App>
-            <Router history={browserHistory} routes={routes} />
+            <BrowserRouter>
+              <Router />
+            </BrowserRouter>
           </App>
         </PersistGate>
       </Provider>

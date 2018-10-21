@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Route } from 'react-router';
+import { Route, Switch } from 'react-router-dom';
 
 import '../App.css';
 import About from './About/AboutView';
@@ -17,38 +17,55 @@ import Register from './Register/RegisterView';
 import Login from './Login/LoginView';
 import Remember from './Remember/RememberView';
 
-const routes = (
-  <Router>
-    <Route path="/admin" component={props => <Admin {...props} />} />
-    <Route path="/" component={props => <Store {...props} />} />
-    <Route path="/cart" component={props => <Cart {...props} />} />
-    <Route path="/cart/checkout" component={Checkout} />
-    <Route path="/about" component={About} />
-    <Route path="/contact" component={Contact} />
+const Router = () => (
+  <Switch>
     <Route
+      exact
+      path="/admin"
+      component={props => <Admin {...props} />}
+    />
+    <Route exact path="/" component={props => <Store {...props} />} />
+    <Route
+      exact
+      path="/cart"
+      component={props => <Cart {...props} />}
+    />
+    <Route exact path="/cart/checkout" component={Checkout} />
+    <Route exact path="/about" component={About} />
+    <Route exact path="/contact" component={Contact} />
+    <Route
+      exact
       path="/termsandconditions"
       component={TermsAndConditions}
     />
-    <Route path="/privacypolicy" component={PrivacyPolicy} />
+    <Route exact path="/privacypolicy" component={PrivacyPolicy} />
     {/* <Route path="*" component={Error} /> */}
     <Route
+      exact
       path="/admin/product/:id"
       component={props => <EditProduct {...props} />}
     />
     <Route
+      exact
       path="/product/:id"
       component={props => <Product {...props} />}
     />
-    <Route path="/login" component={props => <Login {...props} />} />
     <Route
+      exact
+      path="/login"
+      component={props => <Login {...props} />}
+    />
+    <Route
+      exact
       path="/register"
       component={props => <Register {...props} />}
     />
     <Route
+      exact
       path="/remember"
       component={props => <Remember {...props} />}
     />
-  </Router>
+  </Switch>
 );
 
-export default routes;
+export default Router;

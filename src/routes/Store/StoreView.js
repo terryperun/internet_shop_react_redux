@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import T from 'prop-types';
 import { connect } from 'react-redux';
-
+import { withRouter } from 'react-router-dom';
 import * as productsOperations from '../../modules/products/productsOperations';
 import * as cartActions from '../../modules/cart/cartActions';
 import Header from '../../components/Header/Header';
@@ -28,7 +28,7 @@ class Store extends Component {
   }
 
   navigateToItem(id) {
-    this.props.router.push(`/product/${id}`);
+    this.props.history.push(`/product/${id}`);
   }
 
   addToCart(product) {
@@ -81,7 +81,7 @@ const mapDispatchToProps = {
   addToCart: cartActions.addToCart,
 };
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Store);
+)(Store));

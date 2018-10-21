@@ -16,7 +16,7 @@ class Product extends Component {
 
   async componentDidMount() {
     if (!this.props.product) {
-      this.props.fetchProduct(this.props.params.id);
+      this.props.fetchProduct(this.props.match.params.id);
     }
   }
 
@@ -57,7 +57,7 @@ class Product extends Component {
 // this.props.params.id;
 const mapStateToProps = (state, props) => ({
   // product: state.products.entities,
-  product: state.entities.products[props.params.id],
+  product: state.entities.products[props.match.params.id],
   isLoading: state.products.isLoading,
   isError: !!state.products.error,
   errorMessage: state.products.error

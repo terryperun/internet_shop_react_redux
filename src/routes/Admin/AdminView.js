@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Modal from 'react-modal';
 import T from 'prop-types';
 import { connect } from 'react-redux';
-
+import { withRouter } from 'react-router-dom';
 import * as productsOperations from '../../modules/products/productsOperations';
 import cartActions from '../../modules/cart/cartActions';
 import AddModal from '../../components/AddModal/AddModal';
@@ -59,7 +59,7 @@ class Admin extends Component {
   }
 
   navigateToItem = (evt, id) => {
-    this.props.router.push(`/admin/product/${id}`);
+    this.props.history.push(`/admin/product/${id}`);
   };
 
   handleEdit = (propsItem) => {
@@ -156,7 +156,7 @@ const mapDispatchToProps = {
   createProduct: productsOperations.createProduct,
 };
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Admin);
+)(Admin));

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import CartItemList from '../../components/ItemContainers/CartItemList/CartItemList';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
@@ -38,7 +39,7 @@ class Cart extends Component {
   }
 
   navigateToItem(id) {
-    this.props.router.push(`/product/${id}`);
+    this.props.history.push(`/product/${id}`);
   }
 
   renderProduct() {
@@ -80,7 +81,7 @@ const mapDispatchToProps = {
   removeFromCart: cartActions.removeFromCart,
 };
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Cart);
+)(Cart));

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 import '../App.css';
 import About from './About/AboutView';
@@ -16,11 +16,11 @@ import Store from './Store/StoreView';
 import Register from './Register/RegisterView';
 import Login from './Login/LoginView';
 import Remember from './Remember/RememberView';
+import PrivatRoute from './PrivatRoute/PrivatRaute';
 
 const Router = () => (
   <Switch>
-    <Route
-      exact
+    <PrivatRoute
       path="/admin"
       component={props => <Admin {...props} />}
     />

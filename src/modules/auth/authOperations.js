@@ -60,7 +60,7 @@ export const rememberUser = userInfo => async (dispatch) => {
   }
 };
 
-export const removeConectedUser = () => async (dispatch) => {
+export const removeConnectedUser = () => async (dispatch) => {
   dispatch(actions.removeConnectedUserStart());
 
   try {

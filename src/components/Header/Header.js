@@ -44,10 +44,10 @@ class Header extends Component {
   //   };
   // }
   interactLogBtn() {
-    console.log('do');
+    console.log('do', this.props.userInfo);
     if (this.props.userInfo) {
       window.localStorage.removeItem('token');
-      this.props.removeConectedUser();
+      this.props.removeConnectedUser();
     } else {
       this.props.history.push('/login');
     }
@@ -175,7 +175,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   removeFromCart: cartActions.removeFromCart,
-  removeConectedUser: authOperations.removeConectedUser,
+  removeConnectedUser: authOperations.removeConnectedUser,
 };
 
 export default withRouter(connect(

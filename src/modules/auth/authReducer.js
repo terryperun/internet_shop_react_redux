@@ -81,6 +81,7 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         viewer: null,
+        isLoginedIn: false,
       };
 
     case types.REMOVE_CONNECTED_USER_ERROR:

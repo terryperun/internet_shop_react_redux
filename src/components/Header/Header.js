@@ -25,6 +25,7 @@ class Header extends Component {
     this.fetchProductsById = this.fetchProductsById.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
     this.interactLogBtn = this.interactLogBtn.bind(this);
+    this.closeModalCart = this.closeModalCart.bind(this);
     // this.findInPage = this.findInPage.bind(this);
   }
 
@@ -32,6 +33,12 @@ class Header extends Component {
     this.props.removeFromCart(item);
     this.setState({
       products: this.state.products.filter(i => i !== item),
+    });
+  }
+
+  closeModalCart() {
+    this.setState({
+      showModal: false,
     });
   }
 
@@ -114,10 +121,16 @@ class Header extends Component {
           products={this.state.products}
           navigateToItem={this.navigateToItem}
           onRemoveFromCart={this.onRemoveFromCart}
+          // closeModalCart={this.closeModalCart}
           // isOpen={this.state.showModal}
         />
-        <div className={s.totalPrice}>
-          Total price: {this.props.totalPrice}
+        <div className={s.additional}>
+          <div className={s.totalPrice}>
+            Total price: {this.props.totalPrice}
+          </div>
+          <div className={s.closeModalCart}>
+            <button className={s.closeModalCartBtn} onClick={this.closeModalCart}>Close</button>
+          </div>
         </div>
       </div>
     );

@@ -26,7 +26,7 @@ class Login extends Component {
       loginState.emailForm,
       loginState.passwordForm,
     );
-    this.props.history.push('/');
+    this.props.history.push('/admin');
   }
 
   forgotPassword() {

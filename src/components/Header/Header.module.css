@@ -30,3 +30,27 @@
   float: right;
   margin-right: 10px;
 }
+
+/* .totalPrice {
+  float: right;
+} */
+
+.closeModalCart {
+  float: right;
+  width: 150px;
+}
+
+.closeModalCartBtn {
+  display: block;
+  width: 100%;
+  margin: 20px 0;
+  background: rgb(55, 133, 207);
+  color: white;
+  border: 0;
+  padding: 15px;
+  font-size: 1.2rem;
+}
+
+.additional {
+  float: right;
+}

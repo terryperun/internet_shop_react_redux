@@ -1,7 +1,7 @@
 .itemContainer {
   float: left;
   width: 200px;
-  height: 350px;
+  height: 380px;
   margin: 10px;
   list-style-type: none;
 }
@@ -35,12 +35,18 @@
 }
 
 .btn {
-  margin-left: 57px;
+  /* margin-left: 57px; */
+  margin: auto;
 }
 
 .addBtn {
-  background-color: #61b4ebfb;
-  width: 100px;
-  height: 30px;
-  border-radius: 5px;
+  /* border-radius: 3px; */
+  display: block;
+  width: 70%;
+  margin: 15px auto;
+  background: rgb(0, 137, 207);
+  color: white;
+  border: 0;
+  padding: 10px;
+  font-size: 1.1rem;
 }

@@ -25,3 +25,8 @@
   margin-right: 30px;
   width: 70px
 }
+
+.fullName {
+  float: right;
+  margin-right: 10px;
+}

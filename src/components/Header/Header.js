@@ -143,7 +143,9 @@ class Header extends Component {
         </div>
         <div className={s.cart}>
           {location.pathname !== '/cart' ? (
-            <button onClick={this.pushToCard}>Cart</button>
+            <button onClick={this.pushToCard}>
+              Cart {this.props.amountProductsCard}
+            </button>
           ) : (
             undefined
           )}
@@ -165,7 +167,7 @@ class Header extends Component {
         <button onClick={() => this.interactLogBtn()}>
           {loginBtn}
         </button>
-        <div>{fullName}</div>
+        <div className={s.fullName}>{fullName}</div>
 
         <Modal
           isOpen={this.state.showModal}
@@ -184,6 +186,7 @@ const mapStateToProps = state => ({
   cartIds: state.cart.items,
   totalPrice: state.cart.totalPrice,
   userInfo: state.auth.viewer,
+  amountProductsCard: state.cart.items.length,
 });
 
 const mapDispatchToProps = {

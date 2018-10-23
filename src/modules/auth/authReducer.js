@@ -15,8 +15,6 @@ export default function reducer(state = initialState, action) {
 
     case types.GET_USER_SUCCESS: {
       const { user } = action.payload;
-      console.log(user);
-      debugger;
       return {
         ...state,
         isLoginedIn: true,

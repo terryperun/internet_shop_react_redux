@@ -9,18 +9,20 @@ const CartItemList = ({
   // isOpen,
   createNewItem,
 }) => {
-  const container = products.map(item => (
-    <CartProductItem
-      id={item.id}
-      title={item.title}
-      description={item.description}
-      image={item.image}
-      price={item.price}
-      navigateToItem={navigateToItem}
-      item={item}
-      onRemoveFromCart={onRemoveFromCart}
-    />
-  ));
+  const container = [...products]
+    .reverse()
+    .map(item => (
+      <CartProductItem
+        id={item.id}
+        title={item.title}
+        description={item.description}
+        image={item.image}
+        price={item.price}
+        navigateToItem={navigateToItem}
+        item={item}
+        onRemoveFromCart={onRemoveFromCart}
+      />
+    ));
   return (
     <div>
       <ul>{container}</ul>

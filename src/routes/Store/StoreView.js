@@ -21,7 +21,7 @@ class Store extends Component {
   }
 
   async componentDidMount() {
-    this.props.fetchProducts();
+    await this.props.fetchProducts();
     // if (!this.props.products) {
     //   this.props.fetchProducts();
     // }
@@ -32,7 +32,9 @@ class Store extends Component {
   }
 
   addToCart(product) {
+    // debugger;
     this.props.addToCart(product);
+    // this.props.openModalCart(true);
   }
 
   renderProducts() {
@@ -79,6 +81,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   fetchProducts: productsOperations.fetchProducts,
   addToCart: cartActions.addToCart,
+  // openModalCart: cartActions.openModalCart,
 };
 
 export default withRouter(connect(

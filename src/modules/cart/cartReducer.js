@@ -4,7 +4,7 @@ import * as types from './cartTypes';
 const initialState = {
   items: [],
   totalPrice: 0,
-  // products: [],
+  openModalCart: false,
 };
 
 export default function reducer(state = initialState, action) {
@@ -22,6 +22,13 @@ export default function reducer(state = initialState, action) {
         ...state,
         items: state.items.filter(i => i !== id),
         totalPrice: state.totalPrice - price,
+      };
+    }
+
+    case types.OPEN_MODAL_CART: {
+      return {
+        ...state,
+        openModalCart: action.payload,
       };
     }
 

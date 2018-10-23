@@ -3,6 +3,7 @@
   height: 10px;
   padding: 20px;
   width: 100%;
+  min-width: 1017px;
 }
 
 .logo {
@@ -17,12 +18,13 @@
 
 .cart {
   float: right;
-  margin-right: 5%;
+  margin-right: 40px;
+  width: 60px;
 }
 
 .addItemAdminContainer {
   float:right;
-  margin-right: 30px;
+  margin-right: 10px;
   width: 70px
 }
 
@@ -30,10 +32,6 @@
   float: right;
   margin-right: 10px;
 }
-
-/* .totalPrice {
-  float: right;
-} */
 
 .containerPriseBtn {
   width: 100%;
@@ -63,4 +61,13 @@
 
 .additional {
   float: right;
+}
+
+.loginBtnCart {
+  /* float: right;
+  margin-right: 10px; */
+}
+.loginBtnInCartContainer {
+  float: right;
+  margin-right: 30px;
 }

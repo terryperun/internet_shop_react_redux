@@ -1,13 +1,14 @@
 import React from 'react';
 import s from './ProductView.module.css';
+import T from 'prop-types';
 
 const ProductView = ({
   product: {
-    image, title, description, price, navigateToItem, id,
+    image, title, description, price, id,
   },
   onAddtoCart,
 }) => (
-  <div>
+  <div key={id}>
     <div className={s.containerDescription}>
       <div className={s.image}>
         <img
@@ -30,5 +31,10 @@ const ProductView = ({
     </div>
   </div>
 );
+
+ProductView.propTypes = {
+  product: T.object,
+  onAddtoCart: T.func,
+};
 
 export default ProductView;

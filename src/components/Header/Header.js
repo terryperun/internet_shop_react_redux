@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import Modal from 'react-modal';
 import { connect } from 'react-redux';
+import T from 'prop-types';
 
 import * as cartActions from '../../modules/cart/cartActions';
 import s from './Header.module.css';
@@ -10,6 +11,11 @@ import Api from '../../api/Api';
 import * as authOperations from '../../modules/auth/authOperations';
 
 class Header extends Component {
+  static propTypes = {
+    removeFromCart: T.func,
+    removeConnectedUser: T.func,
+    cartIds: T.array,
+  };
   constructor(props) {
     super(props);
 
@@ -29,6 +35,10 @@ class Header extends Component {
     // this.findInPage = this.findInPage.bind(this);
   }
 
+  componentWillMount() {
+    Modal.setAppElement('body');
+  }
+
   onRemoveFromCart(item) {
     this.props.removeFromCart(item);
     this.setState({
@@ -40,16 +50,9 @@ class Header extends Component {
     this.setState({
       showModal: false,
     });
+    window.history.pushState('', '', '/');
   }
 
-  // findInPage() {
-  //   return (event) => {
-  //     this.setState({
-  //       findInPage: event.target.value,
-  //     });
-  //     console.log(this.state.findInPage);
-  //   };
-  // }
   interactLogBtn() {
     console.log('do', this.props.userInfo);
     if (this.props.userInfo) {
@@ -66,7 +69,6 @@ class Header extends Component {
 
       return fetch(`/api/v1/products?${queryString}`).then(raw =>
         raw.json());
-      // .then(data => this.setState({ ItemList: data }));
     };
     if (this.props.cartIds.length > 0) {
       const products = await getProductsByIds(this.props.cartIds);
@@ -75,12 +77,17 @@ class Header extends Component {
   }
 
   pushToCard() {
+    // this.setState({
+    //   currentLocation: window.location.href,
+    // });
     const page = '';
     window.history.pushState(page, 'Cart', '/cart');
     this.setState({
       showModal: true,
     });
+
     this.fetchProductsById();
+    // this.props.openModalCart(true);
   }
 
   navigateToItem(id) {
@@ -91,6 +98,7 @@ class Header extends Component {
     this.setState({
       showModal: false,
     });
+    // this.props.openModalCart(false);
   }
 
   loginBtn() {
@@ -122,9 +130,7 @@ class Header extends Component {
           navigateToItem={this.navigateToItem}
           onRemoveFromCart={this.onRemoveFromCart}
           // closeModalCart={this.closeModalCart}
-          // isOpen={this.state.showModal}
         />
-        
       </div>
     );
   }
@@ -143,14 +149,16 @@ class Header extends Component {
           <form>
             <input
               placeholder="I'm looking for..."
-              // onChange={this.findInPage()}
             />
           </form>
         </div>
         <div className={s.cart}>
           {location.pathname !== '/cart' ? (
             <button onClick={this.pushToCard}>
-              Cart {this.props.amountProductsCard}
+              Cart{' '}
+              {this.props.amountProductsCard
+                ? this.props.amountProductsCard
+                : undefined}
             </button>
           ) : (
             undefined
@@ -169,14 +177,19 @@ class Header extends Component {
         ) : (
           undefined
         )}
-
-        <button onClick={() => this.interactLogBtn()}>
-          {loginBtn}
-        </button>
+        <div className={s.loginBtnInCartContainer}>
+          <button
+            onClick={() => this.interactLogBtn()}
+            className={s.loginBtnCart}
+          >
+            {loginBtn}
+          </button>
+        </div>
         <div className={s.fullName}>{fullName}</div>
 
         <Modal
           isOpen={this.state.showModal}
+          // isOpen={this.props.openModalCartBull}
           contentLabel="Minimal Modal Example"
           onRequestClose={this.handleCloseModal}
           shouldCloseOnOverlayClick={false}
@@ -187,7 +200,18 @@ class Header extends Component {
               Total price: {this.props.totalPrice}
             </div>
             <div className={s.closeModalCart}>
-              <button className={s.closeModalCartBtn} onClick={this.closeModalCart}>Close</button>
+              <button
+                className={s.closeModalCartBtn}
+                onClick={this.closeModalCart}
+              >
+                Close
+              </button>
+              {/* <button
+                className={s.closeModalCartBtn}
+                onClick={() => this.props.openModalCart(false)}
+              >
+                Close
+              </button> */}
             </div>
           </div>
         </Modal>
@@ -201,11 +225,13 @@ const mapStateToProps = state => ({
   totalPrice: state.cart.totalPrice,
   userInfo: state.auth.viewer,
   amountProductsCard: state.cart.items.length,
+  // openModalCartBull: state.cart.openModalCart,
 });
 
 const mapDispatchToProps = {
   removeFromCart: cartActions.removeFromCart,
   removeConnectedUser: authOperations.removeConnectedUser,
+  // openModalCart: cartActions.openModalCart,
 };
 
 export default withRouter(connect(

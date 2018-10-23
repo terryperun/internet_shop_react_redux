@@ -65,8 +65,8 @@ class Api {
     };
 
     if (this._token) {
-      const Authorization = 'Authorization';
-      headers[Authorization] = `Bearer ${this._token}`;
+      // const Authorization = 'Authorization';
+      headers['Authorization'] = `Bearer ${this._token}`; // eslint-disable-line
     }
     return fetch(url, {
       mathod: 'GET',

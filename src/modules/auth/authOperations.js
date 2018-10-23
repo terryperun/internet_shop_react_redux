@@ -2,11 +2,19 @@ import * as actions from './authActions';
 import Api from '../../api/Api';
 
 export const init = () => async (dispatch) => {
+  dispatch(actions.getUserStart());
   const token = window.localStorage.getItem('token');
-  if (token) {
+
+  try {
     Api.setToken(token);
+    // debugger;
     const user = await Api.getUser();
+    debugger;
     dispatch(actions.getUserSuccess(user));
+  } catch (error) {
+    dispatch(actions.getUserError({ message: error.message }));
+    window.localStorage.removeItem('token');
+    debugger;
   }
 };
 

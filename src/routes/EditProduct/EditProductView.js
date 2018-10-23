@@ -15,9 +15,10 @@ class EditProduct extends Component {
   }
 
   async componentDidMount() {
+    debugger;
     console.log('star');
     if (!this.props.product) {
-      this.props.fetchProduct(this.props.match.params.id);
+      await this.props.fetchProduct(this.props.match.params.id);
     }
   }
 

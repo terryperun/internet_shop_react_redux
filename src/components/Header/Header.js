@@ -124,14 +124,7 @@ class Header extends Component {
           // closeModalCart={this.closeModalCart}
           // isOpen={this.state.showModal}
         />
-        <div className={s.additional}>
-          <div className={s.totalPrice}>
-            Total price: {this.props.totalPrice}
-          </div>
-          <div className={s.closeModalCart}>
-            <button className={s.closeModalCartBtn} onClick={this.closeModalCart}>Close</button>
-          </div>
-        </div>
+        
       </div>
     );
   }
@@ -189,6 +182,14 @@ class Header extends Component {
           shouldCloseOnOverlayClick={false}
         >
           {content}
+          <div className={s.containerPriseBtn}>
+            <div className={s.totalPrice}>
+              Total price: {this.props.totalPrice}
+            </div>
+            <div className={s.closeModalCart}>
+              <button className={s.closeModalCartBtn} onClick={this.closeModalCart}>Close</button>
+            </div>
+          </div>
         </Modal>
       </header>
     );

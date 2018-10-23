@@ -11,13 +11,16 @@ const initialState = {
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case types.GET_USER_START:
-      return { ...state, isLoginedIn: true, error: null };
+      return { ...state, isLoading: true, error: null };
 
     case types.GET_USER_SUCCESS: {
       const { user } = action.payload;
+      console.log(user);
+      debugger;
       return {
         ...state,
         isLoginedIn: true,
+        isLoading: false,
         viewer: user,
       };
     }
@@ -26,7 +29,7 @@ export default function reducer(state = initialState, action) {
       return { ...state, error: action.payload };
 
     case types.LOGIN_USER_START:
-      return { ...state, isLoginedIn: true, error: null };
+      return { ...state, isLoading: true, error: null };
 
     case types.LOGIN_USER_SUCCESS: {
       const { user } = action.payload;

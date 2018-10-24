@@ -22,6 +22,7 @@ const Router = () => (
   <Switch>
     <PrivatRoute
       path="/admin"
+      exact
       component={props => <Admin {...props} />}
     />
     <Route exact path="/" component={props => <Store {...props} />} />

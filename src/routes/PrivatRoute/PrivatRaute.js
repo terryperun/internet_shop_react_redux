@@ -11,7 +11,6 @@ class PrivatRoute extends Component {
     const { component: Component, ...rest } = this.props;
     return (
       <Route
-        exact
         {...rest}
         render={props =>
           (this.props.isLoginedIn ? (

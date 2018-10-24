@@ -7,14 +7,11 @@ export const init = () => async (dispatch) => {
 
   try {
     Api.setToken(token);
-    // debugger;
     const user = await Api.getUser();
-    debugger;
     dispatch(actions.getUserSuccess(user));
   } catch (error) {
     dispatch(actions.getUserError({ message: error.message }));
     window.localStorage.removeItem('token');
-    debugger;
   }
 };
 

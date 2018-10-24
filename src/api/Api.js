@@ -28,13 +28,13 @@ class Api {
   }
 
   removeProduct(id) {
-    return this._request(`api/v1/products/${id}`, undefined, {
+    return this._request(`/api/v1/products/${id}`, undefined, {
       method: 'DELETE',
     });
   }
 
   getUser() {
-    return this._request('api/v1/users/current');
+    return this._request('/api/v1/users/current');
   }
 
   login(emailForm, passwordForm) {
@@ -42,19 +42,19 @@ class Api {
       email: emailForm,
       password: passwordForm,
     };
-    return this._request('api/v1/auth/login', body, {
+    return this._request('/api/v1/auth/login', body, {
       method: 'POST',
     });
   }
 
   registerUser(body) {
-    return this._request('api/v1/auth/register', body, {
+    return this._request('/api/v1/auth/register', body, {
       method: 'POST',
     });
   }
 
   rememberUser(body) {
-    return this._request('api/v1/auth/register', body, {
+    return this._request('/api/v1/auth/register', body, {
       method: 'POST',
     });
   }
@@ -65,7 +65,6 @@ class Api {
     };
 
     if (this._token) {
-      // const Authorization = 'Authorization';
       headers['Authorization'] = `Bearer ${this._token}`; // eslint-disable-line
     }
     return fetch(url, {

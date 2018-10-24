@@ -15,8 +15,6 @@ class EditProduct extends Component {
   }
 
   async componentDidMount() {
-    debugger;
-    console.log('star');
     if (!this.props.product) {
       await this.props.fetchProduct(this.props.match.params.id);
     }

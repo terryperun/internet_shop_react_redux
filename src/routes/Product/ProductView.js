@@ -16,7 +16,7 @@ class Product extends Component {
 
   async componentDidMount() {
     if (!this.props.product) {
-      this.props.fetchProduct(this.props.match.params.id);
+      await this.props.fetchProduct(this.props.match.params.id);
     }
   }
 

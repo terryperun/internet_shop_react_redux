@@ -5,7 +5,7 @@ const proxy = require('http-proxy').createProxyServer({});
 const app = express();
 
 const PORT = process.env.PORT || 3000;
-const proxyPath = '/api/v1';
+const proxyPath = '/api/v2';
 
 app.use(express.static('public'));
 

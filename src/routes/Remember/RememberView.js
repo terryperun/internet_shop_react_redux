@@ -13,7 +13,7 @@ class Remember extends Component {
   }
 
   handleSubmit(rememberState) {
-    fetch('api/v1/auth/remember', {
+    fetch('api/v2/auth/remember', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',

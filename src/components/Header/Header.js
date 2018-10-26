@@ -67,7 +67,7 @@ class Header extends Component {
     const getProductsByIds = (ids) => {
       const queryString = ids.map(id => `ids[]=${id}`).join('&&');
 
-      return fetch(`/api/v1/products?${queryString}`).then(raw =>
+      return fetch(`/api/v2/products?${queryString}`).then(raw =>
         raw.json());
     };
     if (this.props.cartIds.length > 0) {

@@ -8,33 +8,33 @@ class Api {
   }
 
   getProducts() {
-    return this._request('/api/v1/products');
+    return this._request('/api/v2/products');
   }
 
   getProduct(id) {
-    return this._request(`/api/v1/products/${id}`);
+    return this._request(`/api/v2/products/${id}`);
   }
 
   createProduct(body) {
-    return this._request('/api/v1/products/', body, {
+    return this._request('/api/v2/products/', body, {
       method: 'POST',
     });
   }
 
   updateProduct(id, body) {
-    return this._request(`/api/v1/products/${id}`, body, {
+    return this._request(`/api/v2/products/${id}`, body, {
       method: 'PATCH',
     });
   }
 
   removeProduct(id) {
-    return this._request(`/api/v1/products/${id}`, undefined, {
+    return this._request(`/api/v2/products/${id}`, undefined, {
       method: 'DELETE',
     });
   }
 
   getUser() {
-    return this._request('/api/v1/users/current');
+    return this._request('/api/v2/users/current');
   }
 
   login(emailForm, passwordForm) {
@@ -42,19 +42,19 @@ class Api {
       email: emailForm,
       password: passwordForm,
     };
-    return this._request('/api/v1/auth/login', body, {
+    return this._request('/api/v2/auth/login', body, {
       method: 'POST',
     });
   }
 
   registerUser(body) {
-    return this._request('/api/v1/auth/register', body, {
+    return this._request('/api/v2/auth/register', body, {
       method: 'POST',
     });
   }
 
   rememberUser(body) {
-    return this._request('/api/v1/auth/register', body, {
+    return this._request('/api/v2/auth/register', body, {
       method: 'POST',
     });
   }

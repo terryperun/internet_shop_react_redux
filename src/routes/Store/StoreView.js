@@ -23,7 +23,7 @@ class Store extends Component {
   async componentDidMount() {
     await this.props.fetchProducts();
     // if (!this.props.products) {
-    //   this.props.fetchProducts();
+    //   await this.props.fetchProducts();
     // }
   }
 
@@ -32,9 +32,13 @@ class Store extends Component {
   }
 
   addToCart(product) {
-    // debugger;
     this.props.addToCart(product);
-    // this.props.openModalCart(true);
+    this.props.history.push({
+      pathname: '/cart',
+      state: {
+        modal: true,
+      },
+    });
   }
 
   renderProducts() {
@@ -75,13 +79,11 @@ const mapStateToProps = state => ({
     ? state.products.error.message
     : null,
   cartIds: state.cart.items,
-  // carts: state.cart,
 });
 
 const mapDispatchToProps = {
   fetchProducts: productsOperations.fetchProducts,
   addToCart: cartActions.addToCart,
-  // openModalCart: cartActions.openModalCart,
 };
 
 export default withRouter(connect(

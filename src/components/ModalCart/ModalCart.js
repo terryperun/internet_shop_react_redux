@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+// import Cart from '../../routes/Cart/CartView';
+import s from './ModalCart.module.css';
 import CartItemList from '../../components/ItemContainers/CartItemList/CartItemList';
-import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer/Footer';
 import * as cartActions from '../../modules/cart/cartActions';
-import s from './CartView.module.css';
 
-class Cart extends Component {
+class ModalCart extends Component {
   constructor(props) {
     super(props);
 
@@ -16,6 +15,7 @@ class Cart extends Component {
     };
     this.onRemoveFromCart = this.onRemoveFromCart.bind(this);
     this.navigateToItem = this.navigateToItem.bind(this);
+    this.back = this.back.bind(this);
   }
 
   async componentDidMount() {
@@ -32,19 +32,27 @@ class Cart extends Component {
   }
 
   onRemoveFromCart(item) {
+    console.log('remove from cart', item);
     this.props.removeFromCart(item);
     this.setState({
       products: this.state.products.filter(i => i !== item),
     });
   }
 
+  back(e) {
+    const { history } = this.props;
+    e.stopPropagation();
+    history.goBack();
+  }
+
   navigateToItem(id) {
+    console.log('toItem', id);
     this.props.history.push(`/product/${id}`);
   }
 
   renderProduct() {
     if (this.state.products.length === 0) {
-      return <div>..no cookies :( ..</div>;
+      return <div>.Loading.</div>;
     }
     return (
       <div>
@@ -61,12 +69,22 @@ class Cart extends Component {
   }
 
   render() {
+    const { history } = this.props;
     const content = this.renderProduct();
     return (
-      <div>
-        <Header />
-        {content}
-        <Footer />
+      <div onClick={e => this.back(e)} className={s.backCart}>
+        <div className={s.modalCart}>
+          {content}
+          <div className={s.closeModalCart}>
+            <button
+              type="button"
+              className={s.closeModalCartBtn}
+              onClick={e => this.back(e)}
+            >
+              Close
+            </button>
+          </div>
+        </div>
       </div>
     );
   }
@@ -84,4 +102,4 @@ const mapDispatchToProps = {
 export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Cart));
+)(ModalCart));

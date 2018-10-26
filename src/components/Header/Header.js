@@ -19,39 +19,39 @@ class Header extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      showModal: false,
-      products: [],
-      // findInPage: '',
-    };
+    // this.state = {
+    //   showModal: false,
+    //   products: [],
+    //   // findInPage: '',
+    // };
 
     this.pushToCard = this.pushToCard.bind(this);
-    this.navigateToItem = this.navigateToItem.bind(this);
-    this.onRemoveFromCart = this.onRemoveFromCart.bind(this);
-    this.fetchProductsById = this.fetchProductsById.bind(this);
-    this.handleCloseModal = this.handleCloseModal.bind(this);
+    // this.navigateToItem = this.navigateToItem.bind(this);
+    // this.onRemoveFromCart = this.onRemoveFromCart.bind(this);
+    // this.fetchProductsById = this.fetchProductsById.bind(this);
+    // this.handleCloseModal = this.handleCloseModal.bind(this);
     this.interactLogBtn = this.interactLogBtn.bind(this);
-    this.closeModalCart = this.closeModalCart.bind(this);
+    // this.closeModalCart = this.closeModalCart.bind(this);
     // this.findInPage = this.findInPage.bind(this);
   }
 
-  componentWillMount() {
-    Modal.setAppElement('body');
-  }
+  // componentWillMount() {
+  //   Modal.setAppElement('body');
+  // }
 
-  onRemoveFromCart(item) {
-    this.props.removeFromCart(item);
-    this.setState({
-      products: this.state.products.filter(i => i !== item),
-    });
-  }
+  // onRemoveFromCart(item) {
+  //   this.props.removeFromCart(item);
+  //   this.setState({
+  //     products: this.state.products.filter(i => i !== item),
+  //   });
+  // }
 
-  closeModalCart() {
-    this.setState({
-      showModal: false,
-    });
-    window.history.pushState('', '', '/');
-  }
+  // closeModalCart() {
+  //   this.setState({
+  //     showModal: false,
+  //   });
+  //   window.history.pushState('', '', '/');
+  // }
 
   interactLogBtn() {
     console.log('do', this.props.userInfo);
@@ -63,43 +63,50 @@ class Header extends Component {
     }
   }
 
-  async fetchProductsById() {
-    const getProductsByIds = (ids) => {
-      const queryString = ids.map(id => `ids[]=${id}`).join('&&');
+  // async fetchProductsById() {
+  //   const getProductsByIds = (ids) => {
+  //     const queryString = ids.map(id => `ids[]=${id}`).join('&&');
 
-      return fetch(`/api/v2/products?${queryString}`).then(raw =>
-        raw.json());
-    };
-    if (this.props.cartIds.length > 0) {
-      const products = await getProductsByIds(this.props.cartIds);
-      this.setState({ products });
-    }
-  }
+  //     return fetch(`/api/v2/products?${queryString}`).then(raw =>
+  //       raw.json());
+  //   };
+  //   if (this.props.cartIds.length > 0) {
+  //     const products = await getProductsByIds(this.props.cartIds);
+  //     this.setState({ products });
+  //   }
+  // }
 
   pushToCard() {
     // this.setState({
     //   currentLocation: window.location.href,
     // });
-    const page = '';
-    window.history.pushState(page, 'Cart', '/cart');
-    this.setState({
-      showModal: true,
+    // const page = '';
+    // window.history.pushState(page, 'Cart', '/cart');
+    this.props.history.push({
+      pathname: '/cart',
+      state: {
+        modal: true,
+        // product,
+      },
     });
+    // this.setState({
+    //   showModal: true,
+    // });
 
-    this.fetchProductsById();
+    // this.fetchProductsById();
     // this.props.openModalCart(true);
   }
 
-  navigateToItem(id) {
-    this.props.history.push(`/product/${id}`);
-  }
+  // navigateToItem(id) {
+  //   this.props.history.push(`/product/${id}`);
+  // }
 
-  handleCloseModal() {
-    this.setState({
-      showModal: false,
-    });
-    // this.props.openModalCart(false);
-  }
+  // handleCloseModal() {
+  //   this.setState({
+  //     showModal: false,
+  //   });
+  //   // this.props.openModalCart(false);
+  // }
 
   loginBtn() {
     if (this.props.userInfo) {
@@ -119,25 +126,24 @@ class Header extends Component {
     );
   }
 
-  renderProduct() {
-    if (this.state.products.length === 0) {
-      return <div>..no cookies :( ..</div>;
-    }
-    return (
-      <div>
-        <CartItemList
-          products={this.state.products}
-          navigateToItem={this.navigateToItem}
-          onRemoveFromCart={this.onRemoveFromCart}
-          // closeModalCart={this.closeModalCart}
-        />
-      </div>
-    );
-  }
+  // renderProduct() {
+  //   if (this.state.products.length === 0) {
+  //     return <div>..no cookies :( ..</div>;
+  //   }
+  //   return (
+  //     <div>
+  //       <CartItemList
+  //         products={this.state.products}
+  //         navigateToItem={this.navigateToItem}
+  //         onRemoveFromCart={this.onRemoveFromCart}
+  //       />
+  //     </div>
+  //   );
+  // }
 
   render() {
     const { openModal, location } = this.props;
-    const content = this.renderProduct();
+    // const content = this.renderProduct();
     const loginBtn = this.loginBtn();
     const fullName = this.fullName();
     return (
@@ -147,9 +153,7 @@ class Header extends Component {
         </div>
         <div className={s.searchContainer}>
           <form>
-            <input
-              placeholder="I'm looking for..."
-            />
+            <input placeholder="I'm looking for..." />
           </form>
         </div>
         <div className={s.cart}>
@@ -187,7 +191,7 @@ class Header extends Component {
         </div>
         <div className={s.fullName}>{fullName}</div>
 
-        <Modal
+        {/* <Modal
           isOpen={this.state.showModal}
           // isOpen={this.props.openModalCartBull}
           contentLabel="Minimal Modal Example"
@@ -206,15 +210,9 @@ class Header extends Component {
               >
                 Close
               </button>
-              {/* <button
-                className={s.closeModalCartBtn}
-                onClick={() => this.props.openModalCart(false)}
-              >
-                Close
-              </button> */}
             </div>
           </div>
-        </Modal>
+        </Modal> */}
       </header>
     );
   }
@@ -225,13 +223,11 @@ const mapStateToProps = state => ({
   totalPrice: state.cart.totalPrice,
   userInfo: state.auth.viewer,
   amountProductsCard: state.cart.items.length,
-  // openModalCartBull: state.cart.openModalCart,
 });
 
 const mapDispatchToProps = {
   removeFromCart: cartActions.removeFromCart,
   removeConnectedUser: authOperations.removeConnectedUser,
-  // openModalCart: cartActions.openModalCart,
 };
 
 export default withRouter(connect(

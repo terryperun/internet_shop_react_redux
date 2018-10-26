@@ -1,0 +1,46 @@
+
+.totalPrice {
+  float: right;
+  margin: 10px;
+  margin-right: 5%;
+}
+
+
+.closeModalCart {
+  float: right;
+  width: 190px;
+  clear: both;
+}
+
+.closeModalCartBtn {
+  float: right;
+  width: 150px;
+  clear: both;
+  margin: 20px;
+  background: rgb(55, 133, 207);
+  color: white;
+  border: 0;
+  padding: 15px;
+  display: block;
+  font-size: 1.2rem;
+}
+
+.backCart {
+  min-width: 900px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.modalCart {
+  position: absolute;
+  background: #fff;
+  top: 25px;
+  left: 10%;
+  right: 10%;
+  padding: 15;
+  border: 2px solid #444;
+} 

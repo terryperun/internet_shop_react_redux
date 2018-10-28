@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import s from './ModalCart.module.css';
 import CartItemList from '../../components/ItemContainers/CartItemList/CartItemList';
 import * as cartActions from '../../modules/cart/cartActions';
+import Loading from '../../components/Loading/Loading';
 
 class ModalCart extends Component {
   constructor(props) {
@@ -52,7 +53,7 @@ class ModalCart extends Component {
 
   renderProduct() {
     if (this.state.products.length === 0) {
-      return <div>.Loading.</div>;
+      return <Loading />;
     }
     return (
       <div>

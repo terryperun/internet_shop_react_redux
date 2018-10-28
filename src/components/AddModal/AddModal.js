@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import T from 'prop-types';
 
+import Loading from '../../components/Loading/Loading';
+
 const getProductState = props =>
   props.propsItem || {
     title: '',
@@ -47,7 +49,7 @@ class AddModal extends Component {
 
     const valueBtn = createNewItem && 'Add';
     if (isLoading) {
-      return <div>Loading...</div>;
+      return <Loading />;
     }
 
     return (

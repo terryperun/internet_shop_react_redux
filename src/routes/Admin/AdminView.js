@@ -10,6 +10,7 @@ import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import AdminItemList from '../../components/ItemContainers/AdminItemList/AdminItemList';
 // import Api from '../../api/Api';
+import Loading from '../../components/Loading/Loading';
 
 const appElement = document.getElementById('adminPage');
 Modal.setAppElement(appElement);
@@ -92,7 +93,7 @@ class Admin extends Component {
 
   renderProducts() {
     if (this.props.isLoading) {
-      return <div>..Loading..</div>;
+      return <Loading />;
     }
 
     if (!this.props.products) {

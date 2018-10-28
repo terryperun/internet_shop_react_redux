@@ -6,6 +6,7 @@ import * as cartActions from '../../modules/cart/cartActions';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import AdminProductView from '../../components/Item/AdminProductView/AdminProductView';
+import Loading from '../../components/Loading/Loading';
 
 class EditProduct extends Component {
   constructor(props) {
@@ -26,7 +27,7 @@ class EditProduct extends Component {
 
   renderProduct() {
     if (this.props.isLoading) {
-      return <div>..Loading..</div>;
+      return <Loading />;
     }
 
     if (!this.props.product) {

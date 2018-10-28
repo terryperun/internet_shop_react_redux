@@ -152,45 +152,51 @@ class Header extends Component {
           <Link to="/">MLTrcPublic</Link>
         </div>
         <div className={s.searchContainer}>
-          <form>
-            <input placeholder="I'm looking for..." />
-          </form>
+          {/* <form> */}
+          <input
+            className={s.searchInput}
+            placeholder="I'm looking for..."
+          />
+          {/* </form> */}
+          <button className={s.searchBtn}>Search</button>
         </div>
-        <div className={s.cart}>
-          {location.pathname !== '/cart' ? (
-            <button onClick={this.pushToCard}>
-              Cart{' '}
-              {this.props.amountProductsCard
-                ? this.props.amountProductsCard
-                : undefined}
+        <div className={s.buttonContainer}>
+          <div className={s.fullName}>{fullName}</div>
+          <div className={s.addContainer}>
+            {location.pathname === '/admin/' ||
+            location.pathname === '/admin' ? (
+              <button
+                id="addProductButton"
+                className={s.addItemBtn}
+                onClick={openModal}
+              >
+                Add
+              </button>
+            ) : (
+              undefined
+            )}
+          </div>
+          <div className={s.loginBtnInCartContainer}>
+            <button
+              onClick={() => this.interactLogBtn()}
+              className={s.loginBtnCart}
+            >
+              {loginBtn}
             </button>
-          ) : (
-            undefined
-          )}
+          </div>
+          <div className={s.cartContainer}>
+            {location.pathname !== '/cart' ? (
+              <button onClick={this.pushToCard} className={s.cartBtn}>
+                Cart{' '}
+                {this.props.amountProductsCard
+                  ? this.props.amountProductsCard
+                  : undefined}
+              </button>
+            ) : (
+              undefined
+            )}
+          </div>
         </div>
-
-        {location.pathname === '/admin/' ||
-        location.pathname === '/admin' ? (
-          <button
-            id="addProductButton"
-            className={s.addItemAdminContainer}
-            onClick={openModal}
-          >
-            Add
-          </button>
-        ) : (
-          undefined
-        )}
-        <div className={s.loginBtnInCartContainer}>
-          <button
-            onClick={() => this.interactLogBtn()}
-            className={s.loginBtnCart}
-          >
-            {loginBtn}
-          </button>
-        </div>
-        <div className={s.fullName}>{fullName}</div>
-
         {/* <Modal
           isOpen={this.state.showModal}
           // isOpen={this.props.openModalCartBull}

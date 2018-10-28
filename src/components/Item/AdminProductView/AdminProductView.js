@@ -7,22 +7,24 @@ const AdminProductView = ({
   },
   onAddtoCart,
 }) => (
-  <div>
+  <div key={id} className={s.container}>
     <div className={s.containerDescription}>
-      <div className={s.image}>
+      <div className={s.imageContainer}>
         <img
-          className={s.itemImg}
+          className={s.image}
           src={image}
           alt="img"
           width="200px"
         />
       </div>
-      <div className={s.title}>{title}</div>
-      <div className={s.description}>{description}</div>
+      <div className={s.infoContainer}>
+        <div className={s.title}>{title}</div>
+        <div className={s.description}>{description}</div>
+      </div>
     </div>
     <div className={s.buy}>
       <div className={s.price}>Price: {price}</div>
-      <div className={s.btn}>
+      <div className={s.containerBtn}>
         <button className={s.addBtn} onClick={onAddtoCart}>
           Add to cart
         </button>

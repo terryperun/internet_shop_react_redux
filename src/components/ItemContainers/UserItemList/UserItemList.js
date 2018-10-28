@@ -18,7 +18,7 @@ const UserItemList = ({ products, navigateToItem, onAddInCart }) => {
   ));
   return (
     <div className={s.itemsContainer}>
-      <ul>{container}</ul>
+      <ul className={s.ul}>{container}</ul>
     </div>
   );
 };

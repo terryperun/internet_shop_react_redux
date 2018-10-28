@@ -12,7 +12,10 @@ const AdminItem = ({
   propsItem,
 }) => (
   <div className={s.itemContainer}>
-    <div onClick={() => navigateToItem(id)}>
+    <div
+      className={s.productOnClick}
+      onClick={() => navigateToItem(id)}
+    >
       <div className={s.image}>
         <img
           className={s.itemImg}

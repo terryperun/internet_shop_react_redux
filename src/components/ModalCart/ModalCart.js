@@ -73,7 +73,7 @@ class ModalCart extends Component {
     const { history } = this.props;
     const content = this.renderProduct();
     return (
-      <div onClick={e => this.back(e)} className={s.backCart}>
+      <div onClick={e => this.back(e)} className={s.backgroundCart}>
         <div className={s.modalCart}>
           {content}
           <div className={s.closeModalCart}>

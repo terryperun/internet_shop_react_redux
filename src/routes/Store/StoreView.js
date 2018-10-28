@@ -7,6 +7,7 @@ import * as cartActions from '../../modules/cart/cartActions';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import UserItemList from '../../components/ItemContainers/UserItemList/UserItemList';
+import Loading from '../../components/Loading/Loading';
 // import Api from '../../api/Api';
 
 class Store extends Component {
@@ -43,7 +44,8 @@ class Store extends Component {
 
   renderProducts() {
     if (this.props.isLoading) {
-      return <div>..Loading..</div>;
+      // return <div>..Loading..</div>;
+      return <Loading />;
     }
 
     if (!this.props.products) {
